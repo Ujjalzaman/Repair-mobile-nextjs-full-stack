@@ -21,12 +21,12 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
 
     const isPassMatched = await bcrypt.compare(user.password,isUserExist.password);
 
-    const { email, role } = isUserExist
+    const { email, role, id } = isUserExist
     if (isUserExist && !isPassMatched) {
         throw new ApiError(httpStatus.NOT_FOUND, 'Password is not mathced !!');
     }
     const accessToken = JwtHelpers.createAccessToken(
-        { email, role },
+        { email, role, id },
         config.jwt_secret as Secret,
         config.jwt_expiredIn as string
     )
