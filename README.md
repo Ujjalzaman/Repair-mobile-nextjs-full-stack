@@ -102,3 +102,15 @@ status_types = {
     "closed": "Closed",
     "dispatched": "Dispatched"
 }
+
+#Service request
+{
+  "request_id": 123,
+  "device_type": "smartphone",
+  "issue_description": "Cracked screen",
+  "status": "In Progress",
+  "technician_assigned": "John Smith",
+  "estimated_completion_time": "2023-10-15 16:00:00",
+  "ready_for_pickup": "2023-10-16 10:00:00"
+}
+

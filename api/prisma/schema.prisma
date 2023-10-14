@@ -11,20 +11,91 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  name       String
-  email      String   @unique
-  password    String
-  role       UsrRole
-  address    String?
-  profileImg String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                      String                    @id @default(uuid())
+  name                    String
+  email                   String                    @unique
+  password                String
+  role                    UserRole?                 @default(customer)
+  address                 String?
+  profileImg              String?
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  ServiceRequest          ServiceRequest[]
+  ServiceRequestResolving ServiceRequestResolving[]
+  appointmentSchedule     appointmentSchedule[]
 
   @@map("users")
 }
 
-enum UsrRole {
+model ServiceRequest {
+  id               String @id @default(uuid())
+  userId           String
+  user             User   @relation(fields: [userId], references: [id])
+  deviceType       String
+  issueDescription String
+
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  serviceRequestResolvings ServiceRequestResolving[]
+  appointmentSchedule      appointmentSchedule[]
+
+  @@map("service_request")
+}
+
+model ServiceRequestResolving {
+  id               String         @id @default(uuid())
+  serviceRequestId String
+  serviceRequest   ServiceRequest @relation(fields: [serviceRequestId], references: [id])
+  userId           String
+  user             User           @relation(fields: [userId], references: [id])
+
+  technician_assigne_name   String?
+  estimated_completion_time DateTime?
+  ready_for_pickup_data     DateTime?
+  status                    ServiceStatus @default(pending)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("service_request_resolving")
+}
+
+model appointmentSchedule {
+  id               String   @id @default(uuid())
+  appointment_date DateTime
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  serviceRequestId String
+  serviceRequest   ServiceRequest @relation(fields: [serviceRequestId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("appointment_schedule")
+}
+
+enum UserRole {
   admin
   customer
+  super_admin
+}
+
+enum ServiceStatus {
+  pending
+  in_progress
+  awaiting_parts
+  on_hold
+  quality_check
+  ready_for_pickup
+  ready_for_appointment
+  completed
+  canceled
+  scheduled
+  payment_pending
+  delayed
+  closed
+  dispatched
+  assignToTechnican
 }
