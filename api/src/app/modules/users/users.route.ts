@@ -6,7 +6,7 @@ import { AuthUser } from '../../../enums/user';
 const router = express.Router();
 
 router.get('/:id',auth(AuthUser.ADMIN), UserController.getSingleUser);
-router.get('/',auth(AuthUser.ADMIN), UserController.getAllUser);
+router.get('/', UserController.getAllUser);
 router.delete('/:id', UserController.deleteUser);
 router.patch('/:id', UserController.updateUser);
 

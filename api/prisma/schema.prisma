@@ -11,18 +11,17 @@ datasource db {
 }
 
 model User {
-  id                      String                    @id @default(uuid())
-  name                    String
-  email                   String                    @unique
-  password                String
-  role                    UserRole?                 @default(customer)
-  address                 String?
-  profileImg              String?
-  createdAt               DateTime                  @default(now())
-  updatedAt               DateTime                  @updatedAt
-  ServiceRequest          ServiceRequest[]
-  ServiceRequestResolving ServiceRequestResolving[]
-  appointmentSchedule     appointmentSchedule[]
+  id                  String                @id @default(uuid())
+  name                String
+  email               String                @unique
+  password            String
+  role                UserRole?             @default(customer)
+  address             String?
+  profileImg          String?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  ServiceRequest      ServiceRequest[]
+  appointmentSchedule appointmentSchedule[]
 
   @@map("users")
 }
@@ -43,16 +42,13 @@ model ServiceRequest {
 }
 
 model ServiceRequestResolving {
-  id               String         @id @default(uuid())
-  serviceRequestId String
-  serviceRequest   ServiceRequest @relation(fields: [serviceRequestId], references: [id])
-  userId           String
-  user             User           @relation(fields: [userId], references: [id])
-
+  id                        String         @id @default(uuid())
+  serviceRequestId          String
+  serviceRequest            ServiceRequest @relation(fields: [serviceRequestId], references: [id])
   technician_assigne_name   String?
   estimated_completion_time DateTime?
-  ready_for_pickup_data     DateTime?
-  status                    ServiceStatus @default(pending)
+  ready_for_pickup     DateTime?
+  status                    ServiceStatus  @default(pending)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
