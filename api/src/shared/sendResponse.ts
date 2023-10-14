@@ -23,6 +23,6 @@ const sendResponse = <T>(res: Response, data: IApiResponse<T>): void => {
         data: data.data || null || undefined,
         token: data.token
     };
-    res.status(data.statusCode).json({ responseData })
+    res.status(data.statusCode).json(responseData)
 }
 export default sendResponse;

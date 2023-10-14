@@ -20,13 +20,13 @@ const LoginPage = () => {
     const [userLogin] = useUserLoginMutation()
     const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
         try {
-            const res = await userLogin({ ...data }).unwrap();
-            console.log(res)
+            const res = await userLogin(data).unwrap();
             if (res?.accessToken) {
-                setUserInfo({ accessToken: res.accessToken })
+                setUserInfo({ accessToken: res?.accessToken })
                 router.push('/profile')
                 message.success("Successfully Login");
             }
+       
         } catch (err) { }
     };
     return (
@@ -51,7 +51,7 @@ const LoginPage = () => {
                 <div>
                     <Form submitHandler={onSubmit}>
                         <div>
-                            <FormInput name="id" type="text" size="large" label="User Id" />
+                            <FormInput name="email" type="email" size="large" label="Email" />
                         </div>
                         <div
                             style={{
@@ -62,7 +62,7 @@ const LoginPage = () => {
                                 name="password"
                                 type="password"
                                 size="large"
-                                label="User Password"
+                                label="Password"
                             />
                         </div>
                         <Button type="primary" htmlType="submit">

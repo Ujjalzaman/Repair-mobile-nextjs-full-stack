@@ -16,9 +16,9 @@ const LoginUser = catchAsync(async (req: Request, res: Response) => {
     res.cookie('accessToken', accessToken, cookieOptions)
     sendResponse(res, {
         statusCode: httpStatus.OK,
-        message: "User Created Successfully",
+        message: "User Login Successfully",
         success: true,
-        token: accessToken
+        data: result
     })
 })
 
