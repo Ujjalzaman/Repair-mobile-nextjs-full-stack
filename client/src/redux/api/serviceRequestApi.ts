@@ -21,7 +21,7 @@ const serviceRequestApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.serviceRequest]
 
         }),
-        serviceRequest: build.query({
+        getSingleserviceRequest: build.query({
             query: (id) => ({
                 url: `${SERVICE_REQUEST}/${id}`,
                 method: 'GET'
@@ -37,7 +37,7 @@ const serviceRequestApi = baseApi.injectEndpoints({
         }),
         updateServiceRequest: build.mutation({
             query: (data) => ({
-                url: `${SERVICE_REQUEST}/${data.id}`,
+                url: `${SERVICE_REQUEST}/${data.id}/`,
                 method: 'PATCH',
                 data: data.body
             }),
@@ -54,4 +54,4 @@ const serviceRequestApi = baseApi.injectEndpoints({
     }),
 })
 
-export const {useAddServiceRequestMutation, useDeleteServiceRequestMutation, useServiceRequestQuery, useServiceRequestsQuery, useUpdateServiceRequestMutation, useTrackingMutation } = serviceRequestApi;   
+export const {useAddServiceRequestMutation, useDeleteServiceRequestMutation, useServiceRequestsQuery, useUpdateServiceRequestMutation, useTrackingMutation, useGetSingleserviceRequestQuery } = serviceRequestApi;   

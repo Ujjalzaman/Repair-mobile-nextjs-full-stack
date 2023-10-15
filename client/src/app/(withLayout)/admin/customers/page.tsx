@@ -45,7 +45,7 @@ const CustomersPage = () => {
     message.loading("Deleting ...");
     try {
       const res = await deleteCustomers(id);
-      if(res){
+      if (res) {
         message.success("Successfully Deleted !!");
       }
     } catch (error: any) {
@@ -99,12 +99,11 @@ const CustomersPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/customers/view`}>
-              <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
-                <EyeOutlined />
-              </Button>
-            </Link>
-            <Link href={`/customers/edit`}>
+            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
+              <EyeOutlined />
+            </Button>
+
+            <Link href={`/admin/customers/edit/${data.id}`}>
               <Button type='primary' style={{ margin: "5px 5px" }}>
                 <EditOutlined />
               </Button>
@@ -123,12 +122,12 @@ const CustomersPage = () => {
     <>
       <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
       <Actionbar title="Customers">
-                <div>
-                    <Link href="/admin/customers/create">
-                        <Button type='primary'>Create</Button>
-                    </Link>
-                </div>
-            </Actionbar>
+        <div>
+          <Link href="/admin/customers/create">
+            <Button type='primary'>Create</Button>
+          </Link>
+        </div>
+      </Actionbar>
       <div style={{ marginTop: '10px' }}>
         <FTable
           loading={isLoading}

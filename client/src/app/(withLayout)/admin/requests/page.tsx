@@ -14,7 +14,7 @@ import {
     ReloadOutlined,
     EyeOutlined
 } from "@ant-design/icons";
-import { useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+import { useDeleteServiceRequestMutation, useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
 
 const AdminServiceRequest = () => {
     const query: Record<string, any> = {};
@@ -39,11 +39,14 @@ const AdminServiceRequest = () => {
     }
 
     const { data, isLoading } = useServiceRequestsQuery({ ...query });
-
+    const [deleteServiceRequest] = useDeleteServiceRequestMutation();
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
         try {
-            message.success("Successfully Deleted !!");
+            const res = await deleteServiceRequest(id);
+            if (res) {
+                message.success("Successfully Deleted !!");
+            }
         } catch (error: any) {
             message.error(error.message);
         }
@@ -88,12 +91,11 @@ const AdminServiceRequest = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={`/super_admin/department`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
-                                <EyeOutlined />
-                            </Button>
-                        </Link>
-                        <Link href={`/super_admin/department`}>
+                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
+                            <EyeOutlined />
+                        </Button>
+
+                        <Link href={`/admin/requests/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
@@ -130,7 +132,7 @@ const AdminServiceRequest = () => {
                     },
                 ]}
             />
-            <Actionbar title="Service Request">
+            <Actionbar title="Customer Requests">
                 <div>
                     <Link href="/customer/service-request/create">
                         <Button type='primary'>Create</Button>
