@@ -14,7 +14,7 @@ import {
     ReloadOutlined,
     EyeOutlined
 } from "@ant-design/icons";
-import { useAppointmentsQuery } from "@/redux/api/appointmentApi"
+import { useAppointmentsQuery, useDeleteAppointmentMutation } from "@/redux/api/appointmentApi"
 
 const Appointment = () => {
     const query:Record<string, any> = {};
@@ -39,11 +39,15 @@ const Appointment = () => {
     }
 
     const {data, isLoading} = useAppointmentsQuery({...query});
+    const [deleteAppointment] = useDeleteAppointmentMutation();
 
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
         try {
-            message.success("Successfully Deleted !!");
+            const res = await deleteAppointment(id);
+            if(res){
+                message.success("Successfully Deleted !!");
+            }
         } catch (error: any) {
             message.error(error.message);
         }
@@ -75,6 +79,21 @@ const Appointment = () => {
             }
         },
         {
+            title: 'With',
+            sorter: true,
+            render: function(data:any){
+                return data.user.name
+            }
+        },
+
+        {
+            title: 'Device',
+            sorter: true,
+            render: function(data:any){
+                return data.serviceRequest.deviceType
+            }
+        },
+        {
             title: 'createdAt',
             dataIndex: 'createdAt',
             key: 'createdAt',
@@ -88,11 +107,6 @@ const Appointment = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={``}>
-                            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
-                                <EyeOutlined />
-                            </Button>
-                        </Link>
                         <Link href={``}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />

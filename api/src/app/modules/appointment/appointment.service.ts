@@ -12,13 +12,19 @@ const createAppointment = async (user: any, payload: appointmentSchedule): Promi
 }
 
 const getAllAppointment = async (): Promise<appointmentSchedule[] | null> => {
-    const result = await prisma.appointmentSchedule.findMany();
+    const result = await prisma.appointmentSchedule.findMany({
+        include: {
+            user: true,
+            serviceRequest: true
+        }
+    });
     return result;
 }
 
 const getSingleAppointment = async (id: string): Promise<appointmentSchedule | null> => {
     const result = await prisma.appointmentSchedule.findUnique({
-        where: { id }
+        where: { id },
+        
     });
     return result;
 }
