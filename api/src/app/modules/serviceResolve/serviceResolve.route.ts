@@ -17,7 +17,7 @@ router.get('/',
     auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
     ServiceResolveController.getAllServiceResolv);
 
-router.get('/:id/track',
+router.post('/track',
     auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
     ServiceResolveController.trackingServiceResolve)
 

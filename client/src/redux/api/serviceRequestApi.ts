@@ -42,9 +42,16 @@ const serviceRequestApi = baseApi.injectEndpoints({
                 data: data.body
             }),
             invalidatesTags: [tagTypes.serviceRequest]
-        })
+        }),
+        tracking: build.mutation({
+            query: (data) => ({
+                url: `/service-resolve/track`,
+                method: 'POST',
+                data
+            })
+        }),
 
     }),
 })
 
-export const {useAddServiceRequestMutation, useDeleteServiceRequestMutation, useServiceRequestQuery, useServiceRequestsQuery, useUpdateServiceRequestMutation } = serviceRequestApi;   
+export const {useAddServiceRequestMutation, useDeleteServiceRequestMutation, useServiceRequestQuery, useServiceRequestsQuery, useUpdateServiceRequestMutation, useTrackingMutation } = serviceRequestApi;   

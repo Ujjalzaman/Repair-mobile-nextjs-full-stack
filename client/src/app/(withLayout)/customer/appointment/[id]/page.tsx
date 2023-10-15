@@ -36,7 +36,6 @@ const EditDepartmentPage = ({ params }: IParams) => {
     }
     return (
         <>
-            <h1>{id}</h1>
             <FBreadCrumb
                 items={[
                     {label: "service-request",link: "/service-request",},

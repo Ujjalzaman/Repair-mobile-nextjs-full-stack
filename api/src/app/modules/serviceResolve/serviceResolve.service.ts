@@ -35,11 +35,11 @@ const updateServiceResolve = async (id: string, payload: Partial<ServiceRequestR
     return result;
 }
 
-const trackingServiceResolve = async (id: string): Promise<ServiceRequestResolving | null> => {
+const trackingServiceResolve = async (data:{serviceRequestId:string}): Promise<ServiceRequestResolving | null> => {
     const result = await prisma.serviceRequestResolving.findFirst({
         where: {
             serviceRequest: {
-                id: id
+                id: data.serviceRequestId
             },
         },
     });

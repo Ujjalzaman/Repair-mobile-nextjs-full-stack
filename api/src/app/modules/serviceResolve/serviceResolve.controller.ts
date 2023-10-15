@@ -55,7 +55,7 @@ const deleteServiceResolv = catchAsync(async (req: Request, res: Response) => {
 })
 
 const trackingServiceResolve = catchAsync(async (req: Request, res: Response) => {
-    const result = await ServiceResolveService.trackingServiceResolve(req.params.id);
+    const result = await ServiceResolveService.trackingServiceResolve(req.body);
     sendResponse<ServiceRequestResolving>(res, {
         statusCode: httpStatus.OK,
         message: "Service Retrive Successfully",
