@@ -1,11 +1,11 @@
 "use client";
+
 import { Button, Col, Row, message } from "antd";
 import loginImage from "../../assets/login-image.svg";
 import Image from "next/image";
 import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
 import { useUserLoginMutation } from "@/redux/api/authApi";
-
 import { setUserInfo } from "@/service/auth.service";
 import { useRouter } from "next/navigation";
 import Form from "../Forms/Form";
@@ -26,8 +26,9 @@ const LoginPage = () => {
                 router.push('/dashboard')
                 message.success("Successfully Login");
             }
-       
-        } catch (err) { }
+        } catch (err: any) {
+            message.error(err.message)
+        }
     };
     return (
         <Row
