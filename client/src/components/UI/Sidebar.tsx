@@ -36,7 +36,7 @@ const SideBar = () => {
                     marginBottom: "1rem",
                 }}
             >
-                PH-University
+                FixMyPhone
             </div>
             <Menu
                 theme="dark"

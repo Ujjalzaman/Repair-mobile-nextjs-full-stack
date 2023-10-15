@@ -14,9 +14,9 @@ import {
     ReloadOutlined,
     EyeOutlined
 } from "@ant-design/icons";
-import { useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+import { useAppointmentsQuery } from "@/redux/api/appointmentApi"
 
-const ServiceRequest = () => {
+const Appointment = () => {
     const query:Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
@@ -38,7 +38,7 @@ const ServiceRequest = () => {
         query['searchTerm'] = debouncedTerm
     }
 
-    const {data, isLoading} = useServiceRequestsQuery({...query});
+    const {data, isLoading} = useAppointmentsQuery({...query});
 
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
@@ -67,12 +67,12 @@ const ServiceRequest = () => {
 
     const columns = [       
         {
-            title: 'deviceType',
-            dataIndex: 'deviceType'
-        },
-        {
-            title: 'issueDescription',
-            dataIndex: 'issueDescription',
+            title: 'Appointment Date',
+            dataIndex: 'appointment_date',
+            sorter: true,
+            render: function (data: any) {
+                return data && dayjs(data).format('MMM D, YYYY hh:mm A');
+            }
         },
         {
             title: 'createdAt',
@@ -88,12 +88,12 @@ const ServiceRequest = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={`/super_admin/department`}>
+                        <Link href={``}>
                             <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
                                 <EyeOutlined />
                             </Button>
                         </Link>
-                        <Link href={`/super_admin/department`}>
+                        <Link href={``}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
@@ -101,12 +101,6 @@ const ServiceRequest = () => {
                         <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
                             <DeleteOutlined />
                         </Button>
-
-                        <Link href={`/customer/appointment/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
-                                Appointment
-                            </Button>
-                        </Link>
                     </>
                 )
             }
@@ -116,32 +110,8 @@ const ServiceRequest = () => {
 
     return (
         <>
-            <FBreadCrumb
-                items={[
-                    {
-                        label: `admin`,
-                        link: `/admin`,
-                    },
-                ]}
-            />
-            <Actionbar title="Service Request">
-                {/* <Input
-                    type='text'
-                    size='large'
-                    placeholder='Search...'
-                    style={{ width: "35%" }}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                /> */}
-                <div>
-                    {/* {(!!sortBy || !!sortOrder || !!searchTerm) && (
-                        <Button type="primary" onClick={resetFilters} style={{ margin: '0px 5px' }}>
-                            <ReloadOutlined />
-                        </Button>
-                    )} */}
-                    <Link href="/customer/service-request/create">
-                        <Button type='primary'>Create</Button>
-                    </Link>
-                </div>
+            <FBreadCrumb items={[{label: "service-request",link: "/service-request",},]}/>
+            <Actionbar title="Schedule Appointment">
             </Actionbar>
 
             <div style={{ marginTop: '10px' }}>
@@ -160,4 +130,4 @@ const ServiceRequest = () => {
     )
 }
 
-export default ServiceRequest
+export default Appointment;

@@ -139,6 +139,11 @@ export const sidebarItems = (role: string) => {
                     key: `/${role}/service-request`,
                 },
                 {
+                    label: <Link href={`/${role}/appointment`}>Appointment</Link>,
+                    icon: <TableOutlined />,
+                    key: `/${role}/appointment`,
+                },
+                {
                     label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
                     icon: <TableOutlined />,
                     key: `/${role}/service-request/tracking`,
