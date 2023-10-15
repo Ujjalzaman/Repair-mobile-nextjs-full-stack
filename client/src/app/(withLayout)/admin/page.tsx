@@ -2,7 +2,7 @@
 
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useCustomersQuery, useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/customersApi";
+import { useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
 import { useState } from "react";
@@ -15,6 +15,7 @@ import {
   EyeOutlined
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
+import FModal from "@/components/UI/FModal";
 
 const ManageAdmin = () => {
   const query: Record<string, any> = {};
@@ -23,7 +24,8 @@ const ManageAdmin = () => {
   const [sortBy, setSortBy] = useState<string>("")
   const [sortOrder, setSortOrder] = useState<string>("")
   const [searchTerm, setSearchTerm] = useState<string>("");
-
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  
   query['limit'] = size;
   query['page'] = page;
   query['sortBy'] = sortBy;
@@ -99,12 +101,10 @@ const ManageAdmin = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/customers/view`}>
-              <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
-                <EyeOutlined />
-              </Button>
-            </Link>
-            <Link href={`/customers/edit`}>
+            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data.id)}>
+              <EyeOutlined />
+            </Button>
+            <Link href={`/admin/edit/${data.id}`}>
               <Button type='primary' style={{ margin: "5px 5px" }}>
                 <EditOutlined />
               </Button>
@@ -119,6 +119,16 @@ const ManageAdmin = () => {
     },
 
   ];
+
+  const showModal = () => {
+    setIsVisible(true)
+  }
+
+  const handleCancel = () => {
+    setIsVisible(false)
+  }
+
+
   return (
     <>
       <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
@@ -141,6 +151,21 @@ const ManageAdmin = () => {
           showSizeChanger={true}
         />
       </div>
+
+
+      <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+        {/* {modalData.status ?
+          <>
+            <h4>Requested time : {modalData?.createdAt}</h4>
+            <h1>Curretn Status : {modalData?.status}</h1>
+            <h1>Service Requiest id - {modalData?.serviceRequestId}</h1>
+            <p>Assig technician Name: {modalData?.technician_assigne_name}</p>
+            <p>Completion Estimate Time: {modalData?.estimated_completion_time}</p>
+            <p>Pickup Date : {modalData?.ready_for_pickup}</p>
+          </>
+          : <h2>Not found....</h2>
+        } */}
+      </FModal>
     </>
   )
 }

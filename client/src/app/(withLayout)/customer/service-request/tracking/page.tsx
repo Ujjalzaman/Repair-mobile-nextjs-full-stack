@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Col, Modal, Row, message } from 'antd';
 import { useServiceRequestsQuery, useTrackingMutation } from '@/redux/api/serviceRequestApi';
 import Form from '@/components/Forms/Form';
 import FormSelectField from '@/components/Forms/FormSelectField';
+import FModal from '@/components/UI/FModal';
 const TrackingPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [modalData, isModalData] = useState<any>({})
   const [tracking] = useTrackingMutation();
   const { data, isLoading } = useServiceRequestsQuery(undefined);
-  const [modalData, isModalData] = useState<any>({})
 
   const serviceOptions = data?.map((item: any) => {
     return {
@@ -64,14 +65,8 @@ const TrackingPage = () => {
         </div>
         <Button htmlType="submit" type="primary">submit</Button>
       </Form>
-
-      <Modal
-        title="Tracking Your Service."
-        visible={isVisible}
-        onOk={handleCancel}
-        onCancel={handleCancel}
-      >
-        {modalData.status ?
+          <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+          {modalData.status ?
           <>
             <h4>Requested time : {modalData?.createdAt}</h4>
             <h1>Curretn Status : {modalData?.status}</h1>
@@ -82,7 +77,7 @@ const TrackingPage = () => {
           </>
           : <h2>Not found....</h2>
         }
-      </Modal>
+          </FModal>
     </div>
   )
 }
