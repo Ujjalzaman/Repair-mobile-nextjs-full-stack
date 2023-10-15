@@ -3,11 +3,13 @@ export enum tagTypes {
     serviceRequest = 'service-request',
     appointment = 'apppointment',
     customers = 'customers',
+    review = 'review',
 }
 
 export const tagTypeList = [
     tagTypes.user,
     tagTypes.serviceRequest,
     tagTypes.appointment,
-    tagTypes.customers
+    tagTypes.customers,
+    tagTypes.review,
 ]

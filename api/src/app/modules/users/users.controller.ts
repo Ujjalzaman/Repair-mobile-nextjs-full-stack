@@ -25,6 +25,16 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getAdminUsers = catchAsync(async (req: Request, res: Response) => {
+    const result = await UserService.getAdminUsers();
+    sendResponse<User[]>(res, {
+        statusCode: httpStatus.OK,
+        message: "Admin Retrieve Successfully",
+        success: true,
+        data: result
+    })
+})
+
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
     const result = await UserService.deleteUser(req.params.id);
     sendResponse<User>(res, {
@@ -49,5 +59,6 @@ export const UserController = {
     getAllUser,
     getSingleUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getAdminUsers
 }

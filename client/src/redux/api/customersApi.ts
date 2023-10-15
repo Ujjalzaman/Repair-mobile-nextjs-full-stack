@@ -12,6 +12,13 @@ const customersApi = baseApi.injectEndpoints({
             }),
             providesTags: [tagTypes.customers]
         }),
+        getAdmins: build.query({
+            query: () => ({
+                url: `${CUSTEMERS}/admins`,
+                method: "GET"
+            }),
+            providesTags: [tagTypes.customers]
+        }),
         addCustomers: build.mutation({
             query: (data) => ({
                 url: `/auth/signup`,
@@ -47,4 +54,4 @@ const customersApi = baseApi.injectEndpoints({
     }),
 })
 
-export const { useAddCustomersMutation, useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation, useUpdateCustomersMutation } = customersApi;   
+export const { useAddCustomersMutation, useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation, useUpdateCustomersMutation, useGetAdminsQuery } = customersApi;   

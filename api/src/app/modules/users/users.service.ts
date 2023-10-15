@@ -1,8 +1,12 @@
-import { User } from "@prisma/client";
+import { User, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 
 const getAllUser = async (): Promise<User[] | null> => {
-    const result = await prisma.user.findMany();
+    const result = await prisma.user.findMany({
+        where:{
+            role: UserRole.customer
+        }
+    });
     return result;
 }
 
@@ -29,9 +33,19 @@ const updateUser = async (id:string, payload:Partial<User>): Promise<User | null
     return result;
 }
 
+const getAdminUsers = async (): Promise<User[] | null> => {
+    const result = await prisma.user.findMany({
+        where: {
+            role: UserRole.admin || UserRole.super_admin
+        }
+    })
+    return result
+}
+
 export const UserService = {
     getAllUser,
     deleteUser,
     getSingleAllUser,
-    updateUser
+    updateUser,
+    getAdminUsers
 }

@@ -2,7 +2,7 @@
 
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useCustomersQuery, useDeleteCustomersMutation } from "@/redux/api/customersApi";
+import { useCustomersQuery, useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
 import { useState } from "react";
@@ -38,7 +38,7 @@ const ManageAdmin = () => {
     query['searchTerm'] = debouncedTerm
   }
 
-  const { data, isLoading } = useCustomersQuery({ ...query });
+  const { data, isLoading } = useGetAdminsQuery({ ...query });
   const [deleteCustomers] = useDeleteCustomersMutation();
 
   const deleteHandler = async (id: string) => {

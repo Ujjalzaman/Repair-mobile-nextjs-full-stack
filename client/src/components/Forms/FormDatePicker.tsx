@@ -26,6 +26,7 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label }) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <DatePicker
+            style={{width: "100%"}}
             showTime
             value={value ? dayjs(value) : defaultValue}
             onChange={(date, dateString) => {

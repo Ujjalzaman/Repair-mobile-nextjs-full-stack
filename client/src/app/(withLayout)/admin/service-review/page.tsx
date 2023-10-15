@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import Actionbar from "@/components/UI/ActionBar"
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useDebounced } from "@/redux/hooks"
-import { Button, message } from "antd"
-import Link from "next/link"
-import { useState } from "react"
-import dayjs from 'dayjs';
+import { useDebounced } from "@/redux/hooks";
+import { Button, message } from "antd";
+import { useState } from "react";
+import dayjs from 'dayjs'
+import Link from "next/link";
 import {
     DeleteOutlined,
     EditOutlined,
     ReloadOutlined,
     EyeOutlined
 } from "@ant-design/icons";
-import { useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+import Actionbar from "@/components/UI/ActionBar";
+import { useDeleteServiceReviewMutation, useServiceReviewsQuery } from "@/redux/api/requestReview";
 
-const AdminServiceRequest = () => {
+const RequestReviewPage = () => {
     const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
@@ -38,12 +38,16 @@ const AdminServiceRequest = () => {
         query['searchTerm'] = debouncedTerm
     }
 
-    const { data, isLoading } = useServiceRequestsQuery({ ...query });
+    const { data, isLoading } = useServiceReviewsQuery({ ...query });
+    const [deleteServiceReview] = useDeleteServiceReviewMutation();
 
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
         try {
-            message.success("Successfully Deleted !!");
+            const res = await deleteServiceReview(id);
+            if (res) {
+                message.success("Successfully Deleted !!");
+            }
         } catch (error: any) {
             message.error(error.message);
         }
@@ -67,12 +71,24 @@ const AdminServiceRequest = () => {
 
     const columns = [
         {
-            title: 'deviceType',
-            dataIndex: 'deviceType'
+            title: 'Assign Technician',
+            dataIndex: 'technician_assigne_name',
+            key: 'technician_assigne_name'
         },
         {
-            title: 'issueDescription',
-            dataIndex: 'issueDescription',
+            title: 'Completion Date',
+            dataIndex: 'estimated_completion_time',
+            key: 'estimated_completion_time'
+        },
+        {
+            title: 'Pickup Date',
+            dataIndex: 'ready_for_pickup',
+            key: 'ready_for_pickup'
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status'
         },
         {
             title: 'createdAt',
@@ -88,12 +104,12 @@ const AdminServiceRequest = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={`/super_admin/department`}>
+                        <Link href={`/service-review/view`}>
                             <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
                                 <EyeOutlined />
                             </Button>
                         </Link>
-                        <Link href={`/super_admin/department`}>
+                        <Link href={`/admin/service-review/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
@@ -101,35 +117,17 @@ const AdminServiceRequest = () => {
                         <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
                             <DeleteOutlined />
                         </Button>
-                        <Link href={`/admin/service-review/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
-                                Review
-                            </Button>
-                        </Link>
+
                     </>
                 )
             }
         },
-    ];
 
+    ];
     return (
         <>
-            <FBreadCrumb
-                items={[
-                    {
-                        label: `admin`,
-                        link: `/admin`,
-                    },
-                ]}
-            />
-            <Actionbar title="Service Request">
-                <div>
-                    <Link href="/customer/service-request/create">
-                        <Button type='primary'>Create</Button>
-                    </Link>
-                </div>
-            </Actionbar>
-
+            <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
+            <Actionbar title="Services Review"></Actionbar>
             <div style={{ marginTop: '10px' }}>
                 <FTable
                     loading={isLoading}
@@ -146,4 +144,4 @@ const AdminServiceRequest = () => {
     )
 }
 
-export default AdminServiceRequest;
+export default RequestReviewPage;
