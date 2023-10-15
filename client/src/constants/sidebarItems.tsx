@@ -126,9 +126,31 @@ export const sidebarItems = (role: string) => {
         },
     ];
 
-  
+    const customerItems: MenuProps['items'] = [
+        ...defaultSidebarProps,
+        {
+            label: "Service Request",
+            key: "service-request",
+            icon: <AppstoreOutlined />,
+            children: [
+                {
+                    label: <Link href={`/${role}/service-request`}>Service Request</Link>,
+                    icon: <TableOutlined />,
+                    key: `/${role}/service-request`,
+                },
+                {
+                    label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
+                    icon: <TableOutlined />,
+                    key: `/${role}/service-request/tracking`,
+                },
+            ],
+        },
+    ];
+
+
     if (role === USER_ROLE.SUPER_ADMIN) return superAdminSidebarItems
     if (role === USER_ROLE.ADMIN) return AdminSidebarItems;
+    if (role === USER_ROLE.CUSTOMER) return customerItems;
     else {
         return defaultSidebarProps
     }

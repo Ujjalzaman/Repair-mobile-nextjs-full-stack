@@ -23,7 +23,7 @@ const LoginPage = () => {
             const res = await userLogin(data).unwrap();
             if (res?.accessToken) {
                 setUserInfo({ accessToken: res?.accessToken })
-                router.push('/profile')
+                router.push('/dashboard')
                 message.success("Successfully Login");
             }
        

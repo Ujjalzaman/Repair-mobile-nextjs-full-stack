@@ -11,7 +11,7 @@ interface IProps {
     onTableChange?: (pagination: any, filter: any, sorter: any) => void;
     showPagination?: boolean;
 }
-const UMTable = ({
+const FTable = ({
     dataSource,
     columns,
     loading,
@@ -41,4 +41,4 @@ const UMTable = ({
 
     )
 }
-export default UMTable;
+export default FTable;
