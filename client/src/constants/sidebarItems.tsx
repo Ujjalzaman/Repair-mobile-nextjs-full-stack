@@ -27,34 +27,26 @@ export const sidebarItems = (role: string) => {
     const AdminSidebarItems: MenuProps['items'] = [
         ...defaultSidebarProps,
         {
-            label: "Admin",
-            key: 'admin-sidebar',
-            icon: <ProfileOutlined />,
-            children: [
-                {
-                    label: <Link href={`/${role}/`}>Manage Admin</Link>,
-                    key: `/${role}`
-                },
-                {
-                    label: <Link href={`/${role}/appointments`}>Appointmets</Link>,
-                    key: `/${role}/admin/appointments`
-                },
-                {
-                    label: <Link href={`/${role}/customers`}>Customers</Link>,
-                    key: `/${role}/customers`
-                },
-                {
-                    label: <Link href={`/${role}/requests`}>Customers Request</Link>,
-                    key: `/${role}/customers-request`
-                },
-                {
-                    label: <Link href={`/${role}/service-review`}>Services Review</Link>,
-                    key: `/${role}/service-review`
-                },
-            ]
+            label: <Link href={`/${role}/`}>Manage Admin</Link>,
+            key: `/${role}`
+        },
+        {
+            label: <Link href={`/${role}/appointments`}>Appointmets</Link>,
+            key: `/${role}/admin/appointments`
+        },
+        {
+            label: <Link href={`/${role}/customers`}>Customers</Link>,
+            key: `/${role}/customers`
+        },
+        {
+            label: <Link href={`/${role}/requests`}>Customers Request</Link>,
+            key: `/${role}/customers-request`
+        },
+        {
+            label: <Link href={`/${role}/service-review`}>Services Review</Link>,
+            key: `/${role}/service-review`
         },
     ]
-
 
     const customerItems: MenuProps['items'] = [
         ...defaultSidebarProps,

@@ -107,7 +107,7 @@ const Appointment = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={``}>
+                        <Link href={`/admin/appointments/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
