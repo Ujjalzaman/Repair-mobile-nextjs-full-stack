@@ -2,7 +2,7 @@
 
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useCustomersQuery } from "@/redux/api/customersApi";
+import { useCustomersQuery, useDeleteCustomersMutation } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
 import { useState } from "react";
@@ -14,6 +14,7 @@ import {
   ReloadOutlined,
   EyeOutlined
 } from "@ant-design/icons";
+import Actionbar from "@/components/UI/ActionBar";
 
 const CustomersPage = () => {
   const query: Record<string, any> = {};
@@ -38,11 +39,15 @@ const CustomersPage = () => {
   }
 
   const { data, isLoading } = useCustomersQuery({ ...query });
+  const [deleteCustomers] = useDeleteCustomersMutation();
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting ...");
     try {
-      message.success("Successfully Deleted !!");
+      const res = await deleteCustomers(id);
+      if(res){
+        message.success("Successfully Deleted !!");
+      }
     } catch (error: any) {
       message.error(error.message);
     }
@@ -117,6 +122,13 @@ const CustomersPage = () => {
   return (
     <>
       <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
+      <Actionbar title="Customers">
+                <div>
+                    <Link href="/admin/customers/create">
+                        <Button type='primary'>Create</Button>
+                    </Link>
+                </div>
+            </Actionbar>
       <div style={{ marginTop: '10px' }}>
         <FTable
           loading={isLoading}

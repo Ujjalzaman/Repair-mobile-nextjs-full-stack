@@ -27,3 +27,14 @@ export const DeviceTypeOptions = deviceType.map((data) => {
         value: data
     }
 })
+
+const userType = [
+    'admin',
+    'customer'
+]
+export const UserTypeOptions = userType.map((data) =>{
+    return {
+        label: data,
+        value: data
+    }
+})

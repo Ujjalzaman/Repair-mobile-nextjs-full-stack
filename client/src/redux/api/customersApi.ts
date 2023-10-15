@@ -14,7 +14,7 @@ const customersApi = baseApi.injectEndpoints({
         }),
         addCustomers: build.mutation({
             query: (data) => ({
-                url: `${CUSTEMERS}/`,
+                url: `/auth/signup`,
                 method: 'POST',
                 data: data,
             }),
