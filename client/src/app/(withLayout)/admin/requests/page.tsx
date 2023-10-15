@@ -101,11 +101,19 @@ const AdminServiceRequest = () => {
                         <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
                             <DeleteOutlined />
                         </Button>
-                        <Link href={`/admin/service-review/${data.id}`}>
+                        {data.reviewed
+                            ?
                             <Button type='primary' style={{ margin: "5px 5px" }}>
-                                Review
+                                View Reviewed
                             </Button>
-                        </Link>
+
+                            : <Link href={`/admin/service-review/${data.id}`}>
+                                <Button type='primary' style={{ margin: "5px 5px" }}>
+                                    Review
+                                </Button>
+                            </Link>
+                        }
+
                     </>
                 )
             }

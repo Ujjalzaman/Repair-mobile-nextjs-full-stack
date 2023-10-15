@@ -1,11 +1,31 @@
 import { ServiceRequestResolving } from "@prisma/client";
 import prisma from "../../../shared/prisma";
+import ApiError from "../../errors/apiError";
+import httpStatus from "http-status";
 
-const createServiceResolve = async (payload: ServiceRequestResolving): Promise<ServiceRequestResolving> => {
-    const result = await prisma.serviceRequestResolving.create({
-        data: payload
-    });
-    return result;
+const createServiceResolve = async (payload: ServiceRequestResolving): Promise<any> => {
+    await prisma.$transaction(async (tx) => {
+        const isReviewed = await tx.serviceRequest.findFirst({
+            where:{id: payload.serviceRequestId}
+        })
+        if(isReviewed){
+            throw new ApiError(httpStatus.BAD_REQUEST, 'Already Reviewed !!')
+        }
+        const createService = await tx.serviceRequestResolving.create({
+            data: payload
+        });
+        if (createService.id) {
+            await tx.serviceRequest.update({
+                where: {
+                    id: payload.serviceRequestId
+                },
+                data: {
+                    reviewed: true
+                }
+            })
+        }
+        return createService
+    })
 }
 
 const getAllServiceResolve = async (): Promise<ServiceRequestResolving[] | null> => {
@@ -35,7 +55,7 @@ const updateServiceResolve = async (id: string, payload: Partial<ServiceRequestR
     return result;
 }
 
-const trackingServiceResolve = async (data:{serviceRequestId:string}): Promise<ServiceRequestResolving | null> => {
+const trackingServiceResolve = async (data: { serviceRequestId: string }): Promise<ServiceRequestResolving | null> => {
     const result = await prisma.serviceRequestResolving.findFirst({
         where: {
             serviceRequest: {

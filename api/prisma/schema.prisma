@@ -27,12 +27,12 @@ model User {
 }
 
 model ServiceRequest {
-  id               String @id @default(uuid())
-  userId           String
-  user             User   @relation(fields: [userId], references: [id])
-  deviceType       String
-  issueDescription String
-
+  id                       String                    @id @default(uuid())
+  userId                   String
+  user                     User                      @relation(fields: [userId], references: [id])
+  deviceType               String
+  issueDescription         String
+  reviewed                 Boolean                   @default(false)
   createdAt                DateTime                  @default(now())
   updatedAt                DateTime                  @updatedAt
   serviceRequestResolvings ServiceRequestResolving[]
@@ -47,11 +47,10 @@ model ServiceRequestResolving {
   serviceRequest            ServiceRequest @relation(fields: [serviceRequestId], references: [id])
   technician_assigne_name   String?
   estimated_completion_time DateTime?
-  ready_for_pickup     DateTime?
+  ready_for_pickup          DateTime?
   status                    ServiceStatus  @default(pending)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt                 DateTime       @default(now())
+  updatedAt                 DateTime       @updatedAt
 
   @@map("service_request_resolving")
 }
