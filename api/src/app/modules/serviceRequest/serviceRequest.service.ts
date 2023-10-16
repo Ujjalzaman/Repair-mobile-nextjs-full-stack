@@ -1,4 +1,4 @@
-import { ServiceRequest } from "@prisma/client";
+import { ServiceRequest, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 
 const createServiceRequest = async (user: any, payload: ServiceRequest): Promise<ServiceRequest> => {
@@ -12,9 +12,19 @@ const createServiceRequest = async (user: any, payload: ServiceRequest): Promise
     return result;
 }
 
-const getAllServiceRequest = async (): Promise<ServiceRequest[] | null> => {
-    const result = await prisma.serviceRequest.findMany();
-    return result;
+const getAllServiceRequest = async (user:any): Promise<ServiceRequest[] | null> => {
+    if(user.role === UserRole.customer){
+        const result = await prisma.serviceRequest.findMany({
+            where:{
+                userId: user.id
+            }
+        })
+        return result
+    }else{
+        const result = await prisma.serviceRequest.findMany();
+        return result;
+
+    }
 }
 
 const getSingleService = async (id: string): Promise<ServiceRequest | null> => {

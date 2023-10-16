@@ -77,6 +77,10 @@ const AdminServiceRequest = () => {
             dataIndex: 'deviceType'
         },
         {
+            title: 'Status',
+            dataIndex: 'status'
+        },
+        {
             title: 'issueDescription',
             dataIndex: 'issueDescription',
         },

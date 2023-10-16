@@ -17,12 +17,12 @@ import {
 import { useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
 
 const ServiceRequest = () => {
-    const query:Record<string, any> = {};
+    const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
-    const [sortBy, setSortBy]= useState<string>("")
-    const [sortOrder, setSortOrder]= useState<string>("")
-    const [searchTerm, setSearchTerm]= useState<string>("");
+    const [sortBy, setSortBy] = useState<string>("")
+    const [sortOrder, setSortOrder] = useState<string>("")
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
     query['limit'] = size;
     query['page'] = page;
@@ -34,11 +34,11 @@ const ServiceRequest = () => {
         delay: 600
     })
 
-    if(!!debouncedTerm){
+    if (!!debouncedTerm) {
         query['searchTerm'] = debouncedTerm
     }
 
-    const {data, isLoading} = useServiceRequestsQuery({...query});
+    const { data, isLoading } = useServiceRequestsQuery({ ...query });
 
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
@@ -65,10 +65,14 @@ const ServiceRequest = () => {
         setSortOrder("");
     }
 
-    const columns = [       
+    const columns = [
         {
             title: 'deviceType',
             dataIndex: 'deviceType'
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status'
         },
         {
             title: 'issueDescription',
@@ -102,11 +106,13 @@ const ServiceRequest = () => {
                             <DeleteOutlined />
                         </Button>
 
-                        <Link href={`/customer/appointment/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
-                                Appointment
-                            </Button>
-                        </Link>
+                        {data.status === 'ready_for_appointment' &&
+                            <Link href={`/customer/appointment/${data.id}`} >
+                                <Button type='primary' style={{ margin: "5px 5px" }}>
+                                    Get Appointment
+                                </Button>
+                            </Link>
+                        }
                     </>
                 )
             }
@@ -125,19 +131,7 @@ const ServiceRequest = () => {
                 ]}
             />
             <Actionbar title="Service Request">
-                {/* <Input
-                    type='text'
-                    size='large'
-                    placeholder='Search...'
-                    style={{ width: "35%" }}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                /> */}
                 <div>
-                    {/* {(!!sortBy || !!sortOrder || !!searchTerm) && (
-                        <Button type="primary" onClick={resetFilters} style={{ margin: '0px 5px' }}>
-                            <ReloadOutlined />
-                        </Button>
-                    )} */}
                     <Link href="/customer/service-request/create">
                         <Button type='primary'>Create</Button>
                     </Link>

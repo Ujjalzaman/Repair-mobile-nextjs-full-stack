@@ -17,10 +17,6 @@ export const sidebarItems = (role: string) => {
                 label: <Link href={`/${role}`}>Account Profile</Link>,
                 key: `/${role}`
             },
-            {
-                label: <Link href={`/${role}/change-password`}>Change Password</Link>,
-                key: `/${role}/change-password`
-            }
         ]
     }]
 
@@ -28,7 +24,7 @@ export const sidebarItems = (role: string) => {
         ...defaultSidebarProps,
         {
             label: <Link href={`/${role}/`}>Manage Admin</Link>,
-            key: `/${role}`
+            key: `/${role}/manage`
         },
         {
             label: <Link href={`/${role}/appointments`}>Appointmets</Link>,
@@ -51,26 +47,19 @@ export const sidebarItems = (role: string) => {
     const customerItems: MenuProps['items'] = [
         ...defaultSidebarProps,
         {
-            label: "Service Request",
-            key: "service-request",
-            icon: <AppstoreOutlined />,
-            children: [
-                {
-                    label: <Link href={`/${role}/service-request`}>Service Request</Link>,
-                    icon: <TableOutlined />,
-                    key: `/${role}/service-request`,
-                },
-                {
-                    label: <Link href={`/${role}/appointment`}>Appointment</Link>,
-                    icon: <TableOutlined />,
-                    key: `/${role}/appointment`,
-                },
-                {
-                    label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
-                    icon: <TableOutlined />,
-                    key: `/${role}/service-request/tracking`,
-                },
-            ],
+            label: <Link href={`/${role}/service-request`}>Service Request</Link>,
+            icon: <TableOutlined />,
+            key: `/${role}/service-request`,
+        },
+        {
+            label: <Link href={`/${role}/appointment`}>Appointment</Link>,
+            icon: <TableOutlined />,
+            key: `/${role}/appointment`,
+        },
+        {
+            label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
+            icon: <TableOutlined />,
+            key: `/${role}/service-request/tracking`,
         },
     ];
 

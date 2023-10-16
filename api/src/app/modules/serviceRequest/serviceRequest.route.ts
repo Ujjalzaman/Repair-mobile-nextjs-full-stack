@@ -19,11 +19,11 @@ router.get('/',
 
 
 router.delete('/:id',
-    auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
+    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN),
     ServiceRequestController.deleteServiceRequest);
 
 router.patch('/:id',
-    auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
+    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN),
     ServiceRequestController.updateServiceRequest);
 
 

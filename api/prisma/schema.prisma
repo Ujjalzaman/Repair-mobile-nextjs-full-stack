@@ -32,6 +32,7 @@ model ServiceRequest {
   user                     User                      @relation(fields: [userId], references: [id])
   deviceType               String
   issueDescription         String
+  status                   ServiceStatus             @default(pending)
   reviewed                 Boolean                   @default(false)
   createdAt                DateTime                  @default(now())
   updatedAt                DateTime                  @updatedAt

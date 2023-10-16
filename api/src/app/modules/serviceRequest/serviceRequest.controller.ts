@@ -18,7 +18,7 @@ const createServiceRequest = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllServiceRequest = catchAsync(async (req: Request, res: Response) => {
-    const result = await ServiceRequestService.getAllServiceRequest();
+    const result = await ServiceRequestService.getAllServiceRequest(req.user);
     sendResponse<ServiceRequest[]>(res, {
         statusCode: httpStatus.OK,
         message: "Service Request Retrive Successfully",

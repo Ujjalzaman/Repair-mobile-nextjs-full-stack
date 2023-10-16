@@ -14,7 +14,7 @@ router.post('/',
     ServiceResolveController.createServiceResolv);
 
 router.get('/',
-    auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
+    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN),
     ServiceResolveController.getAllServiceResolv);
 
 router.post('/track',
@@ -27,7 +27,7 @@ router.delete('/:id',
     ServiceResolveController.deleteServiceResolv);
 
 router.patch('/:id',
-    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN),
+    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN, AuthUser.CUSTOMER),
     ServiceResolveController.updateServiceResolv);
 
 

@@ -16,7 +16,7 @@ const createAppointment = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllAppointment = catchAsync(async (req: Request, res: Response) => {
-    const result = await AppointmentService.getAllAppointment();
+    const result = await AppointmentService.getAllAppointment(req.user);
     sendResponse<appointmentSchedule[]>(res, {
         statusCode: httpStatus.OK,
         message: "Appointment Request Retrive Successfully",

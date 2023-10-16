@@ -6,9 +6,9 @@ import httpStatus from "http-status";
 const createServiceResolve = async (payload: ServiceRequestResolving): Promise<any> => {
     await prisma.$transaction(async (tx) => {
         const isReviewed = await tx.serviceRequest.findFirst({
-            where:{id: payload.serviceRequestId}
+            where: { id: payload.serviceRequestId }
         })
-        if(isReviewed){
+        if (isReviewed) {
             throw new ApiError(httpStatus.BAD_REQUEST, 'Already Reviewed !!')
         }
         const createService = await tx.serviceRequestResolving.create({
@@ -20,7 +20,8 @@ const createServiceResolve = async (payload: ServiceRequestResolving): Promise<a
                     id: payload.serviceRequestId
                 },
                 data: {
-                    reviewed: true
+                    reviewed: true,
+                    status: createService.status
                 }
             })
         }
@@ -48,12 +49,28 @@ const deleteServiceResolve = async (id: string): Promise<ServiceRequestResolving
 }
 
 const updateServiceResolve = async (id: string, payload: Partial<ServiceRequestResolving>): Promise<ServiceRequestResolving | null> => {
-    const result = await prisma.serviceRequestResolving.update({
-        where: { id },
-        data: payload
+    const result = await prisma.$transaction(async (tx) => {
+
+        const result = await tx.serviceRequestResolving.update({
+            where: { id },
+            data: payload
+        });
+        if (payload.status) {
+            await tx.serviceRequest.update({
+                where: {
+                    id: result.serviceRequestId
+                },
+                data: {
+                    status: payload.status
+                }
+            });
+        }
+
+        return result;
     });
     return result;
 }
+
 
 const trackingServiceResolve = async (data: { serviceRequestId: string }): Promise<ServiceRequestResolving | null> => {
     const result = await prisma.serviceRequestResolving.findFirst({
