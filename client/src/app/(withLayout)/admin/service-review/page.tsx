@@ -4,7 +4,7 @@ import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
 import {
@@ -14,7 +14,8 @@ import {
     EyeOutlined
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
-import { useDeleteServiceReviewMutation, useServiceReviewsQuery } from "@/redux/api/requestReview";
+import { useDeleteServiceReviewMutation, useServiceReviewQuery, useServiceReviewsQuery } from "@/redux/api/requestReview";
+import FModal from "@/components/UI/FModal";
 
 const RequestReviewPage = () => {
     const query: Record<string, any> = {};
@@ -23,6 +24,7 @@ const RequestReviewPage = () => {
     const [sortBy, setSortBy] = useState<string>("")
     const [sortOrder, setSortOrder] = useState<string>("")
     const [searchTerm, setSearchTerm] = useState<string>("");
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     query['limit'] = size;
     query['page'] = page;
@@ -104,11 +106,10 @@ const RequestReviewPage = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Link href={`/service-review/view`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
-                                <EyeOutlined />
-                            </Button>
-                        </Link>
+                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
+                            <EyeOutlined />
+                        </Button>
+
                         <Link href={`/admin/service-review/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
@@ -124,6 +125,32 @@ const RequestReviewPage = () => {
         },
 
     ];
+
+    const showModal = () => {
+        setIsVisible(true)
+    }
+
+    const handleCancel = () => {
+        setIsVisible(false)
+    }
+    const [reviewData, setReviewData] = useState<string>("");
+    const [isSkip, setSkip] = useState<boolean>(true);
+    const { data: serviceData } = useServiceReviewQuery(reviewData, {
+        skip: isSkip
+    });
+    const handleView = (id: string) => {
+        setReviewData(id);
+    }
+
+    useEffect(() => {
+        if (reviewData !== '') {
+            setSkip(false);
+        }
+        if (serviceData && serviceData.id) {
+            showModal();
+        }
+    }, [reviewData, serviceData]);
+
     return (
         <>
             <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
@@ -140,6 +167,22 @@ const RequestReviewPage = () => {
                     showSizeChanger={true}
                 />
             </div>
+
+            <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+                {serviceData?.id ?
+                    <>
+                        <h4>Requested time : {serviceData?.createdAt}</h4>
+                        <h1>Curretn Status : {serviceData?.status}</h1>
+                        <h1>Service Requiest id - {serviceData?.serviceRequestId}</h1>
+                        <p>Assig technician Name: {serviceData?.technician_assigne_name}</p>
+                        <p>Completion Estimate Time: {serviceData?.estimated_completion_time}</p>
+                        <p>Picupk Time : {serviceData?.ready_for_pickup}</p>
+                        <p>createdAt  : {serviceData?.createdAt}</p>
+                        <p>Status  : {serviceData?.status}</p>
+                    </>
+                    : <h2>Not found....</h2>
+                }
+            </FModal>
         </>
     )
 }

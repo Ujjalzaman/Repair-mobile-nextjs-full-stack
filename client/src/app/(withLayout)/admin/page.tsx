@@ -5,7 +5,7 @@ import FTable from "@/components/UI/FTable"
 import { useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
 import {
@@ -25,7 +25,7 @@ const ManageAdmin = () => {
   const [sortOrder, setSortOrder] = useState<string>("")
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  
+
   query['limit'] = size;
   query['page'] = page;
   query['sortBy'] = sortBy;
@@ -101,7 +101,7 @@ const ManageAdmin = () => {
       render: function (data: any) {
         return (
           <>
-            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data.id)}>
+            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
               <EyeOutlined />
             </Button>
             <Link href={`/admin/edit/${data.id}`}>
@@ -119,6 +119,23 @@ const ManageAdmin = () => {
     },
 
   ];
+  const [skipId, setSkipId] = useState<string>("");
+  const [isSkip, setSkip] = useState<boolean>(true);
+  const { data: adminData } = useCustomerQuery(skipId, {
+    skip: isSkip
+  });
+  const handleView = (id: string) => {
+    setSkipId(id);
+  }
+
+  useEffect(() => {
+    if (skipId !== '') {
+      setSkip(false);
+    }
+    if (adminData && adminData.id) {
+      showModal();
+    }
+  }, [adminData, skipId]);
 
   const showModal = () => {
     setIsVisible(true)
@@ -154,17 +171,16 @@ const ManageAdmin = () => {
 
 
       <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
-        {/* {modalData.status ?
+        {adminData?.id ?
           <>
-            <h4>Requested time : {modalData?.createdAt}</h4>
-            <h1>Curretn Status : {modalData?.status}</h1>
-            <h1>Service Requiest id - {modalData?.serviceRequestId}</h1>
-            <p>Assig technician Name: {modalData?.technician_assigne_name}</p>
-            <p>Completion Estimate Time: {modalData?.estimated_completion_time}</p>
-            <p>Pickup Date : {modalData?.ready_for_pickup}</p>
+            <h4>Name : {adminData?.name}</h4>
+            <h3>Curretn Status : {adminData?.email}</h3>
+            <h1>Service Requiest id - {adminData?.role}</h1>
+            <p>Assig technician Name: {adminData?.address}</p>
+            <p>Completion Estimate Time: {adminData?.createdAt}</p>
           </>
           : <h2>Not found....</h2>
-        } */}
+        }
       </FModal>
     </>
   )

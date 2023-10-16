@@ -2,10 +2,10 @@
 
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useCustomersQuery, useDeleteCustomersMutation } from "@/redux/api/customersApi";
+import { useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
 import {
@@ -15,6 +15,7 @@ import {
   EyeOutlined
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
+import FModal from "@/components/UI/FModal";
 
 const CustomersPage = () => {
   const query: Record<string, any> = {};
@@ -23,6 +24,7 @@ const CustomersPage = () => {
   const [sortBy, setSortBy] = useState<string>("")
   const [sortOrder, setSortOrder] = useState<string>("")
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   query['limit'] = size;
   query['page'] = page;
@@ -99,7 +101,7 @@ const CustomersPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
+            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
               <EyeOutlined />
             </Button>
 
@@ -118,6 +120,32 @@ const CustomersPage = () => {
     },
 
   ];
+
+  const [skipId, setSkipId] = useState<string>("");
+  const [isSkip, setSkip] = useState<boolean>(true);
+  const { data: adminData } = useCustomerQuery(skipId, {
+    skip: isSkip
+  });
+  const handleView = (id: string) => {
+    setSkipId(id);
+  }
+
+  useEffect(() => {
+    if (skipId !== '') {
+      setSkip(false);
+    }
+    if (adminData && adminData.id) {
+      showModal();
+    }
+  }, [adminData, skipId]);
+
+  const showModal = () => {
+    setIsVisible(true)
+  }
+
+  const handleCancel = () => {
+    setIsVisible(false)
+  }
   return (
     <>
       <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
@@ -140,6 +168,19 @@ const CustomersPage = () => {
           showSizeChanger={true}
         />
       </div>
+
+      <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+        {adminData?.id ?
+          <>
+            <h4>Name : {adminData?.name}</h4>
+            <h3>Curretn Status : {adminData?.email}</h3>
+            <h1>Service Requiest id - {adminData?.role}</h1>
+            <p>Assig technician Name: {adminData?.address}</p>
+            <p>Completion Estimate Time: {adminData?.createdAt}</p>
+          </>
+          : <h2>Not found....</h2>
+        }
+      </FModal>
     </>
   )
 }

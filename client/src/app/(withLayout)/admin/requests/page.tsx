@@ -6,7 +6,7 @@ import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks"
 import { Button, message } from "antd"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import dayjs from 'dayjs';
 import {
     DeleteOutlined,
@@ -14,7 +14,8 @@ import {
     ReloadOutlined,
     EyeOutlined
 } from "@ant-design/icons";
-import { useDeleteServiceRequestMutation, useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+import { useDeleteServiceRequestMutation, useGetSingleserviceRequestQuery, useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+import FModal from "@/components/UI/FModal"
 
 const AdminServiceRequest = () => {
     const query: Record<string, any> = {};
@@ -23,6 +24,8 @@ const AdminServiceRequest = () => {
     const [sortBy, setSortBy] = useState<string>("")
     const [sortOrder, setSortOrder] = useState<string>("")
     const [searchTerm, setSearchTerm] = useState<string>("");
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+
 
     query['limit'] = size;
     query['page'] = page;
@@ -91,7 +94,7 @@ const AdminServiceRequest = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
+                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
                             <EyeOutlined />
                         </Button>
 
@@ -121,6 +124,32 @@ const AdminServiceRequest = () => {
             }
         },
     ];
+
+    const [skipId, setSkipId] = useState<string>("");
+    const [isSkip, setSkip] = useState<boolean>(true);
+    const { data: adminData } = useGetSingleserviceRequestQuery(skipId, {
+        skip: isSkip
+    });
+    const handleView = (id: string) => {
+        setSkipId(id);
+    }
+
+    useEffect(() => {
+        if (skipId !== '') {
+            setSkip(false);
+        }
+        if (adminData && adminData.id) {
+            showModal();
+        }
+    }, [adminData, skipId]);
+
+    const showModal = () => {
+        setIsVisible(true)
+    }
+
+    const handleCancel = () => {
+        setIsVisible(false)
+    }
 
     return (
         <>
@@ -152,6 +181,19 @@ const AdminServiceRequest = () => {
                     showSizeChanger={true}
                 />
             </div>
+
+            <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+                {adminData?.id ?
+                    <>
+                        <h4>Name : {adminData?.deviceType}</h4>
+                        <h3>Curretn Status : {adminData?.issueDescription}</h3>
+                        <h1>Service Requiest id - {adminData?.reviewed}</h1>
+                        <p>Assig technician Name: {adminData?.createdAt}</p>
+                        <p>Completion Estimate Time: {adminData?.createdAt}</p>
+                    </>
+                    : <h2>Not found....</h2>
+                }
+            </FModal>
         </>
     )
 }
