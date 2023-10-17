@@ -169,16 +169,19 @@ const CustomersPage = () => {
         />
       </div>
 
-      <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+      <FModal handleCancel={handleCancel} visible={isVisible} title='Customer Information.'>
         {adminData?.id ?
-          <>
-            <h4>Name : {adminData?.name}</h4>
-            <h3>Curretn Status : {adminData?.email}</h3>
-            <h1>Service Requiest id - {adminData?.role}</h1>
-            <p>Assig technician Name: {adminData?.address}</p>
-            <p>Completion Estimate Time: {adminData?.createdAt}</p>
-          </>
-          : <h2>Not found....</h2>
+          <div className="text-white">
+            <h6 className="text-capitalize">Customer Name : {adminData?.name}</h6>
+            <p>User Id # {adminData?.id}</p>
+            <div className="border p-3">
+              <p className="p-0 m-1">Email : {adminData?.email}</p>
+              <p className="p-0 m-1 text-capitalize">Role : {adminData?.role}</p>
+              <p className="p-0 m-1">Address : {adminData?.address}</p>
+              <p className="p-0 m-1">Created At : {dayjs(adminData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+            </div>
+          </div>
+          : <h2>Empty....</h2>
         }
       </FModal>
     </>

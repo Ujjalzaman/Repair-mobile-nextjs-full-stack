@@ -34,7 +34,7 @@ const CreateCustomerPage = () => {
                     { label: "cusomters", link: `/${base}/customers` },
                 ]}
             />
-            <h1>Create User</h1>
+            <h5 className='p-2 text-white'>Create User</h5>
             <Form submitHandler={handleOnSubmit}>
                 <div
                     style={{

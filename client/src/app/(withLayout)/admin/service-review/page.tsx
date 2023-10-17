@@ -170,17 +170,17 @@ const RequestReviewPage = () => {
 
             <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
                 {serviceData?.id ?
-                    <>
-                        <h4>Requested time : {serviceData?.createdAt}</h4>
-                        <h1>Curretn Status : {serviceData?.status}</h1>
-                        <h1>Service Requiest id - {serviceData?.serviceRequestId}</h1>
-                        <p>Assig technician Name: {serviceData?.technician_assigne_name}</p>
-                        <p>Completion Estimate Time: {serviceData?.estimated_completion_time}</p>
-                        <p>Picupk Time : {serviceData?.ready_for_pickup}</p>
-                        <p>createdAt  : {serviceData?.createdAt}</p>
-                        <p>Status  : {serviceData?.status}</p>
-                    </>
-                    : <h2>Not found....</h2>
+                    <div className="text-white">
+                        <h6 className="p-0 m-1">Current Status : <span className="text-warning">{serviceData?.status}</span></h6>
+                        <p className="p-0 m-1">Assign Technician : <span>{serviceData?.technician_assigne_name}</span></p>
+                        <p>Requested Id # {serviceData?.serviceRequestId}</p>
+                        <div className="border p-3">
+                            <p className="p-0 m-1">Estimated Completion : {dayjs(serviceData?.estimated_completion_time).format('MMM D, YYYY hh:mm A')}</p>
+                            <p className="p-0 m-1">Pickup Date  : {dayjs(serviceData?.ready_for_pickup).format('MMM D, YYYY hh:mm A')}</p>
+                            <p className="p-0 m-1">Created At : {dayjs(serviceData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+                        </div>
+                    </div>
+                    : <h2>Empty....</h2>
                 }
             </FModal>
         </>

@@ -7,10 +7,25 @@
   font-family: 'Roboto Condensed', sans-serif;
 }
 .ant-layout-sider-children, .ant-menu-dark{
-  background: linear-gradient(0deg, rgba(34,193,195,1) 17%, rgba(253,187,45,1) 98%);
+background: linear-gradient(56deg, rgb(56 56 197) 29%, rgb(233 58 203) 100%)
 }
 
 :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark.ant-menu-root.ant-menu-inline, :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark>.ant-menu.ant-menu-root.ant-menu-inline, :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark.ant-menu-root.ant-menu-vertical, 
 :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark>.ant-menu.ant-menu-root.ant-menu-vertical{
   background: transparent;
+}
+.ant-layout-content{
+  background: linear-gradient(115deg, #2e71d2 3%, rgb(250 0 198) 92%);
+}
+.ant-modal .ant-modal-content{
+  background: linear-gradient(160deg, rgba(34,83,195,1) 18%, rgba(253,45,175,1) 85%);
+}
+:where(.css-dev-only-do-not-override-amq5gd).ant-modal .ant-modal-title{
+  color: #fff;
+}
+:where(.css-dev-only-do-not-override-amq5gd).ant-modal .ant-modal-header{
+  background-color: transparent !important;
+}
+:where(.css-dev-only-do-not-override-amq5gd).ant-breadcrumb a{
+  color: #fff;
 }

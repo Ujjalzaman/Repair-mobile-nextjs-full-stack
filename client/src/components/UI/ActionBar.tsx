@@ -8,7 +8,7 @@ type IProps = {
 const Actionbar = ({ title, children }: IProps) => {
     return (
         <div>
-            <h1>{title}</h1>
+            <h5 className='p-2 text-white'>{title}</h5>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>{children}</div>
         </div>
     )

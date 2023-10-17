@@ -5,12 +5,11 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import FBreadCrumb from "@/components/UI/FBreadCrumb";
 import { DeviceTypeOptions } from "@/constants/global";
-import { useCustomerQuery } from "@/redux/api/customersApi";
 import { useGetSingleserviceRequestQuery, useUpdateServiceRequestMutation } from "@/redux/api/serviceRequestApi";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-const EditCustomerRequest = ({params}: {params:any}) => {
+const EditCustomerRequest = ({ params }: { params: any }) => {
     const { id } = params;
     const router = useRouter();
     const [updateServiceRequest] = useUpdateServiceRequestMutation();
@@ -33,16 +32,16 @@ const EditCustomerRequest = ({params}: {params:any}) => {
         deviceType: data?.deviceType || '',
         issueDescription: data?.issueDescription || '',
     }
-    const base= 'admin'
-  return (
-    <>
+    const base = 'admin'
+    return (
+        <>
             <FBreadCrumb
                 items={[
                     { label: `${base}`, link: `/${base}` },
-                    { label: "admin", link: `/${base}` },
+                    { label: "customer request", link: `/${base}/requests` },
                 ]}
             />
-            <h1>Update User</h1>
+            <h5 className='p-2 text-white'>Update User</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -52,15 +51,17 @@ const EditCustomerRequest = ({params}: {params:any}) => {
                         marginBottom: "10px",
                     }}
                 >
-                    <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                    <Col span={8} style={{ margin: "10px 0" }}>
+                    <Row gutter={{ xs: 24, xl: 24, lg: 24, md: 24 }}>
+                        <Col span={12} style={{ margin: "10px 0" }}>
                             <FormSelectField
                                 name="deviceType"
                                 label="Device Type"
                                 options={DeviceTypeOptions}
                             />
                         </Col>
-
+                        
+                    </Row>
+                    <Row gutter={{ xs: 24, xl: 24, lg: 24, md: 24 }}>
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="issueDescription"
@@ -73,7 +74,7 @@ const EditCustomerRequest = ({params}: {params:any}) => {
                 <Button htmlType="submit" type="primary">Update</Button>
             </Form>
         </>
-  )
+    )
 }
 
 export default EditCustomerRequest;

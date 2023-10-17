@@ -40,10 +40,10 @@ const EditCustomer = ({ params }: { params: any }) => {
             <FBreadCrumb
                 items={[
                     { label: `${base}`, link: `/${base}` },
-                    { label: "admin", link: `/${base}` },
+                    { label: "customer", link: `/${base}/customer` },
                 ]}
             />
-            <h1>Update User</h1>
+            <h5 className='p-2 text-white'>Update User</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{

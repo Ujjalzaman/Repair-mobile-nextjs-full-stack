@@ -112,7 +112,7 @@ const AdminServiceRequest = () => {
                         </Button>
                         {data.reviewed
                             ?
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
+                            <Button type='dashed' style={{ margin: "5px 5px" }}>
                                 View Reviewed
                             </Button>
 
@@ -165,13 +165,7 @@ const AdminServiceRequest = () => {
                     },
                 ]}
             />
-            <Actionbar title="Customer Requests">
-                <div>
-                    <Link href="/customer/service-request/create">
-                        <Button type='primary'>Create</Button>
-                    </Link>
-                </div>
-            </Actionbar>
+            <Actionbar title="Customer Requests"></Actionbar>
 
             <div style={{ marginTop: '10px' }}>
                 <FTable
@@ -186,16 +180,19 @@ const AdminServiceRequest = () => {
                 />
             </div>
 
-            <FModal handleCancel={handleCancel} visible={isVisible} title='Tracking Your Service.'>
+            <FModal handleCancel={handleCancel} visible={isVisible} title='Customer Requests Information.'>
                 {adminData?.id ?
-                    <>
-                        <h4>Name : {adminData?.deviceType}</h4>
-                        <h3>Curretn Status : {adminData?.issueDescription}</h3>
-                        <h1>Service Requiest id - {adminData?.reviewed}</h1>
-                        <p>Assig technician Name: {adminData?.createdAt}</p>
-                        <p>Completion Estimate Time: {adminData?.createdAt}</p>
-                    </>
-                    : <h2>Not found....</h2>
+                    <div className="text-white">
+                        <h6 className="text-capitalize">Deivce Name : {adminData?.deviceType}</h6>
+                        <p>Request Id # {adminData?.id}</p>
+                        <div className="border p-3">
+                            <p className="p-0 m-1">Issue Description : {adminData?.issueDescription}</p>
+                            {/* <p className="p-0 m-1"> {adminData?.reviewed}</p> */}
+                            <p className="p-0 m-1">Requested Date: {dayjs(adminData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+                        </div>
+
+                    </div>
+                    : <h2>Empty....</h2>
                 }
             </FModal>
         </>

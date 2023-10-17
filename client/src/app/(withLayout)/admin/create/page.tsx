@@ -28,13 +28,8 @@ const CreateAdminPage = () => {
     }
     return (
         <>
-            <FBreadCrumb
-                items={[
-                    { label: `${base}`, link: `/${base}` },
-                    { label: "admin", link: `/${base}` },
-                ]}
-            />
-            <h1>Create User</h1>
+            <FBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]}/>
+            <h5 className='p-2 text-white'>Create User</h5>
             <Form submitHandler={handleOnSubmit}>
                 <div
                     style={{

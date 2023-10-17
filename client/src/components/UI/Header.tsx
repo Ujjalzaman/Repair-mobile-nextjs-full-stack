@@ -23,20 +23,13 @@ const Header = () => {
     ];
     const { role } = getUserInfo() as any;
     return (
-        <AntHeader
-            style={{
-                background: "#fff",
-                textTransform: "uppercase"
-            }}
-        >
+        <AntHeader style={{ background: "#4d7edf",textTransform: "uppercase"}}>
             <Row
                 justify="end"
                 align="middle"
-                style={{
-                    height: "100%",
-                }}
-            >
-                <p style={{ margin: '0 5px' }}>{role}</p>
+                style={{height: "100%"}}>
+                <div className='d-flex gap-2'>
+                <p className='text-uppercase text-white'>{role}</p>
                 <Dropdown menu={{ items }}>
                     <a>
                         <Space wrap size={16}>
@@ -44,6 +37,7 @@ const Header = () => {
                         </Space>
                     </a>
                 </Dropdown>
+                </div>
             </Row>
         </AntHeader>
     )
