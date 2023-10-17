@@ -8,17 +8,12 @@ import Link from "next/link";
 import { USER_ROLE } from "./role";
 
 export const sidebarItems = (role: string) => {
-    const defaultSidebarProps: MenuProps['items'] = [{
-        label: 'Profile',
-        key: 'profile',
-        icon: <ProfileOutlined />,
-        children: [
-            {
-                label: <Link href={`/${role}`}>Account Profile</Link>,
-                key: `/${role}`
-            },
-        ]
-    }]
+    const defaultSidebarProps: MenuProps['items'] = [
+        {
+            label: <Link href={`/dashboard`}>Dashboard</Link>,
+            key: `dashboard`
+        },
+    ]
 
     const AdminSidebarItems: MenuProps['items'] = [
         ...defaultSidebarProps,
