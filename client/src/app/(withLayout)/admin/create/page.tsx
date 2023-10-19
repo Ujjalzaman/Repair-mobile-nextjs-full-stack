@@ -8,27 +8,54 @@ import { UserTypeOptions } from "@/constants/global";
 import { useAddCustomersMutation } from "@/redux/api/customersApi";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const CreateAdminPage = () => {
     const base = 'admin';
     const router = useRouter();
     const [addCustomers] = useAddCustomersMutation();
- 
-    const handleOnSubmit = async(values: any) =>{
+    const [selectFile, setSelectFile] = useState();
+
+
+    const handleOnChange = (e: any) => {
+        setSelectFile(e.target.files[0])
+    }
+
+    const handleOnSubmit = async (values: any) => {
         message.loading("Creating ...")
-        try {
-            const res = await addCustomers({ ...values });
-            if (res) {
-                message.success("Successfully Admin Created !");
-                router.push('/admin')
+        if (selectFile) {
+            const formData = new FormData();
+            formData.append("image", selectFile);
+            formData.append("key", process.env.IMAGEBBKEY as string);
+            try {
+                const response = await fetch("https://api.imgbb.com/1/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    values['profileImg'] = data.data.url;
+                    try {
+                        const res = await addCustomers({ ...values });
+                        if (res) {
+                            message.success("Successfully Admin Created !");
+                            router.push('/admin')
+                        }
+                    } catch (error: any) {
+                        message.loading(error.message)
+                    }
+                } else {
+                    console.error("Image upload failed");
+                }
+            } catch (error) {
+                console.error("Error uploading image:", error);
             }
-        } catch (error:any) {
-            message.loading(error.message)
         }
     }
     return (
         <>
-            <FBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]}/>
+            <FBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]} />
             <h5 className='p-2 text-white'>Create User</h5>
             <Form submitHandler={handleOnSubmit}>
                 <div
@@ -81,6 +108,11 @@ const CreateAdminPage = () => {
                                 label="Password"
                             />
                         </Col>
+                        <div>
+                            <label htmlFor="customerimageUpload" className="form-label mb-0 mt-2">Email address</label>
+                            <input type="file" name="image" id="customerimageUpload" className="form-control"
+                                onChange={(e) => handleOnChange(e)} />
+                        </div>
                     </Row>
                 </div>
                 <Button htmlType="submit" type="primary">submit</Button>

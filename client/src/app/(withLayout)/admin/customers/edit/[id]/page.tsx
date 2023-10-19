@@ -8,23 +8,48 @@ import { UserTypeOptions } from "@/constants/global";
 import { useCustomerQuery, useUpdateCustomersMutation } from "@/redux/api/customersApi";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const EditCustomer = ({ params }: { params: any }) => {
     const { id } = params;
     const router = useRouter();
     const [updateCustomers] = useUpdateCustomersMutation();
+    const [selectFile, setSelectFile] = useState()
+    const handleOnChange = (e: any) => {
+        setSelectFile(e.target.files[0])
+    }
     const { data } = useCustomerQuery(id);
 
     const handleOnSubmit = async (values: any) => {
         message.loading("Updating ...");
-        try {
-            const res = await updateCustomers({ id, body: values });
-            if (res) {
-                message.success("Successfully Customer Updated !");
-                router.push('/admin/customers')
+        if (selectFile) {
+            const formData = new FormData();
+            formData.append("image", selectFile);
+            formData.append("key", process.env.IMAGEBBKEY as string);
+            try {
+                const response = await fetch("https://api.imgbb.com/1/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    values['profileImg'] = data.data.url;
+                    try {
+                        const res = await updateCustomers({ id, body: values });
+                        if (res) {
+                            message.success("Successfully Customer Updated !");
+                            router.push('/admin/customers')
+                        }
+                    } catch (error: any) {
+                        message.loading(error.message)
+                    }
+                } else {
+                    console.error("Image upload failed");
+                }
+            } catch (error) {
+                console.error("Error uploading image:", error);
             }
-        } catch (error: any) {
-            message.loading(error.message)
         }
     }
 
@@ -33,6 +58,7 @@ const EditCustomer = ({ params }: { params: any }) => {
         email: data?.email || '',
         role: data?.role || '',
         address: data?.address || '',
+        profileImag: data?.profileImage || ''
     }
     const base = 'admin'
     return (
@@ -86,6 +112,12 @@ const EditCustomer = ({ params }: { params: any }) => {
                                 label="Address"
                             />
                         </Col>
+
+                        <div>
+                            <label htmlFor="customerimageUpload" className="form-label mb-0 mt-2">Email address</label>
+                            <input type="file" name="image" id="customerimageUpload" className="form-control"
+                                onChange={(e) => handleOnChange(e)} />
+                        </div>
 
                     </Row>
                 </div>
