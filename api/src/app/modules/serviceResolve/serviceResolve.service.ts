@@ -6,7 +6,10 @@ import httpStatus from "http-status";
 const createServiceResolve = async (payload: ServiceRequestResolving): Promise<any> => {
     await prisma.$transaction(async (tx) => {
         const isReviewed = await tx.serviceRequest.findFirst({
-            where: { id: payload.serviceRequestId }
+            where: { 
+                id: payload.serviceRequestId,
+                reviewed: true
+            }
         })
         if (isReviewed) {
             throw new ApiError(httpStatus.BAD_REQUEST, 'Already Reviewed !!')
