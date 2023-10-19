@@ -3,6 +3,7 @@ import HeroSection from "@/components/homepageUI/HeroSection"
 import IntroPage from "@/components/homepageUI/IntroPage"
 import MembershipPlan from "@/components/homepageUI/MembershipPlan"
 import ServiceHeading from "@/components/homepageUI/ServiceHeading"
+import Testimonial from "@/components/homepageUI/Testimonial"
 const HomePage = () => {
   return (
     <div>
@@ -11,6 +12,7 @@ const HomePage = () => {
       <IntroPage/>
       <HappyClient/>
       <MembershipPlan/>
+      <Testimonial/>
     </div>
   )
 }

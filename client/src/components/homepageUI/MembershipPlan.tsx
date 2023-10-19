@@ -1,11 +1,11 @@
 const MembershipPlan = () => {
     return (
-        <div>
+        <div className="mx-auto" style={{marginTop:"5rem"}}>
 
             <div className="mb-5 mx-5">
-                <h2 className="text-center p-2 my-2 text-uppercase">Membership plan</h2>
+                <h3 style={{fontWeight:"900"}} className="text-center p-2 my-2 text-uppercase">Membership plan</h3>
                 <div className="row">
-                    <div className="col" style={{ maxWidth: "400px" }}>
+                    <div className="col">
                         <div className="card shadow text-center border-0">
                             <div className="card-body p-0">
                                 <div className="p-2">
@@ -21,8 +21,8 @@ const MembershipPlan = () => {
                                     <div className="p-2">2 Leptop Repair</div>
                                     <div className="p-2">Free Supports</div>
                                 </div>
-                                <div className="pb-3 mx-2"> 
-                                <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                <div className="pb-3 mx-2">
+                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
 
 
@@ -30,7 +30,7 @@ const MembershipPlan = () => {
                         </div>
                     </div>
 
-                    <div className="col" style={{ maxWidth: "400px" }}>
+                    <div className="col">
                         <div className="card shadow text-center border-0">
                             <div className="card-body p-0">
                                 <div className="p-2">
@@ -46,8 +46,8 @@ const MembershipPlan = () => {
                                     <div className="p-2">2 Leptop Repair</div>
                                     <div className="p-2">Free Supports</div>
                                 </div>
-                                <div className="pb-3 mx-2"> 
-                                <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                <div className="pb-3 mx-2">
+                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
 
 
@@ -55,7 +55,7 @@ const MembershipPlan = () => {
                         </div>
                     </div>
 
-                    <div className="col" style={{ maxWidth: "400px" }}>
+                    <div className="col">
                         <div className="card shadow text-center border-0">
                             <div className="card-body p-0">
                                 <div className="p-2">
@@ -71,20 +71,13 @@ const MembershipPlan = () => {
                                     <div className="p-2">2 Leptop Repair</div>
                                     <div className="p-2">Free Supports</div>
                                 </div>
-                                <div className="pb-3 mx-2"> 
-                                <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                <div className="pb-3 mx-2">
+                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
-
             </div>
         </div>
     )
