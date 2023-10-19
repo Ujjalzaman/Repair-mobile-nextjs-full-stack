@@ -37,6 +37,10 @@ export const sidebarItems = (role: string) => {
             label: <Link href={`/${role}/service-review`}>Services Review</Link>,
             key: `/${role}/service-review`
         },
+        {
+            label: <Link href={`/${role}/testimonials`}>Testimonials</Link>,
+            key: `/${role}/testimonials`
+        },
     ]
 
     const customerItems: MenuProps['items'] = [
@@ -55,6 +59,10 @@ export const sidebarItems = (role: string) => {
             label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
             icon: <TableOutlined />,
             key: `/${role}/service-request/tracking`,
+        },
+        {
+            label: <Link href={`/${role}/testimonials`}>Testimonials</Link>,
+            key: `/${role}/testimonials`
         },
     ];
 

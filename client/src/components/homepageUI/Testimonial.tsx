@@ -7,22 +7,9 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useReviewsQuery } from '@/redux/api/reviewsApi';
 const Testimonial = () => {
-    // const reviews = [
-    //     {
-    //         name: 'some',
-    //         id: 1,
-    //         address: 'some addd',
-    //         description: 'soem descriont'
-    //     },
-    //     {
-    //         name: 'some',
-    //         id: 2,
-    //         address: 'some addd',
-    //         description: 'soem descriont'
-    //     }
-    // ]
-
+    const { data, isLoading } = useReviewsQuery({});
     return (
         <section id={style.testimonial}>
             <h4 className={style.miniTitle + ' ' + 'text-center'}>TESTIMONIALS</h4>
@@ -48,64 +35,26 @@ const Testimonial = () => {
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
             >
-                <SwiperSlide>
-                    <div className="row mx-2">
-                        <div className="col">
-                            <div className="mx-auto">
-                                <div className={style.review}>
-                                    <h5 className={style.testimonialName}>hellow </h5>
-                                    <h6 className={style.testimonialAddress}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, accusantium!</h6>
-                                    <p><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia atque repellat ipsam officiis, suscipit laborum facilis alias voluptatum dicta!</i></p>
+                {
+                    data &&
+                    data?.map((item: any) => (
+                        <SwiperSlide key={item.id}>
+                            <div className="row mx-2">
+                                <div className="col">
+                                    <div className="mx-auto">
+                                        <div className={style.review}>
+                                            <h5 className={style.testimonialName}>{item.title} </h5>
+                                            <h6 className={style.testimonialAddress}>New yourk</h6>
+                                            <p><i>{item.description}</i></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                </SwiperSlide>
+                        </SwiperSlide>
+                    ))
+                }
 
-                <SwiperSlide>
-                    <div className="row mx-2">
-
-                        <div className="col">
-                            <div className="mx-auto">
-                                <div className={style.review}>
-                                    <h5 className={style.testimonialName}>hellow </h5>
-                                    <h6 className={style.testimonialAddress}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, accusantium!</h6>
-                                    <p><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia atque repellat ipsam officiis, suscipit laborum facilis alias voluptatum dicta!</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </SwiperSlide>
-
-                <SwiperSlide>
-                    <div className="row mx-2">
-
-                        <div className="col">
-                            <div className="mx-auto">
-                                <div className={style.review}>
-                                    <h5 className={style.testimonialName}>hellow </h5>
-                                    <h6 className={style.testimonialAddress}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, accusantium!</h6>
-                                    <p><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia atque repellat ipsam officiis, suscipit laborum facilis alias voluptatum dicta!</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="row mx-2">
-
-                        <div className="col">
-                            <div className="mx-auto">
-                                <div className={style.review}>
-                                    <h5 className={style.testimonialName}>hellow </h5>
-                                    <h6 className={style.testimonialAddress}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, accusantium!</h6>
-                                    <p><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia atque repellat ipsam officiis, suscipit laborum facilis alias voluptatum dicta!</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </SwiperSlide>
             </Swiper>
         </section>
     )

@@ -22,6 +22,7 @@ model User {
   updatedAt           DateTime              @updatedAt
   ServiceRequest      ServiceRequest[]
   appointmentSchedule appointmentSchedule[]
+  reviews             Reviews[]
 
   @@map("users")
 }
@@ -70,6 +71,20 @@ model appointmentSchedule {
   updatedAt DateTime @updatedAt
 
   @@map("appointment_schedule")
+}
+
+model Reviews {
+  id          String @id @default(uuid())
+  title       String
+  description String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
 }
 
 enum UserRole {
