@@ -21,7 +21,7 @@ const deviceType = [
     "LG Wing"
 ]
 
-export const DeviceTypeOptions = deviceType.map((data) => {
+export const DeviceTypeOptions = deviceType?.map((data) => {
     return {
         label: data,
         value: data
@@ -32,7 +32,7 @@ const userType = [
     'admin',
     'customer'
 ]
-export const UserTypeOptions = userType.map((data) => {
+export const UserTypeOptions = userType?.map((data) => {
     return {
         label: data,
         value: data
@@ -57,7 +57,7 @@ const TechncianName = [
     "Isabella White"
 ]
 
-export const TechnicianNameOptions = TechncianName.map((data) => {
+export const TechnicianNameOptions = TechncianName?.map((data) => {
     return {
         label: data,
         value: data
@@ -81,7 +81,7 @@ const serviceStatus = [
     "dispatched",
     "assignToTechnican",
 ]
-export const StatusOptions = serviceStatus.map((data) => {
+export const StatusOptions = serviceStatus?.map((data) => {
     return {
         label: data,
         value: data

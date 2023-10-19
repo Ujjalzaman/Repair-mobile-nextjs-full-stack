@@ -18,12 +18,12 @@ const FBreadCrumb = ({
                 </Link>
             ),
         },
-        ...items.map((item) => {
+        ...items?.map((item) => {
             return {
                 title: item.link ? (
-                    <Link href={item.link}>{item.label}</Link>
+                    <Link href={item.link} key={item.link + 100}>{item.label}</Link>
                 ) : (
-                    <span>{item.label}</span>
+                    <span key={item.link + 120}>{item.label}</span>
                 ),
             };
         }),
