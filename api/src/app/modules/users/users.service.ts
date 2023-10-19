@@ -2,33 +2,29 @@ import { User, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 
 const getAllUser = async (): Promise<User[] | null> => {
-    const result = await prisma.user.findMany({
-        where:{
-            role: UserRole.customer
-        }
-    });
+    const result = await prisma.user.findMany({});
     return result;
 }
 
-const getSingleAllUser = async (id:string): Promise<User | null> => {
+const getSingleAllUser = async (id: string): Promise<User | null> => {
     const result = await prisma.user.findUnique({
-        where:{id}
+        where: { id }
     });
     return result;
 }
 
-const deleteUser = async (id:string): Promise<User | null> => {
+const deleteUser = async (id: string): Promise<User | null> => {
     const result = await prisma.user.delete({
-        where:{id}
+        where: { id }
     });
     return result;
 }
 
-const updateUser = async (id:string, payload:Partial<User>): Promise<User | null> => {
+const updateUser = async (id: string, payload: Partial<User>): Promise<User | null> => {
     const result = await prisma.user.update({
-        where:{id},
+        where: { id },
         data: payload
-        
+
     });
     return result;
 }

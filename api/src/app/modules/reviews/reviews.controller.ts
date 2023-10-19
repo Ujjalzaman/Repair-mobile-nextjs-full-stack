@@ -55,11 +55,12 @@ const deleteReview = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getMyReviews = catchAsync(async (req: Request, res: Response) => {
-    await ReviewService.getMyReviews(req.user);
-    sendResponse<Reviews>(res, {
+    const result = await ReviewService.getMyReviews(req.user);
+    sendResponse<Reviews[]>(res, {
         statusCode: httpStatus.OK,
         message: "Review retrieve Successfully",
         success: true,
+        data: result
     })
 })
 

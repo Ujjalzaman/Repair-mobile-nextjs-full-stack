@@ -21,10 +21,14 @@ const getAllReviews = async (): Promise<Reviews[] | null> => {
 }
 
 const getMyReviews = async (user: any): Promise<Reviews[] | null> => {
+    const {id} = user;
     if (user.role === UserRole.customer) {
         const result = await prisma.reviews.findMany({
             where: {
-                userId: user.id
+                userId: id
+            },
+            include:{
+                user: true
             }
         });
         return result;

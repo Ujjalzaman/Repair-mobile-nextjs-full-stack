@@ -16,7 +16,7 @@ background: linear-gradient(56deg, rgb(56 56 197) 29%, rgb(233 58 203) 100%)
   background: transparent;
 }
 .ant-layout-content{
-  background: linear-gradient(115deg, #2e71d2 3%, rgb(250 0 198) 92%);
+  /* background: linear-gradient(115deg, #2e71d2 3%, rgb(250 0 198) 92%); */
 }
 .ant-modal .ant-modal-content{
   background: linear-gradient(160deg, rgba(34,83,195,1) 18%, rgba(253,45,175,1) 85%);
@@ -28,7 +28,7 @@ background: linear-gradient(56deg, rgb(56 56 197) 29%, rgb(233 58 203) 100%)
   background-color: transparent !important;
 }
 :where(.css-dev-only-do-not-override-amq5gd).ant-breadcrumb a{
-  color: #fff;
+  /* color: #fff; */
 }
 ul {
   list-style: none;

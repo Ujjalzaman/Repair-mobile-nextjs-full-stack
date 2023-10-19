@@ -10,31 +10,31 @@ import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
 const CreatePage = () => {
-  const base = 'customer';
-  const router = useRouter();
-  const [addServiceRequest] = useAddServiceRequestMutation();
-  const serviceRequestOnSubmit = async(values: any) =>{
-    message.loading("Creating ...");
-    try {
-      const res = await addServiceRequest({...values});
-      if(res){
-        message.success("Successfully Added Service Request !");
-      }
-      router.push('/customer/service-request')
-    } catch (error:any) {
-      message.error(error.message)
-    }
+    const base = 'customer';
+    const router = useRouter();
+    const [addServiceRequest] = useAddServiceRequestMutation();
+    const serviceRequestOnSubmit = async (values: any) => {
+        message.loading("Creating ...");
+        try {
+            const res = await addServiceRequest({ ...values });
+            if (res) {
+                message.success("Successfully Added Service Request !");
+                router.push('/customer/service-request')
+            }
+        } catch (error: any) {
+            message.error(error.message)
+        }
 
-  }
-  return (
-    <>
+    }
+    return (
+        <>
             <FBreadCrumb
                 items={[
                     { label: `${base}`, link: `/${base}` },
                     { label: "service-request", link: `/${base}/service-request` },
                 ]}
             />
-            <h1>Create Service Request</h1>
+            <h3 className="my-2">Create Service Request</h3>
             <Form submitHandler={serviceRequestOnSubmit}>
                 <div
                     style={{
@@ -48,14 +48,15 @@ const CreatePage = () => {
                         Basic information
                     </p>
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                    <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={12} style={{ margin: "10px 0" }}>
                             <FormSelectField
                                 name="deviceType"
                                 label="Device Type"
                                 options={DeviceTypeOptions}
                             />
                         </Col>
-
+                    </Row>
+                    <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="issueDescription"
@@ -68,7 +69,7 @@ const CreatePage = () => {
                 <Button htmlType="submit" type="primary">submit</Button>
             </Form>
         </>
-  )
+    )
 }
 
 export default CreatePage

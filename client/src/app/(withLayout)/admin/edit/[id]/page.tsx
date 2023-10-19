@@ -25,7 +25,7 @@ const EditAdmin = ({ params }: { params: any }) => {
         if (selectFile) {
             const formData = new FormData();
             formData.append("image", selectFile);
-            formData.append("key", process.env.IMAGEBBKEY as string);
+            formData.append("key", 'd397289afc04f776659233bc4fe00dbc');
             try {
                 const response = await fetch("https://api.imgbb.com/1/upload", {
                     method: "POST",
@@ -34,7 +34,7 @@ const EditAdmin = ({ params }: { params: any }) => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    values['profileImg'] = data.data.url;
+                    values.profileImg = data.data.url
                     try {
                         const res = await updateCustomers({ id, body: values });
                         if (res) {
@@ -58,18 +58,13 @@ const EditAdmin = ({ params }: { params: any }) => {
         email: data?.email || '',
         role: data?.role || '',
         address: data?.address || '',
-        profileImag: data?.profileImage || ''
+        profileImg: data?.profileImg || ''
     }
     const base = 'admin'
     return (
         <>
-            <FBreadCrumb
-                items={[
-                    { label: `${base}`, link: `/${base}` },
-                    { label: "admin", link: `/${base}` },
-                ]}
-            />
-            <h1>Update User</h1>
+            <FBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]}/>
+            <h3 className="my-2">Update User</h3>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -112,6 +107,11 @@ const EditAdmin = ({ params }: { params: any }) => {
                                 label="Address"
                             />
                         </Col>
+                        <div>
+                            <label htmlFor="customerimageUpload" className="form-label mb-0 mt-2">Email address</label>
+                            <input type="file" name="image" id="customerimageUpload" className="form-control"
+                                onChange={(e) => handleOnChange(e)}/>
+                        </div>
                     </Row>
                 </div>
                 <Button htmlType="submit" type="primary">Update</Button>

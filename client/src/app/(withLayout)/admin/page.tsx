@@ -2,7 +2,7 @@
 
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/customersApi";
+import { useCustomerQuery, useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
 import { useEffect, useState } from "react";
@@ -11,7 +11,6 @@ import Link from "next/link";
 import {
   DeleteOutlined,
   EditOutlined,
-  ReloadOutlined,
   EyeOutlined
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
@@ -128,9 +127,7 @@ const ManageAdmin = () => {
   const handleView = (id: string) => {
     setSkipId(id);
   }
-  const showModal = () => {
-    setIsVisible(!isVisible)
-  }
+  
   useEffect(() => {
     if (skipId !== '') {
       setSkip(false);
@@ -138,9 +135,12 @@ const ManageAdmin = () => {
     if (adminData && adminData.id) {
       showModal();
     }
-  }, [adminData, skipId, showModal]);
+  }, [adminData, skipId]);
 
-  
+  const showModal = () => {
+    setIsVisible(!isVisible)
+  }
+
   const handleCancel = () => {
     setIsVisible(!isVisible)
   }
@@ -148,7 +148,7 @@ const ManageAdmin = () => {
 
   return (
     <>
-      <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
+      <FBreadCrumb items={[{ label: `dashboard`, link: `/dashboard`, }]} />
       <Actionbar title="Manage Admin">
         <div>
           <Link href="/admin/create">

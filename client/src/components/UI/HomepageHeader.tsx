@@ -4,18 +4,19 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import logo from '@/assets/logo.png';
-import userImage from '@/assets/homepage/user.png';
 import Link from 'next/link';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { useRouter } from 'next/navigation';
-import { isLoggedIn, loggedOut } from '@/service/auth.service';
+import { getUserInfo, isLoggedIn, loggedOut } from '@/service/auth.service';
 import { authKey } from '@/constants/storageKey';
+import avatar2 from '@/assets/ani/2.png';
+import avatar from '@/assets/ani/3.jpg';
 
 export default function HomepageHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const isLogin = isLoggedIn();
-  console.log(isLogin)
+  const {role} = getUserInfo() as any;
   const logout = () => {
     loggedOut(authKey);
     router.push('/login');
@@ -84,11 +85,13 @@ export default function HomepageHeader() {
                 ? <li>
                   <Dropdown menu={{ items }}>
                     <Link href="/dashboard" className="nav__link">
-                      <button className='btn shadow bg-primary p-1 d-flex gap-2 align-items-center'>
+                      <button className='px-2 btn shadow bg-primary p-1 d-flex gap-2 align-items-center'>
                         <span className='text-white'>
                           Dashboard
                         </span>
-                        <Image src={userImage} width={30} alt='image' className='rounded-circle' />
+                        <Image src={role === 'admin' ? avatar : avatar2} width={30} alt='image' className='rounded-circle border border-3 border-warning' 
+                        />
+                       
                       </button>
                     </Link>
                   </Dropdown>

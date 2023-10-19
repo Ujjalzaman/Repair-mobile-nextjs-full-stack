@@ -10,7 +10,6 @@ import Link from "next/link";
 import {
     DeleteOutlined,
     EditOutlined,
-    ReloadOutlined,
     EyeOutlined
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
@@ -108,7 +107,7 @@ const TestimonialPage = () => {
                             <EyeOutlined />
                         </Button>
 
-                        <Link href={`/admin/testimonials/edit/${data.id}`}>
+                        <Link href={`/customer/testimonials/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
@@ -130,7 +129,6 @@ const TestimonialPage = () => {
         skip: isSkip
     });
     const handleView = (id: string) => {
-        // console.log( id)
         setSkipId(id);
     }
 
@@ -152,10 +150,10 @@ const TestimonialPage = () => {
     }
     return (
         <>
-            <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
+            <FBreadCrumb items={[{ label: `Dashboard`, link: `/dashboard`, }]} />
             <Actionbar title="Testimonials">
                 <div>
-                    <Link href="/admin/testimonials/create">
+                    <Link href="/customer/testimonials/create">
                         <Button type='primary'>Create</Button>
                     </Link>
                 </div>
@@ -173,14 +171,14 @@ const TestimonialPage = () => {
                 />
             </div>
 
-            <FModal handleCancel={handleCancel} visible={isVisible} title='Customer Information.'>
+            <FModal handleCancel={handleCancel} visible={isVisible} title='Review Information.'>
                 {adminData?.id ?
                     <div className="text-white">
-                        <h6 className="text-capitalize">Customer Name : {adminData?.user?.name}</h6>
+                        <h6 className="text-capitalize">Reviewer Name : {adminData?.user?.name}</h6>
                         <p>User Id # {adminData?.id}</p>
                         <div className="border p-3">
                             <p className="p-0 m-1">Title : {adminData?.title}</p>
-                            <p className="p-0 m-1">Address : {adminData?.description}</p>
+                            <p className="p-0 m-1">Descripition : {adminData?.description}</p>
                             <p className="p-0 m-1">Created At : {dayjs(adminData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
                         </div>
                     </div>

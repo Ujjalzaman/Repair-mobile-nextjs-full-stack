@@ -22,11 +22,10 @@ const CreateAdminPage = () => {
     }
 
     const handleOnSubmit = async (values: any) => {
-        message.loading("Creating ...")
         if (selectFile) {
             const formData = new FormData();
             formData.append("image", selectFile);
-            formData.append("key", process.env.IMAGEBBKEY as string);
+            formData.append("key", 'd397289afc04f776659233bc4fe00dbc');
             try {
                 const response = await fetch("https://api.imgbb.com/1/upload", {
                     method: "POST",
@@ -35,7 +34,7 @@ const CreateAdminPage = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    values['profileImg'] = data.data.url;
+                    values.profileImg = data.data.url;
                     try {
                         const res = await addCustomers({ ...values });
                         if (res) {

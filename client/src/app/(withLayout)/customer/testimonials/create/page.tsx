@@ -9,7 +9,7 @@ import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
 const CreateCustomerPage = () => {
-    const base = 'admin';
+    const base = 'customer';
     const router = useRouter();
     const [addReview] = useAddReviewMutation();
  
@@ -17,9 +17,9 @@ const CreateCustomerPage = () => {
         message.loading("Creating ...")
         try {
             const res = await addReview({ ...values });
-            if (res) {
+            if (!!res) {
                 message.success("Successfully Added Testimonials !");
-                router.push('/admin/testimonials')
+                router.push('/customer/testimonials')
             }
         } catch (error:any) {
             message.loading(error.message)
@@ -33,7 +33,7 @@ const CreateCustomerPage = () => {
                     { label: "Testimonials", link: `/${base}/testimonials` },
                 ]}
             />
-            <h5 className='p-2 text-white'>Create Testimonials</h5>
+            <h5 className='p-2'>Create Testimonials</h5>
             <Form submitHandler={handleOnSubmit}>
                 <div
                     style={{
@@ -44,7 +44,7 @@ const CreateCustomerPage = () => {
                     }}
                 >
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={12} style={{ margin: "10px 0" }}>
                             <FormInput
                                 name="title"
                                 type="text"
@@ -52,7 +52,11 @@ const CreateCustomerPage = () => {
                                 label="Title"
                             />
                         </Col>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                      
+                    </Row>
+
+                    <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+                        <Col span={12} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="description"
                                 label="Description"

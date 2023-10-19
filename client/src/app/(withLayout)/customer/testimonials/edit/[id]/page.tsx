@@ -18,9 +18,9 @@ const EditReviews = ({ params }: { params: any }) => {
         message.loading("Updating ...");
         try {
             const res = await updateReview({ id, body: values });
-            if (res) {
+            if (!!res) {
                 message.success("Successfully Testimonial Updated !");
-                router.push('/admin/testimonials')
+                router.push('/customer/testimonials')
             }
         } catch (error: any) {
             message.loading(error.message)
@@ -31,7 +31,7 @@ const EditReviews = ({ params }: { params: any }) => {
         title: data?.title || '',
         description: data?.description || '',
     }
-    const base = 'admin'
+    const base = 'customer'
     return (
         <>
             <FBreadCrumb
@@ -40,7 +40,7 @@ const EditReviews = ({ params }: { params: any }) => {
                     { label: "testimonials", link: `/${base}/testimonials` },
                 ]}
             />
-            <h5 className='p-2 text-white'>Update Testimonials</h5>
+            <h5 className='p-2'>Update Testimonials</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -51,7 +51,7 @@ const EditReviews = ({ params }: { params: any }) => {
                     }}
                 >
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={12} style={{ margin: "10px 0" }}>
                             <FormInput
                                 name="title"
                                 type="text"
@@ -59,7 +59,11 @@ const EditReviews = ({ params }: { params: any }) => {
                                 label="Title"
                             />
                         </Col>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        
+                    </Row>
+                    <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+                        
+                        <Col span={12} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="description"
                                 label="Description"

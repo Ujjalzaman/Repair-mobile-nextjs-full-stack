@@ -1,20 +1,16 @@
 'use client'
-
 import Actionbar from "@/components/UI/ActionBar"
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks"
-import { Button, Input, message } from "antd"
+import { Button, message } from "antd"
 import Link from "next/link"
 import { useState } from "react"
 import dayjs from 'dayjs';
 import {
     DeleteOutlined,
-    EditOutlined,
-    ReloadOutlined,
-    EyeOutlined
 } from "@ant-design/icons";
-import { useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+import { useDeleteServiceRequestMutation, useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
 
 const ServiceRequest = () => {
     const query: Record<string, any> = {};
@@ -39,11 +35,14 @@ const ServiceRequest = () => {
     }
 
     const { data, isLoading } = useServiceRequestsQuery({ ...query });
-
+    const [deleteServiceRequest] = useDeleteServiceRequestMutation();
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
         try {
-            message.success("Successfully Deleted !!");
+            const res = deleteServiceRequest(id);
+            if (!!res) {
+                message.success("Successfully Deleted !!");
+            }
         } catch (error: any) {
             message.error(error.message);
         }
@@ -68,15 +67,20 @@ const ServiceRequest = () => {
     const columns = [
         {
             title: 'deviceType',
-            dataIndex: 'deviceType'
+            dataIndex: 'deviceType',
+            key: 'deviceType'
         },
         {
             title: 'Status',
-            dataIndex: 'status'
+            dataIndex: 'status',
+            key: 'status'
+
         },
         {
             title: 'issueDescription',
             dataIndex: 'issueDescription',
+            key: 'issueDescription'
+
         },
         {
             title: 'createdAt',
@@ -89,23 +93,13 @@ const ServiceRequest = () => {
         },
         {
             title: 'Action',
+            key: 'Action',
             render: function (data: any) {
                 return (
-                    <>
-                        <Link href={`/super_admin/department`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => console.log(data)}>
-                                <EyeOutlined />
-                            </Button>
-                        </Link>
-                        <Link href={`/super_admin/department`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
-                                <EditOutlined />
-                            </Button>
-                        </Link>
+                    <div key={data.id}>
                         <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
                             <DeleteOutlined />
                         </Button>
-
                         {data.status === 'ready_for_appointment' &&
                             <Link href={`/customer/appointment/${data.id}`} >
                                 <Button type='primary' style={{ margin: "5px 5px" }}>
@@ -113,7 +107,7 @@ const ServiceRequest = () => {
                                 </Button>
                             </Link>
                         }
-                    </>
+                    </div>
                 )
             }
         },
@@ -122,14 +116,7 @@ const ServiceRequest = () => {
 
     return (
         <>
-            <FBreadCrumb
-                items={[
-                    {
-                        label: `admin`,
-                        link: `/admin`,
-                    },
-                ]}
-            />
+            <FBreadCrumb items={[{ label: "dashboard", link: `/dashboard` }]} />
             <Actionbar title="Service Request">
                 <div>
                     <Link href="/customer/service-request/create">

@@ -1,9 +1,4 @@
 import type { MenuProps } from "antd";
-import {
-    ProfileOutlined,
-    TableOutlined,
-    AppstoreOutlined,
-} from "@ant-design/icons";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
 
@@ -47,17 +42,14 @@ export const sidebarItems = (role: string) => {
         ...defaultSidebarProps,
         {
             label: <Link href={`/${role}/service-request`}>Service Request</Link>,
-            icon: <TableOutlined />,
             key: `/${role}/service-request`,
         },
         {
             label: <Link href={`/${role}/appointment`}>Appointment</Link>,
-            icon: <TableOutlined />,
             key: `/${role}/appointment`,
         },
         {
             label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
-            icon: <TableOutlined />,
             key: `/${role}/service-request/tracking`,
         },
         {
