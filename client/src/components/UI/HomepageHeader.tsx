@@ -3,7 +3,9 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import logo from '../../assets/logo.png';
+import logo from '@/assets/logo.png';
+import userImage from '@/assets/homepage/user.png';
+import Link from 'next/link';
 
 export default function HomepageHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,14 +26,14 @@ export default function HomepageHeader() {
   }, [isMenuOpen]);
 
   return (
-    <header className="header">
+    <header className="header" style={{ background: "#255598" }}>
       <nav className="nav container">
         <div className="nav__data">
-          <a href="#" className="nav__logo">
-            <Image src={logo} width={150} alt='logo'/>
-          </a>
+          <Link href="/" className="nav__logo">
+            <Image src={logo} width={130} alt='logo' />
+          </Link>
 
-         
+
         </div>
 
         <div className={`nav__menu ${isMenuOpen ? 'show-menu' : ''}`} id="nav-menu">
@@ -44,13 +46,13 @@ export default function HomepageHeader() {
 
             <li className="dropdown__item">
               <div className="nav__link dropdown__button">
-                Discover 
+                Discover
               </div>
             </li>
 
             <li className="dropdown__item">
               <div className="nav__link dropdown__button">
-                Resources 
+                Resources
               </div>
             </li>
 
@@ -60,10 +62,15 @@ export default function HomepageHeader() {
               </a>
             </li>
 
-            <li className="dropdown__item">
-              <div className="nav__link dropdown__button">
-                Company
-              </div>
+            <li>
+              <Link href="/dashboard" className="nav__link">
+                <button className='btn shadow bg-primary p-1 d-flex gap-2 align-items-center'>
+                  <span className='text-white'>
+                  Dashboard
+                  </span>
+                  <Image src={userImage} width={30} alt='image' className='rounded-circle'/>
+                </button>
+              </Link>
             </li>
           </ul>
         </div>

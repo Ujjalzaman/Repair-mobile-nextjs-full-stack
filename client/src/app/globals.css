@@ -109,7 +109,7 @@ ul {
   }
 }
 .nav__link {
-  color:#253c6a;
+  color:white;
   font-weight: 600;
   padding: 1.25rem 1.5rem;
   display: flex;
@@ -121,7 +121,7 @@ ul {
   background-color: #f2f6fc;
 }
 
-/* Show menu */
+
 .show-menu {
   opacity: 1;
   top: 3.5rem;

@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="bg-dark text-center text-white">
+        <footer className="text-center text-white" style={{background:'#255598'}}>
             <div className="container p-4">
                 <section className="mb-4">
                     <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i className="ri-facebook-circle-fill"></i></a>
