@@ -6,10 +6,30 @@ import { useState } from 'react';
 import logo from '@/assets/logo.png';
 import userImage from '@/assets/homepage/user.png';
 import Link from 'next/link';
+import { Button, Dropdown, MenuProps } from 'antd';
+import { useRouter } from 'next/navigation';
+import { isLoggedIn, loggedOut } from '@/service/auth.service';
+import { authKey } from '@/constants/storageKey';
 
 export default function HomepageHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const router = useRouter();
+  const isLogin = isLoggedIn();
+  console.log(isLogin)
+  const logout = () => {
+    loggedOut(authKey);
+    router.push('/login');
+  }
+  const items: MenuProps["items"] = [
+    {
+      key: "0",
+      label: (
+        <Button onClick={logout} type="text" danger>
+          Logout
+        </Button>
+      ),
+    },
+  ];
   useEffect(() => {
     const toggleMenu = () => {
       setIsMenuOpen(!isMenuOpen);
@@ -32,8 +52,6 @@ export default function HomepageHeader() {
           <Link href="/" className="nav__logo">
             <Image src={logo} width={130} alt='logo' />
           </Link>
-
-
         </div>
 
         <div className={`nav__menu ${isMenuOpen ? 'show-menu' : ''}`} id="nav-menu">
@@ -61,17 +79,27 @@ export default function HomepageHeader() {
                 Pricing
               </a>
             </li>
-
-            <li>
-              <Link href="/dashboard" className="nav__link">
-                <button className='btn shadow bg-primary p-1 d-flex gap-2 align-items-center'>
-                  <span className='text-white'>
-                  Dashboard
-                  </span>
-                  <Image src={userImage} width={30} alt='image' className='rounded-circle'/>
-                </button>
-              </Link>
-            </li>
+            {
+              isLogin
+                ? <li>
+                  <Dropdown menu={{ items }}>
+                    <Link href="/dashboard" className="nav__link">
+                      <button className='btn shadow bg-primary p-1 d-flex gap-2 align-items-center'>
+                        <span className='text-white'>
+                          Dashboard
+                        </span>
+                        <Image src={userImage} width={30} alt='image' className='rounded-circle' />
+                      </button>
+                    </Link>
+                  </Dropdown>
+                </li>
+                :
+                <li>
+                  <Link href={'/login'} className="nav__link">
+                    <Button type='primary'>Login</Button>
+                  </Link>
+                </li>
+            }
           </ul>
         </div>
       </nav>
