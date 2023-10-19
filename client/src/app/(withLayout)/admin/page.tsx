@@ -128,7 +128,9 @@ const ManageAdmin = () => {
   const handleView = (id: string) => {
     setSkipId(id);
   }
-
+  const showModal = () => {
+    setIsVisible(!isVisible)
+  }
   useEffect(() => {
     if (skipId !== '') {
       setSkip(false);
@@ -136,12 +138,9 @@ const ManageAdmin = () => {
     if (adminData && adminData.id) {
       showModal();
     }
-  }, [adminData, skipId]);
+  }, [adminData, skipId, showModal]);
 
-  const showModal = () => {
-    setIsVisible(!isVisible)
-  }
-
+  
   const handleCancel = () => {
     setIsVisible(!isVisible)
   }

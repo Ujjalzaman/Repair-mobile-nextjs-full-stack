@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Col, Row, message } from "antd";
-import loginImage from "../../assets/login-image.svg";
+import loginImage from "@/assets/login-image.svg";
 import Image from "next/image";
 import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
@@ -9,6 +9,7 @@ import { useUserLoginMutation } from "@/redux/api/authApi";
 import { setUserInfo } from "@/service/auth.service";
 import { useRouter } from "next/navigation";
 import Form from "../Forms/Form";
+import Link from "next/link";
 
 type FormValues = {
     id: string;
@@ -21,10 +22,10 @@ const LoginPage = () => {
     const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
         try {
             const res = await userLogin(data).unwrap();
-            if (res?.accessToken) {
-                setUserInfo({ accessToken: res?.accessToken })
-                router.push('/dashboard')
+            if (res && res.accessToken) {
+                setUserInfo({ accessToken: res.accessToken })
                 message.success("Successfully Login");
+                router.push('/dashboard')
             }
         } catch (err: any) {
             message.error(err.message)
@@ -71,6 +72,7 @@ const LoginPage = () => {
                         </Button>
                     </Form>
                 </div>
+                <p className="my-2">Alreay Have Account ? <Link href={'/signup'}>Signup</Link></p>
             </Col>
         </Row>
     );

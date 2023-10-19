@@ -1,4 +1,4 @@
 /api/node_modules
 /api/prisma/migrations
-
+/api/dist
 **.env

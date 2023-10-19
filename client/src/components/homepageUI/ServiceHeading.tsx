@@ -14,8 +14,8 @@ const ServiceHeading = () => {
                         </div>
                         <div className="card-body bg-warning">
                             <h5 className="card-title">FREE DIAGNOSTICS.</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#!" className="btn btn-primary w-50">Read More</a>
+                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                            <a href="" className="btn btn-primary w-50">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -27,8 +27,8 @@ const ServiceHeading = () => {
                         </div>
                         <div className="card-body bg-warning">
                             <h5 className="card-title">ONLINE HELP.</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#!" className="btn btn-primary w-50">Read More</a>
+                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                            <a href="/" className="btn btn-primary w-50">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -40,8 +40,8 @@ const ServiceHeading = () => {
                         </div>
                         <div className="card-body bg-warning">
                             <h5 className="card-title">PROFESSIONAL REPAIR.</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#!" className="btn btn-primary w-50">Read More</a>
+                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                            <a href="/" className="btn btn-primary w-50">Read More</a>
                         </div>
                     </div>
                 </div>
