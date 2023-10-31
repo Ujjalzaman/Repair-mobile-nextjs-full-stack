@@ -3,7 +3,7 @@ import contactImg from '@/assets/homepage/contact.png';
 import style from './Contact.module.css';
 const ContactUs = () => {
     return (
-        <section id={style.contact} className="mx-3">
+        <section id={style.contact} className="mx-5 mb-5">
             <div className="mx-auto">
                 <div className="row">
                     <div className="col-6">

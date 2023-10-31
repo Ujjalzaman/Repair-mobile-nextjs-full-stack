@@ -12,14 +12,14 @@ const HappyClient = () => {
     ];
 
     return (
-        <section className={style.ourValue}>
+        <section className='bg-primary' style={{padding:'2rem'}}>
             <div className="row container mx-auto">
                 {
                     workDetails?.map((item:any) =>(
                         <div className="col-md-6 col-lg-3" key={item.id}>
                             <div className={style.ourValueDetails}>
                                 <span className={`valueIcon valueIcon${item.id}`}>
-                                <i className="ri-emotion-happy-line text-warning" style={{fontSize:'5rem'}}></i>
+                                <i className="ri-emotion-happy-line text-secondary" style={{fontSize:'5rem'}}></i>
                                 </span>
                                 <div>
                                     <p className={style.ourValueTitle}>{item.title}</p>

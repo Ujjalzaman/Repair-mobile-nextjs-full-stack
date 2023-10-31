@@ -1,78 +1,76 @@
 const MembershipPlan = () => {
     return (
-        <div className="mx-auto" style={{marginTop:"5rem"}}>
-
-            <div className="mb-5 mx-5">
-                <h3 style={{fontWeight:"900"}} className="text-center p-2 my-2 text-uppercase">Membership plan</h3>
-                <div className="row">
-                    <div className="col">
-                        <div className="card shadow text-center border-0">
-                            <div className="card-body p-0">
-                                <div className="p-2">
-                                    <h2 className="card-title">Basic Services</h2>
-                                    <p className="card-text form-text">Lorem ipsum dolor sit amet.</p>
+        <div className="mx-auto" style={{ marginTop: "8rem", marginBottom: '7rem' }}>
+            <h3 style={{ fontWeight: "900" }} className="text-center p-2 mt-2 mb-3 text-uppercase">Membership plan</h3>
+            <div className="container text-center">
+                <div className="row align-items-center">
+                    <div className="col" >
+                        <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
+                            <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
+                                <h2 className="mt-3">$120</h2>
+                                <p>Per Month</p>
+                            </div>
+                            <div className="card-body bg-primary text-white">
+                                <h4 className="card-title p-2 my-2">Basic</h4>
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <div className="text-start">
+                                        <div className="p-2 border-bottom">2 Computer Repair</div>
+                                        <div className="p-2 border-bottom">1 Phone Repair Repair</div>
+                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
+                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
+                                        <div className="p-2 border-bottom">Free Supports</div>
+                                    </div>
                                 </div>
-                                <div className="bg-info text-white py-2 rounded">
-                                    <h3>$120/month</h3>
+                                <div className="mt-4 mx-auto">
+                                    <button className="btn btn-secondary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
-                                <div className="mt-3 text-center">
-                                    <div className="p-2">2 Computer Repair</div>
-                                    <div className="p-2">1 Phone Repair Repair</div>
-                                    <div className="p-2">2 Leptop Repair</div>
-                                    <div className="p-2">Free Supports</div>
-                                </div>
-                                <div className="pb-3 mx-2">
-                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
 
                     <div className="col">
-                        <div className="card shadow text-center border-0">
-                            <div className="card-body p-0">
-                                <div className="p-2">
-                                    <h2 className="card-title">Gold Services</h2>
-                                    <p className="card-text form-text">Lorem ipsum dolor sit amet.</p>
+                        <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
+                            <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
+                                <h2 className="mt-3">$120</h2>
+                                <p>Per Month</p>
+                            </div>
+                            <div className="card-body bg-primary text-white">
+                                <h4 className="card-title p-2 my-2">Gold</h4>
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <div className="text-start">
+                                        <div className="p-2 border-bottom">2 Computer Repair</div>
+                                        <div className="p-2 border-bottom">1 Phone Repair Repair</div>
+                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
+                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
+                                        <div className="p-2 border-bottom">Free Supports</div>
+                                    </div>
                                 </div>
-                                <div className="bg-primary text-white py-2 rounded">
-                                    <h3>$180/month</h3>
+                                <div className="mt-4 mx-auto">
+                                    <button className="btn btn-secondary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
-                                <div className="mt-3 text-center">
-                                    <div className="p-2">2 Computer Repair</div>
-                                    <div className="p-2">1 Phone Repair Repair</div>
-                                    <div className="p-2">2 Leptop Repair</div>
-                                    <div className="p-2">Free Supports</div>
-                                </div>
-                                <div className="pb-3 mx-2">
-                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
 
                     <div className="col">
-                        <div className="card shadow text-center border-0">
-                            <div className="card-body p-0">
-                                <div className="p-2">
-                                    <h2 className="card-title">Premium Services</h2>
-                                    <p className="card-text form-text">Lorem ipsum dolor sit amet.</p>
+                        <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
+                            <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
+                                <h2 className="mt-3">$120</h2>
+                                <p>Per Month</p>
+                            </div>
+                            <div className="card-body bg-primary text-white">
+                                <h4 className="card-title p-2 my-2">Premium</h4>
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <div className="text-start">
+                                        <div className="p-2 border-bottom">2 Computer Repair</div>
+                                        <div className="p-2 border-bottom">1 Phone Repair Repair</div>
+                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
+                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
+                                        <div className="p-2 border-bottom">Free Supports</div>
+                                    </div>
                                 </div>
-                                <div className="bg-warning text-white py-2 rounded">
-                                    <h3>$220/month</h3>
-                                </div>
-                                <div className="mt-3 text-center">
-                                    <div className="p-2">2 Computer Repair</div>
-                                    <div className="p-2">1 Phone Repair Repair</div>
-                                    <div className="p-2">2 Leptop Repair</div>
-                                    <div className="p-2">Free Supports</div>
-                                </div>
-                                <div className="pb-3 mx-2">
-                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                <div className="mt-4 mx-auto">
+                                    <button className="btn btn-secondary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
                             </div>
                         </div>

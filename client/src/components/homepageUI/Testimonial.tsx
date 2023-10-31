@@ -14,7 +14,7 @@ import avatar from '@/assets/ani/4.jpg'
 const Testimonial = () => {
     const { data, isLoading } = useReviewsQuery({});
     return (
-        <section id={style.testimonial}>
+        <section id={style.testimonial} className='mx-5'>
             <h4 className={style.miniTitle + ' ' + 'text-center'}>TESTIMONIALS</h4>
             <div className="text-center">
                 <h3 className={style.sectionTitle}>WHAT OUR CLIENTS SAY’S</h3>
@@ -22,9 +22,9 @@ const Testimonial = () => {
 
             <Swiper
                 centeredSlides={true}
-                spaceBetween={50}
+                spaceBetween={10}
                 autoplay={{
-                    delay: 2500,
+                    delay: 3000,
                     disableOnInteraction: false,
                 }}
                 pagination={{

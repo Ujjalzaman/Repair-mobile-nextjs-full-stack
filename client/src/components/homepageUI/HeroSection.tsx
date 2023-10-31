@@ -16,8 +16,8 @@ const HeroSection = () => {
                             transform: "translate(-50%, -50%)"
                         }}>
                             <div className='p-3' style={{border:'1px solid #457b9d'}}>
-                                <div style={{ background: "#1d3557fa" }} className='p-2'>
-                                    <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your <span className='text-secondary'>Phone Workable</span> For <br />you</h1>
+                                <div style={{ background: "#457b9d" }} className='p-2'>
+                                    <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your <span className='text-black'>Phone Workable</span> For <br />you</h1>
                                     <p className='text-white p-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, odit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil repellat aliquid ullam, soluta neque vitae accusantium magnam facilis doloremque nesciunt ratione porro voluptatum deserunt.</p>
                                     <button className="btn w-50 text-white bg-secondary border-0">Read More</button>
                                 </div>
