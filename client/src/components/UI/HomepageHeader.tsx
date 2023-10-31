@@ -47,11 +47,15 @@ export default function HomepageHeader() {
   }, [isMenuOpen]);
 
   return (
-    <header className="header" style={{ background: "#255598" }}>
+    <header className="header" style={{ 
+      background: "#fff",
+       maxHeight: '60px',
+       boxShadow:'0px 0px 8px 0px #d8d6d6'
+      }}>
       <nav className="nav container">
         <div className="nav__data">
           <Link href="/" className="nav__logo">
-            <Image src={logo} width={130} alt='logo' />
+            <Image src={logo} width={90} alt='logo' />
           </Link>
         </div>
 
@@ -85,11 +89,11 @@ export default function HomepageHeader() {
                 ? <li>
                   <Dropdown menu={{ items }}>
                     <Link href="/dashboard" className="nav__link">
-                      <button className='px-2 btn shadow bg-primary p-1 d-flex gap-2 align-items-center'>
+                      <button className='px-2 btn shadow bg-primary d-flex gap-2 align-items-center btn-sm'>
                         <span className='text-white'>
                           Dashboard
                         </span>
-                        <Image src={role === 'admin' ? avatar : avatar2} width={30} alt='image' className='rounded-circle border border-3 border-warning' 
+                        <Image src={role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning' 
                         />
                        
                       </button>

@@ -1,0 +1,6 @@
+Official Color Plate:
+
+Primary Color : #457b9d
+Secondary Color : #2a9d8f
+Primary Black : #1d3557
+Primary White : #f5f5f5
