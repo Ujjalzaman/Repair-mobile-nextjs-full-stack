@@ -14,11 +14,13 @@ body{
 .bg-black {background-color: #1d3557 !important}
 .text-primary{color: #457b9d !important}
 .bg-primary{background-color: #457b9d !important}
-.text-secondary{color: #2a9d8f !important}
-.bg-secondary{background-color: #2a9d8f !important}
+.text-secondary{color: #588157 !important}
+.bg-secondary{background-color: #588157 !important}
+.btn-primary{background-color: #457b9d!important;border: none;}
 .ant-layout-sider-children, .ant-menu-dark{
 background: linear-gradient(56deg, rgb(56 56 197) 29%, rgb(233 58 203) 100%)
 }
+
 
 :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark.ant-menu-root.ant-menu-inline, :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark>.ant-menu.ant-menu-root.ant-menu-inline, :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark.ant-menu-root.ant-menu-vertical, 
 :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark>.ant-menu.ant-menu-root.ant-menu-vertical{

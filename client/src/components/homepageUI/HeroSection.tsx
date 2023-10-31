@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const HeroSection = () => {
     return (
-        <div id="carouselExample" className="carousel slide" style={{ marginTop: "5rem" }}>
+        <div id="carouselExample" className="carousel slide">
             <div className="carousel-inner">
                 <div className="carousel-item active">
 
@@ -15,11 +15,11 @@ const HeroSection = () => {
                             left: "50%",
                             transform: "translate(-50%, -50%)"
                         }}>
-                            <div className='border border-warning p-3'>
-                                <div style={{ background: "rgb(0 0 0 / 28%)" }}>
-                                    <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your Phone Workable For you</h1>
+                            <div className='p-3' style={{border:'1px solid #457b9d'}}>
+                                <div style={{ background: "#1d3557fa" }} className='p-2'>
+                                    <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your <span className='text-secondary'>Phone Workable</span> For <br />you</h1>
                                     <p className='text-white p-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, odit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil repellat aliquid ullam, soluta neque vitae accusantium magnam facilis doloremque nesciunt ratione porro voluptatum deserunt.</p>
-                                    <button className="btn btn-primary w-50">Read More</button>
+                                    <button className="btn w-50 text-white bg-secondary border-0">Read More</button>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@ const HeroSection = () => {
                     </div>
                 </div>
                 <div className="carousel-item">
-                <div className='text-start position-relative'>
+                    <div className='text-start position-relative'>
                         <div style={{
                             position: "absolute",
                             top: "50%",
@@ -39,10 +39,10 @@ const HeroSection = () => {
                             <div className=''>
                                 <div>
                                     <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your Phone Workable For you</h1>
-                                    <p className='text-white p-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, odit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil repellat aliquid ullam, soluta neque vitae accusantium magnam facilis doloremque nesciunt ratione porro voluptatum deserunt.</p>
+                                    <p className='text-white p-3 px-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, odit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil repellat aliquid ullam, soluta neque vitae accusantium magnam facilis doloremque nesciunt ratione porro voluptatum deserunt.</p>
                                     <div className='d-flex gap-2'>
-                                    <button className="btn btn-primary">Read More</button>
-                                    <button className="btn btn-primary">Register Now</button>
+                                        <button className="btn btn-primary">Read More</button>
+                                        <button className="btn btn-primary">Register Now</button>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@ const HeroSection = () => {
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
