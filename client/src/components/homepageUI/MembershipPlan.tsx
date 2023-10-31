@@ -10,67 +10,112 @@ const MembershipPlan = () => {
                                 <h2 className="mt-3">$120</h2>
                                 <p>Per Month</p>
                             </div>
-                            <div className="card-body bg-primary text-white">
+                            <div className="card-body bg-secondary text-white">
                                 <h4 className="card-title p-2 my-2">Basic</h4>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div className="text-start">
-                                        <div className="p-2 border-bottom">2 Computer Repair</div>
-                                        <div className="p-2 border-bottom">1 Phone Repair Repair</div>
-                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
-                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
-                                        <div className="p-2 border-bottom">Free Supports</div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Computer Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            1 Phone Repair Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Leptop Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Leptop Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            Free Supports
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="mt-4 mx-auto">
-                                    <button className="btn btn-secondary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col">
+                    <div className="col" >
                         <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
                             <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
-                                <h2 className="mt-3">$120</h2>
+                                <h2 className="mt-3">$220</h2>
                                 <p>Per Month</p>
                             </div>
-                            <div className="card-body bg-primary text-white">
+                            <div className="card-body bg-secondary text-white">
                                 <h4 className="card-title p-2 my-2">Gold</h4>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div className="text-start">
-                                        <div className="p-2 border-bottom">2 Computer Repair</div>
-                                        <div className="p-2 border-bottom">1 Phone Repair Repair</div>
-                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
-                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
-                                        <div className="p-2 border-bottom">Free Supports</div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Computer Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            1 Phone Repair Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Leptop Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Leptop Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            Free Supports
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="mt-4 mx-auto">
-                                    <button className="btn btn-secondary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col">
+                    <div className="col" >
                         <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
                             <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
-                                <h2 className="mt-3">$120</h2>
+                                <h2 className="mt-3">$320</h2>
                                 <p>Per Month</p>
                             </div>
-                            <div className="card-body bg-primary text-white">
+                            <div className="card-body bg-secondary text-white">
                                 <h4 className="card-title p-2 my-2">Premium</h4>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div className="text-start">
-                                        <div className="p-2 border-bottom">2 Computer Repair</div>
-                                        <div className="p-2 border-bottom">1 Phone Repair Repair</div>
-                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
-                                        <div className="p-2 border-bottom">2 Leptop Repair</div>
-                                        <div className="p-2 border-bottom">Free Supports</div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Computer Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            1 Phone Repair Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Leptop Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            2 Leptop Repair
+                                        </div>
+                                        <div className="p-2 border-bottom d-flex gap-2">
+                                            <i className="ri-check-double-line"></i>
+                                            Free Supports
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="mt-4 mx-auto">
-                                    <button className="btn btn-secondary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
+                                    <button className="btn btn-primary w-50 border-0 rounded-pill" style={{ background: "#5543d1" }}>Phurchase</button>
                                 </div>
                             </div>
                         </div>

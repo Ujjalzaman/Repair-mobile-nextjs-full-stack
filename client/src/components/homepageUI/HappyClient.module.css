@@ -10,12 +10,24 @@
     padding: 0.4rem 0.8rem;
     font-size: 3rem;
     color: #fff;
-    border-radius: 0.25rem
+    border-radius: 0.25rem;
+    border:1px solid red;
 } 
 .ourValueNumber {
     font-weight: 700;
     font-size: 2.4rem;
-    color: #588157;
+    color: #457b9d;
+    border:1px solid #457b9d;
+    border-radius: 10px;
+    transition: 0.9s ease-in-out;
+}
+
+.ourValueNumber:hover {
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #fff;
+    background-color: #457b9d;
+    border-radius: 10px;
 }
 .ourValueTitle {
     color: #777777;
