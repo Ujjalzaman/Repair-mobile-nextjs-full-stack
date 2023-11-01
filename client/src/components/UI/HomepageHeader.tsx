@@ -12,11 +12,12 @@ import { authKey } from '@/constants/storageKey';
 import avatar2 from '@/assets/ani/2.png';
 import avatar from '@/assets/ani/3.jpg';
 
+
 export default function HomepageHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const isLogin = isLoggedIn();
-  const {role} = getUserInfo() as any;
+  const { role } = getUserInfo() as any;
   const logout = () => {
     loggedOut(authKey);
     router.push('/login');
@@ -47,11 +48,11 @@ export default function HomepageHeader() {
   }, [isMenuOpen]);
 
   return (
-    <header className="header" style={{ 
+    <header className="header" style={{
       background: "#fff",
-       maxHeight: '60px',
-       boxShadow:'0px 0px 8px 0px #d8d6d6'
-      }}>
+      maxHeight: '60px',
+      boxShadow: '0px 0px 8px 0px #d8d6d6'
+    }}>
       <nav className="nav container">
         <div className="nav__data">
           <Link href="/" className="nav__logo">
@@ -75,7 +76,9 @@ export default function HomepageHeader() {
 
             <li className="dropdown__item">
               <div className="nav__link dropdown__button">
-                Resources
+                <Link href={'/contact'}>
+                  Contact Us
+                </Link>
               </div>
             </li>
 
@@ -93,9 +96,9 @@ export default function HomepageHeader() {
                         <span className='text-white'>
                           Dashboard
                         </span>
-                        <Image src={role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning' 
+                        <Image src={role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning'
                         />
-                       
+
                       </button>
                     </Link>
                   </Dropdown>

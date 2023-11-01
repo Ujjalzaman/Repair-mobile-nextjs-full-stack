@@ -1,3 +1,4 @@
+import Blog from "@/components/homepageUI/Blog"
 import ContactUs from "@/components/homepageUI/ContactUs"
 import HappyClient from "@/components/homepageUI/HappyClient"
 import HeroSection from "@/components/homepageUI/HeroSection"
@@ -14,7 +15,7 @@ const HomePage = () => {
       <HappyClient/>
       <MembershipPlan/>
       <Testimonial/>
-      <ContactUs/>
+      <Blog/>
     </div>
   )
 }
