@@ -6,9 +6,9 @@ import style from './HappyClient.module.css';
 const HappyClient = () => {
     const workDetails = [
         { title: 'Happy Clients', number: 542, id: 1, icon: 'ri-emotion-happy-line text-primary' },
-        { title: 'Projects', number: 623, id: 2, icon: 'ri-briefcase-4-line text-primary' },
-        { title: 'Hours of Support', number: 1634, id: 3, icon: 'ri-time-line text-primary' },
-        { title: 'Hard Workers', number: 31, id: 4, icon: 'ri-user-6-line text-primary' }
+        { title: 'Finished Projects', number: 623, id: 2, icon: 'ri-briefcase-4-line text-primary' },
+        { title: 'Computer Service', number: 1634, id: 3, icon: 'ri-time-line text-primary' },
+        { title: 'Mobile Service', number: 5880, id: 4, icon: 'ri-user-6-line text-primary' }
     ];
 
     return (
