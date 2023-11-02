@@ -9,8 +9,8 @@ import { Button, Dropdown, MenuProps } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getUserInfo, isLoggedIn, loggedOut } from '@/service/auth.service';
 import { authKey } from '@/constants/storageKey';
-import avatar2 from '@/assets/ani/2.png';
-import avatar from '@/assets/ani/3.jpg';
+import avatar2 from '@/assets/boyAvatar.png';
+import avatar from '@/assets/avatar.jpg';
 
 
 export default function HomepageHeader() {
@@ -48,71 +48,55 @@ export default function HomepageHeader() {
   }, [isMenuOpen]);
 
   return (
-    <header className="header" style={{
-      background: "#fff",
-      maxHeight: '60px',
-      boxShadow: '0px 0px 8px 0px #d8d6d6'
-    }}>
-      <nav className="nav container">
-        <div className="nav__data">
-          <Link href="/" className="nav__logo">
-            <Image src={logo} width={90} alt='logo' />
-          </Link>
-        </div>
 
-        <div className={`nav__menu ${isMenuOpen ? 'show-menu' : ''}`} id="nav-menu">
-          <ul className="nav__list">
-            <li>
-              <a href="#" className="nav__link">
-                Home
-              </a>
+    <nav className="navbar navbar-expand-lg bg-light bg-secondary">
+      <div className="container">
+        <Link href="/" className="navbar-brand">
+          <Image src={logo} width={90} alt='logo' />
+        </Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 gap-3">
+            <li className="nav-item">
+              <Link className="nav-link active text-white" aria-current="page" href="/">Home</Link>
             </li>
 
-            <li className="dropdown__item">
-              <div className="nav__link dropdown__button">
-                Discover
-              </div>
+            <li className="nav-item">
+              <Link className="nav-link text-white" href="/contact">Contact Us</Link>
             </li>
-
-            <li className="dropdown__item">
-              <div className="nav__link dropdown__button">
-                <Link href={'/contact'}>
-                  Contact Us
-                </Link>
-              </div>
+            <li className="nav-item">
+              <Link className="nav-link text-white" href="/contact">Pricing</Link>
             </li>
-
-            <li>
-              <a href="#" className="nav__link">
-                Pricing
-              </a>
-            </li>
+            <li className="nav-item">
+            <div className="d-flex">
             {
               isLogin
-                ? <li>
-                  <Dropdown menu={{ items }}>
-                    <Link href="/dashboard" className="nav__link">
-                      <button className='px-2 btn shadow bg-primary d-flex gap-2 align-items-center btn-sm'>
-                        <span className='text-white'>
-                          Dashboard
-                        </span>
-                        <Image src={role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning'
-                        />
+                ?
+                <Dropdown menu={{ items }}>
+                  <Link href="/dashboard" className="nav__link">
+                    <button className='px-2 btn shadow bg-primary d-flex gap-2 align-items-center btn-sm'>
+                      <span className='text-white'>
+                        Dashboard
+                      </span>
+                      <Image src={role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning'
+                      />
 
-                      </button>
-                    </Link>
-                  </Dropdown>
-                </li>
-                :
-                <li>
-                  <Link href={'/login'} className="nav__link">
-                    <Button type='primary'>Login</Button>
+                    </button>
                   </Link>
-                </li>
+                </Dropdown>
+                :
+                <Link href={'/login'} className="nav__link">
+                  <Button type='primary'>Login</Button>
+                </Link>
             }
+          </div>
+            </li>
           </ul>
+          
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   );
 }

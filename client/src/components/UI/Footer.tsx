@@ -1,7 +1,6 @@
 import Image from "next/image"
 import logo from '@/assets/logo.png';
 
-
 const Footer = () => {
     return (
         <div className="">
@@ -10,12 +9,11 @@ const Footer = () => {
                     <section className="">
                         <div className="row">
                             <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                                <h6 className="text-uppercase mb-4 font-weight-bold">
+                                <h6 className="text-uppercase mb-2 font-weight-bold">
                                     FixMyPhone
                                 </h6>
-                                <div className="bg-white rounded my-2">
-                                <Image src={logo} width={180} alt="logo"/>
-
+                                <div className="mb-2">
+                                    <Image src={logo} width={100} alt="logo" />
                                 </div>
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur suscipit esse reiciendis saepe expedita quia quae earum corporis quidem doloribus.
@@ -47,7 +45,7 @@ const Footer = () => {
                                     Useful links
                                 </h6>
                                 <p>
-                                    <a className="text-white">Your Account</a>
+                                    <a className="text-white">Account</a>
                                 </p>
                                 <p>
                                     <a className="text-white">Become an Affiliate</a>

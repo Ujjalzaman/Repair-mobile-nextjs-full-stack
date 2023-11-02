@@ -1,25 +1,23 @@
 import Image from "next/image"
-import blogImage from '@/assets/homepage/1.jpg';
-import Link from "next/link";
+import blogImage from '@/assets/img/repair-phone.jpg';
 import BlogAside from "./BlogAside";
 import BlogComments from "./BlogComments";
 import FBreadCrumb from "../UI/FBreadCrumb";
+import SubHeader from "../UI/SubHeader";
 
 const BlogDetail = () => {
     return (
         <div className="container-full">
             <div >
-                <div className="bg-secondary text-white py-5 text-center">
-                    <h3>Blog Details Page</h3>
+                <SubHeader title="Blog Details Page" />
+                <div className="mx-2 mt-3 ms-3">
+                    <FBreadCrumb items={[{ label: "blog", link: "/blog", },]} />
                 </div>
-                <div className="mx-2 mt-3">
-                <FBreadCrumb items={[{label: "blog",link: "/blog",},]}/>
-                </div>
-                <div className="row mx-2" style={{marginTop:'4rem',marginBottom: '8rem' }}>
+                <div className="row mx-2" style={{ marginTop: '4rem', marginBottom: '8rem' }}>
                     <div className="col-md-9">
                         <div className="card shadow text-center border-0 rounded-bottom">
-                            <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ overflow: 'hidden' }}>
-                                <Image src={blogImage} alt="blog Image" width={600} height={400} className="w-100 rounded-top object-fit-cover" objectFit="cover" />
+                            <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ overflow: 'hidden', maxHeight:'30rem' }}>
+                                <Image src={blogImage} alt="blog Image" width={800} className="image-hover w-100 rounded-top object-fit-cover" objectFit="cover" />
                             </div>
                             <div className="card-body p-0">
                                 <div className="p-2 my-2">
@@ -69,6 +67,25 @@ const BlogDetail = () => {
                             </div>
                         </div>
                         <hr />
+                        <div className="d-flex justify-content-end shadow">
+                            <div className="col-md-5 col-lg-4 ml-lg-0 text-end text-md-end">
+                                <p className="text-dark rounded d-inline me-2">Share On </p>
+                                <a className="btn btn-outline-primary btn-floating m-1">
+                                    <i className="ri-facebook-fill"></i>
+                                </a>
+
+                                <a className="btn btn-outline-primary btn-floating m-1" >
+                                    <i className="ri-twitter-line"></i>
+                                </a>
+
+                                <a className="btn btn-outline-primary btn-floating m-1">
+                                    <i className="ri-google-line"></i>
+                                </a>
+                                <a className="btn btn-outline-primary btn-floating m-1">
+                                    <i className="ri-instagram-line"></i>
+                                </a>
+                            </div>
+                        </div>
                         <BlogComments />
                     </div>
                     <div className="col-md-3">

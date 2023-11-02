@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Col, Row, message } from "antd";
-import loginImage from "@/assets/login-image.svg";
+import loginImage from "@/assets/login-image.png";
 import Image from "next/image";
 import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
@@ -67,7 +67,7 @@ const LoginPage = () => {
                                 label="Password"
                             />
                         </div>
-                        <Button type="primary" htmlType="submit">
+                        <Button className="bg-primary" type="primary" htmlType="submit">
                             Login
                         </Button>
                     </Form>

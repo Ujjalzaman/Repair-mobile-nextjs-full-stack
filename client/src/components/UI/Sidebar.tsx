@@ -5,8 +5,8 @@ import { sidebarItems } from "@/constants/sidebarItems";
 import { getUserInfo } from "@/service/auth.service";
 import Image from "next/image";
 import { useCustomerQuery } from "@/redux/api/customersApi";
-import avatar2 from '@/assets/ani/2.png';
-import avatar from '@/assets/ani/3.jpg';
+import avatar2 from '@/assets/boyAvatar.png';
+import avatar from '@/assets/avatar.jpg';
 
 const { Sider } = Layout;
 

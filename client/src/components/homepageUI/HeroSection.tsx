@@ -1,5 +1,5 @@
-import image2 from '@/assets/homepage/2.jpg';
-import image4 from '@/assets/homepage/4.jpg';
+import image2 from '@/assets/img/megnify-glass.webp';
+import image4 from '@/assets/img/repair-by-pen.webp';
 import Image from 'next/image';
 
 const HeroSection = () => {
@@ -7,24 +7,18 @@ const HeroSection = () => {
         <div id="carouselExample" className="carousel slide">
             <div className="carousel-inner">
                 <div className="carousel-item active">
-
                     <div className='text-center position-relative'>
-                        <div style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }}>
-                            <div className='p-3 rounded' style={{border:'1px solid #588157'}}>
-                                <div style={{ background: "#588157" }} className='p-2 rounded shadow'>
-                                    <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your <span className='text-black'>Phone Workable</span> For <br />you</h1>
+                        <div style={{position: "absolute",top: "50%",left: "50%",transform: "translate(-50%, -50%)", zIndex:1}}>
+                            <div className='p-3 rounded' style={{border:'2px solid #58815775'}}>
+                                <div style={{ background: "#58815775" }} className='p-2 rounded shadow'>
+                                    <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your <span className='text-primary'>Phone Workable</span> For <br />you</h1>
                                     <p className='text-white p-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, odit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil repellat aliquid ullam, soluta neque vitae accusantium magnam facilis doloremque nesciunt ratione porro voluptatum deserunt.</p>
-                                    <button className="btn w-50 text-white bg-primary border-0">Read More</button>
+                                    <button className="mb-2 btn w-50 text-white bg-primary border-0">Read More</button>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <Image src={image4} className="d-block w-100" alt="..." style={{ objectFit: "cover" }} />
+                        <div style={{maxHeight:'600px',overflow:'hidden' }}>
+                            <Image src={image4} width={900} className="d-block w-100" alt="..." style={{ objectFit: "cover",filter: "brightness(40%)"  }} />
                         </div>
                     </div>
                 </div>
@@ -34,7 +28,8 @@ const HeroSection = () => {
                             position: "absolute",
                             top: "50%",
                             left: "50%",
-                            transform: "translate(-77%, -50%)"
+                            transform: "translate(-77%, -50%)",
+                            zIndex:1
                         }}>
                             <div className=''>
                                 <div>
@@ -47,8 +42,8 @@ const HeroSection = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <Image src={image2} className="d-block w-100" alt="..." style={{ objectFit: "cover" }} />
+                        <div style={{maxHeight:'600px',overflow:'hidden' }}>
+                            <Image src={image2} width={900} className="d-block w-100" alt="..." style={{ objectFit: "cover",filter: "brightness(40%)"}} />
                         </div>
                     </div>
                 </div>

@@ -1,16 +1,20 @@
 const MembershipPlan = () => {
     return (
         <div className="mx-auto" style={{ marginTop: "8rem", marginBottom: '7rem' }}>
-            <h3 style={{ fontWeight: "900" }} className="text-center p-2 mt-2 mb-3 text-uppercase">Membership plan</h3>
-            <div className="container text-center">
-                <div className="row align-items-center">
-                    <div className="col" >
-                        <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
+            <div className="mb-5 text-center">
+                <h3 style={{ fontWeight: "900" }} className="text-center text-uppercase">Membership plan</h3>
+                <p className="form-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, vitae.</p>
+            </div>
+
+            <div className="container text-center px-4 py-5 rounded" style={{ background: '#d7ded6' }}>
+                <div className="row align-items-center justify-content-center">
+                    <div className="col" style={{ maxWidth: '20rem' }}>
+                        <div className="card shadow text-center border-0">
                             <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
                                 <h2 className="mt-3">$120</h2>
                                 <p>Per Month</p>
                             </div>
-                            <div className="card-body bg-secondary text-white">
+                            <div className="card-body bg-secondary text-white rounded-bottom">
                                 <h4 className="card-title p-2 my-2">Basic</h4>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div className="text-start">
@@ -43,13 +47,13 @@ const MembershipPlan = () => {
                         </div>
                     </div>
 
-                    <div className="col" >
-                        <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
+                    <div className="col" style={{ maxWidth: '20rem' }}>
+                        <div className="card shadow text-center border-0">
                             <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
                                 <h2 className="mt-3">$220</h2>
                                 <p>Per Month</p>
                             </div>
-                            <div className="card-body bg-secondary text-white">
+                            <div className="card-body bg-secondary text-white rounded-bottom">
                                 <h4 className="card-title p-2 my-2">Gold</h4>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div className="text-start">
@@ -82,13 +86,13 @@ const MembershipPlan = () => {
                         </div>
                     </div>
 
-                    <div className="col" >
-                        <div className="card shadow text-center border-0" style={{ maxWidth: '20rem' }}>
+                    <div className="col" style={{ maxWidth: '20rem' }}>
+                        <div className="card shadow text-center border-0">
                             <div className="flex-column card-header py-2 d-flex justify-content-center align-items-center" style={{ minHeight: '8rem' }}>
                                 <h2 className="mt-3">$320</h2>
                                 <p>Per Month</p>
                             </div>
-                            <div className="card-body bg-secondary text-white">
+                            <div className="card-body bg-secondary text-white rounded-bottom">
                                 <h4 className="card-title p-2 my-2">Premium</h4>
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div className="text-start">
