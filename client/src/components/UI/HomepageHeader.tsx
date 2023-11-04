@@ -64,10 +64,13 @@ export default function HomepageHeader() {
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link text-white" href="/contact">Contact Us</Link>
+              <Link className="nav-link text-white" href="/contact">Blog</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" href="/contact">Pricing</Link>
+              <Link className="nav-link text-white" href="/contact">Contact</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-white" href="/about">About</Link>
             </li>
             <li className="nav-item">
             <div className="d-flex">

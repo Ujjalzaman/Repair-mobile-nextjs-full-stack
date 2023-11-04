@@ -7,12 +7,6 @@ import NeedContact from "@/components/homepageUI/NeedContact";
 import OurService from "@/components/homepageUI/OurService";
 import ServiceHeading from "@/components/homepageUI/ServiceHeading";
 import Testimonial from "@/components/homepageUI/Testimonial";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: 'FixMyPhone/Home',
-  description: 'Welcome to FixMyPhone',
-}
 
 const HomePage = () => {
   return (
