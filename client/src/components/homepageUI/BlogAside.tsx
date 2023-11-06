@@ -48,7 +48,7 @@ const BlogAside = () => {
                 <h5 className="mb-3" style={{ fontWeight: '900' }}>RECEN POSTS</h5>
                 <div className="d-flex gap-2 align-items-center mb-2">
                     <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover" objectFit="cover" />
+                        <Image src={blogImage} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
                     </div>
                     <div className="p-2">
                         <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
@@ -63,7 +63,7 @@ const BlogAside = () => {
 
                 <div className="d-flex gap-2 align-items-center mb-2">
                     <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage2} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover" objectFit="cover" />
+                        <Image src={blogImage2} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
                     </div>
                     <div className="p-2">
                         <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
@@ -78,7 +78,7 @@ const BlogAside = () => {
 
                 <div className="d-flex gap-2 align-items-center mb-2">
                     <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage3} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover" objectFit="cover" />
+                        <Image src={blogImage3} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
                     </div>
                     <div className="p-2">
                         <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
@@ -93,7 +93,7 @@ const BlogAside = () => {
 
                 <div className="d-flex gap-2 align-items-center mb-2">
                     <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage4} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover" objectFit="cover" />
+                        <Image src={blogImage4} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
                     </div>
                     <div className="p-2">
                         <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>

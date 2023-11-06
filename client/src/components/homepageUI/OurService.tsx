@@ -18,7 +18,7 @@ const OurService = () => {
                     <div className="col-md-4 col-sm-12 mb-5" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ minHeight: '5.5rem', overflow: 'hidden', maxHeight: '11rem' }}>
-                                <Image src={blogImage} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="bg-secondary p-0 text-white rounded-bottom">
                                 <div className="px-2">
@@ -31,7 +31,7 @@ const OurService = () => {
                     <div className="col-md-4 col-sm-12 mb-5" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ minHeight: '5.5rem', overflow: 'hidden', maxHeight: '11rem' }}>
-                                <Image src={blogImage2} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage2} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="bg-secondary p-0 text-white rounded-bottom">
                                 <div className="px-2">
@@ -44,7 +44,7 @@ const OurService = () => {
                     <div className="col-md-4 col-sm-12 mb-5" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ minHeight: '5.5rem', overflow: 'hidden', maxHeight: '11rem' }}>
-                                <Image src={blogImage3} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage3} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="bg-secondary p-0 text-white rounded-bottom">
                                 <div className="px-2">
@@ -57,7 +57,7 @@ const OurService = () => {
                     <div className="col-md-4 col-sm-12 mb-4" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ minHeight: '4rem', overflow: 'hidden', maxHeight: '11rem' }}>
-                                <Image src={blogImage4} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage4} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="bg-secondary p-0 text-white rounded-bottom">
                                 <div className="px-2">
@@ -70,7 +70,7 @@ const OurService = () => {
                     <div className="col-md-4 col-sm-12 mb-4" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ minHeight: '6rem', overflow: 'hidden', maxHeight: '11rem' }}>
-                                <Image src={blogImage5} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage5} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="bg-secondary p-0 text-white rounded-bottom">
                                 <div className="px-2">
@@ -83,7 +83,7 @@ const OurService = () => {
                     <div className="col-md-4 col-sm-12 mb-4" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ minHeight: '6rem', overflow: 'hidden', maxHeight: '11rem' }}>
-                                <Image src={blogImage6} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage6} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="bg-secondary p-0 text-white rounded-bottom">
                                 <div className="px-2">

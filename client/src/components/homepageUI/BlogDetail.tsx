@@ -17,7 +17,7 @@ const BlogDetail = () => {
                     <div className="col-md-9">
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ overflow: 'hidden', maxHeight:'30rem' }}>
-                                <Image src={blogImage} alt="blog Image" width={800} className="image-hover w-100 rounded-top object-fit-cover" objectFit="cover" />
+                                <Image src={blogImage} alt="blog Image" width={800} className="image-hover w-100 rounded-top object-fit-cover"/>
                             </div>
                             <div className="card-body p-0">
                                 <div className="p-2 my-2">

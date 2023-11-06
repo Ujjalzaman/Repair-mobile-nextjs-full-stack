@@ -2,13 +2,20 @@ import { Dropdown, Layout, MenuProps, Row, Button, Space, Avatar } from 'antd';
 import { useRouter } from 'next/navigation';
 const { Header: AntHeader, } = Layout;
 import { UserOutlined } from "@ant-design/icons";
-import { getUserInfo, loggedOut } from '@/service/auth.service';
+import { loggedOut } from '@/service/auth.service';
 import { authKey } from '@/constants/storageKey';
+import useAuthCheck from '@/redux/hooks/useAuthCheck';
+import { useAppSelector } from '@/redux/hooks';
+import { useEffect } from 'react';
+import { userLoggedOut } from '@/redux/slice/userSlice';
 
 const Header = () => {
+    const user = useAppSelector((state) => state.auth.user);
     const router = useRouter();
+
     const logout = () => {
         loggedOut(authKey);
+        userLoggedOut(undefined);
         router.push('/login');
     }
     const items: MenuProps["items"] = [
@@ -21,22 +28,21 @@ const Header = () => {
             ),
         },
     ];
-    const { role } = getUserInfo() as any;
     return (
-        <AntHeader style={{ background: "#4d7edf",textTransform: "uppercase"}}>
+        <AntHeader className="shadow" style={{ background: "#fff", textTransform: "uppercase" }}>
             <Row
                 justify="end"
                 align="middle"
-                style={{height: "100%"}}>
+                style={{ height: "100%" }}>
                 <div className='d-flex gap-2'>
-                <p className='text-uppercase text-white'>{role}</p>
-                <Dropdown menu={{ items }}>
-                    <a>
-                        <Space wrap size={16}>
-                            <Avatar size="large" icon={<UserOutlined />} />
-                        </Space>
-                    </a>
-                </Dropdown>
+                    <p className='text-uppercase text-black'>{user?.role}</p>
+                    <Dropdown menu={{ items }}>
+                        <a>
+                            <Space wrap size={16}>
+                                <Avatar size="large" icon={<UserOutlined />} />
+                            </Space>
+                        </a>
+                    </Dropdown>
                 </div>
             </Row>
         </AntHeader>

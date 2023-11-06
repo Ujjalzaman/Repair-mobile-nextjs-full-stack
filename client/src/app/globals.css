@@ -8,9 +8,11 @@
   margin: 0;
   font-family: 'Roboto Condensed', sans-serif;
 }
-body{
+
+body {
   background-color: #f3f3f3fa;
 }
+
 .text-black {
   color: #1d3557 !important
 }
@@ -46,7 +48,7 @@ body{
 
 .ant-layout-sider-children,
 .ant-menu-dark {
-  background: linear-gradient(56deg, rgb(56 56 197) 29%, rgb(233 58 203) 100%)
+  background: linear-gradient(318deg, rgba(88,129,87,1) 51%, rgba(69,123,157,1) 87%);
 }
 
 :where(.css-dev-only-do-not-override-amq5gd).ant-menu-dark.ant-menu-root.ant-menu-inline,
@@ -71,10 +73,12 @@ body{
 ul {
   list-style: none;
 }
-.image-hover{
+
+.image-hover {
   transition: 0.5s ease;
 }
-.image-hover:hover{
+
+.image-hover:hover {
   transform: scale(1.5);
 }
 

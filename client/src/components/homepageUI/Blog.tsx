@@ -16,7 +16,7 @@ const Blog = () => {
                     <div className="col" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ maxHeight: '11rem', overflow: 'hidden' }}>
-                                <Image src={blogImage} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="card-body p-0">
                                 <div className="p-2">
@@ -53,7 +53,7 @@ const Blog = () => {
                     <div className="col" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ maxHeight: '11rem', overflow: 'hidden' }}>
-                                <Image src={blogImage2} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage2} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="card-body p-0">
                                 <div className="p-2">
@@ -90,7 +90,7 @@ const Blog = () => {
                     <div className="col" style={{ maxWidth: '18rem' }}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ maxHeight: '11rem', overflow: 'hidden' }}>
-                                <Image src={blogImage3} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover" objectFit="cover" />
+                                <Image src={blogImage3} alt="blog Image" width={300} className="w-100 h-100 rounded-top image-hover object-fit-cover"/>
                             </div>
                             <div className="card-body p-0">
                                 <div className="p-2">

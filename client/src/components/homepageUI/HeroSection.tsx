@@ -18,7 +18,7 @@ const HeroSection = () => {
                             </div>
                         </div>
                         <div style={{maxHeight:'600px',overflow:'hidden' }}>
-                            <Image src={image4} width={900} className="d-block w-100" alt="..." style={{ objectFit: "cover",filter: "brightness(40%)"  }} />
+                            <Image src={image4} width={900} className="d-block w-100 object-fit-cover" alt="..." style={{filter: "brightness(40%)"  }} />
                         </div>
                     </div>
                 </div>
