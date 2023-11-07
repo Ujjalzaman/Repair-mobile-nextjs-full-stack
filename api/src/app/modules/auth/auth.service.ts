@@ -30,7 +30,7 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
         config.jwt_secret as Secret,
         config.jwt_expiredIn as string
     )
-    return { accessToken }
+    return { accessToken, user: isUserExist }
 }
 
 const SignUpUser = async (user: User): Promise<User | null> => {

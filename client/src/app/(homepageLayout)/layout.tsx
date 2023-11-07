@@ -3,14 +3,12 @@ import HomepageHeader from "@/components/UI/HomepageHeader";
 import React from "react";
 
 const HomePageLayout = ({ children }: { children: React.ReactNode }) => {
-
     return (
         <>
             <HomepageHeader />
             {children}
             <Footer />
         </>
-
     )
 }
 

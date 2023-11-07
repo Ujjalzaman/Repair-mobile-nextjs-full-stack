@@ -1,25 +1,27 @@
 'use client'
 
 import Image from 'next/image';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import logo from '@/assets/logo.png';
 import Link from 'next/link';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { useRouter } from 'next/navigation';
-import { getUserInfo, isLoggedIn, loggedOut } from '@/service/auth.service';
+import { isLoggedIn, loggedOut } from '@/service/auth.service';
 import { authKey } from '@/constants/storageKey';
 import avatar2 from '@/assets/boyAvatar.png';
 import avatar from '@/assets/avatar.jpg';
-
+import { useAppSelector } from '@/redux/hooks';
+import { userLoggedOut } from '@/redux/slice/userSlice';
+import useAuthCheck from '@/redux/hooks/useAuthCheck';
 
 export default function HomepageHeader() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useAuthCheck();
   const router = useRouter();
   const isLogin = isLoggedIn();
-  const { role } = getUserInfo() as any;
+  const user = useAppSelector((state) => state.auth.user);
+
   const logout = () => {
     loggedOut(authKey);
+    userLoggedOut();
     router.push('/login');
   }
   const items: MenuProps["items"] = [
@@ -32,20 +34,6 @@ export default function HomepageHeader() {
       ),
     },
   ];
-  useEffect(() => {
-    const toggleMenu = () => {
-      setIsMenuOpen(!isMenuOpen);
-    };
-    const navToggle = document.getElementById('nav-toggle');
-    if (navToggle) {
-      navToggle.addEventListener('click', toggleMenu);
-    }
-    return () => {
-      if (navToggle) {
-        navToggle.removeEventListener('click', toggleMenu);
-      }
-    };
-  }, [isMenuOpen]);
 
   return (
 
@@ -73,31 +61,33 @@ export default function HomepageHeader() {
               <Link className="nav-link text-white" href="/about">About</Link>
             </li>
             <li className="nav-item">
-            <div className="d-flex">
-            {
-              isLogin
-                ?
-                <Dropdown menu={{ items }}>
-                  <Link href="/dashboard" className="nav__link">
-                    <button className='px-2 btn shadow bg-primary d-flex gap-2 align-items-center btn-sm'>
-                      <span className='text-white'>
-                        Dashboard
-                      </span>
-                      <Image src={role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning'
-                      />
-
-                    </button>
-                  </Link>
-                </Dropdown>
-                :
-                <Link href={'/login'} className="nav__link">
-                  <Button type='primary'>Login</Button>
-                </Link>
-            }
-          </div>
+              <div className="d-flex">
+                {
+                  isLogin
+                    ?
+                    <Dropdown menu={{ items }}>
+                      <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+                        <button className='px-2 btn shadow bg-primary d-flex gap-2 align-items-center btn-sm'>
+                          <span className='text-white'>
+                            Dashboard
+                          </span>
+                          <Image src={user?.role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning' />
+                        </button>
+                      </Link>
+                    </Dropdown>
+                    :
+                    <>
+                      <Link href={'/login'} className="me-2">
+                        <Button type='primary'>Login</Button>
+                      </Link>
+                      <Link href={'/login'} className="">
+                        <Button type='primary'>SignUp</Button>
+                      </Link>
+                    </>
+                }
+              </div>
             </li>
           </ul>
-          
         </div>
       </div>
     </nav>

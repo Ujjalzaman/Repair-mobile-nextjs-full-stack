@@ -4,19 +4,19 @@ const { Header: AntHeader, } = Layout;
 import { UserOutlined } from "@ant-design/icons";
 import { loggedOut } from '@/service/auth.service';
 import { authKey } from '@/constants/storageKey';
-import useAuthCheck from '@/redux/hooks/useAuthCheck';
 import { useAppSelector } from '@/redux/hooks';
-import { useEffect } from 'react';
 import { userLoggedOut } from '@/redux/slice/userSlice';
+import useAuthCheck from '@/redux/hooks/useAuthCheck';
 
 const Header = () => {
+    useAuthCheck();
     const user = useAppSelector((state) => state.auth.user);
     const router = useRouter();
 
     const logout = () => {
         loggedOut(authKey);
         userLoggedOut(undefined);
-        router.push('/login');
+        router.push('/');
     }
     const items: MenuProps["items"] = [
         {

@@ -4,4 +4,5 @@ export type IProps = {
 }
 export type ILoginResponse = {
     accessToken?: string;
+    user: {}
 }

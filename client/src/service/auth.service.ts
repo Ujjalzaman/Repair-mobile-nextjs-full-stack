@@ -12,7 +12,7 @@ export const getUserInfo = () => {
         const decodedToken = decodeToken(authToken);
         return decodedToken
     } else {
-        return ''
+        return null
     }
 }
 export const isLoggedIn = () => {
