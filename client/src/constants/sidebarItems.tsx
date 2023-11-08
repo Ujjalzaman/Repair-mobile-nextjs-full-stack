@@ -33,6 +33,10 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/service-review`
         },
         {
+            label: <Link href={`/${role}/blog`}>Blog</Link>,
+            key: `/${role}/blog`
+        },
+        {
             label: <Link href={`/${role}/testimonials`}>Testimonials</Link>,
             key: `/${role}/testimonials`
         },

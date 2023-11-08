@@ -89,14 +89,14 @@ model Reviews {
 }
 
 model Blogs {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   description String
-  img String
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  img         String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("blogs")
 }
