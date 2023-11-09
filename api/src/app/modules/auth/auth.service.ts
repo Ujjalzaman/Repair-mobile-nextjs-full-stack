@@ -7,6 +7,9 @@ import { JwtHelpers } from "../../../helpers/jwtHelpers";
 import config from "../../../config";
 import { Secret } from "jsonwebtoken";
 import { ILoginResponse, IProps } from "./auth.interface";
+import { CloudinaryHelper } from '../../../helpers/uploadHelper';
+import { Request } from 'express';
+import { ICloudinaryResponse, IUpload } from '../../../interfaces/file';
 
 const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
     const { email: IEmail, password } = user;
@@ -33,7 +36,14 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
     return { accessToken, user: isUserExist }
 }
 
-const SignUpUser = async (user: User): Promise<User | null> => {
+const SignUpUser = async (req: Request): Promise<User | null> => {
+    const file = req.file as IUpload;
+    let user: User = JSON.parse(req.body.data)
+    const uploadImage: ICloudinaryResponse = await CloudinaryHelper.uploadFile(file);
+    if (uploadImage) {
+        user.profileImg = uploadImage.secure_url;
+    }
+
     const { password } = user;
     if (password) {
         user.password = await bcrypt.hashSync(password, 12)
