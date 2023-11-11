@@ -1,24 +1,36 @@
 'use client';
-
-import Image from "next/image"
-import Link from "next/link";
-import { useBlogsQuery } from "@/redux/api/blogApi";
-import dayjs from 'dayjs';
+import FBreadCrumb from "@/components/UI/FBreadCrumb"
+import SubHeader from "@/components/UI/SubHeader"
 import { truncate } from "@/helpers/truncate";
+import { useBlogsQuery } from "@/redux/api/blogApi";
+import Image from "next/image";
+import Link from "next/link";
+import dayjs from 'dayjs';
 
-const Blog = () => {
+const BlogPage = () => {
     const { data } = useBlogsQuery({ limit: 3 });
     return (
-        <div className="mx-5" style={{ marginTop: "8.5rem", marginBottom: '7rem' }}>
-            <div className="mb-5 text-center">
-                <h3 style={{ fontWeight: "900" }} className="text-center text-uppercase p-0">OUR BLOG</h3>
-                <p className="form-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, mollitia!</p>
+        <div>
+            <SubHeader title="Blog" />
+            <div className="mx-2 mt-3 ms-3">
+                <FBreadCrumb items={[{ label: "blog", link: "/blog", },]} />
             </div>
+
+            <div style={{ maxWidth: '40rem' }} className="mx-auto text-center">
+                <h5 className="mb-3" style={{ fontWeight: '900' }}>SEARCH</h5>
+                <div>
+                    <div className="form-group has-search">
+                        <i className="ri-search-line form-control-feedback"></i>
+                        <input type="text" className="form-control w-100" placeholder="Search" />
+                    </div>
+                </div>
+            </div>
+
             <div className="container">
-                <div className="row p-5 container align-items-center justify-content-center rounded" style={{ background: '#d7ded6' }}>
+                <div className="row p-5 container container align-items-center justify-content-center rounded" style={{ background: '#d7ded6', marginTop: '5rem', marginBottom: '8rem' }}>
                     {
-                        data?.map((item: any) => (
-                            <div className="col" style={{ maxWidth: '18rem' }} key={item?.id}>
+                        data && data?.map((item: any) => (
+                            <div className="col-md-3" style={{ maxWidth: '18rem' }} key={item?.id}>
                                 <div className="card shadow text-center border-0 rounded-bottom">
                                     {item?.img &&
                                         <div className="flex-column p-0 border-0 d-flex justify-content-center align-items-center" style={{ height: '11rem', overflow: 'hidden' }}>
@@ -59,4 +71,4 @@ const Blog = () => {
     )
 }
 
-export default Blog
+export default BlogPage

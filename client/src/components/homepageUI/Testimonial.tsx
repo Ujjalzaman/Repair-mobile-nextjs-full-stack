@@ -12,7 +12,7 @@ import Image from 'next/image';
 import avatar from '@/assets/avatar.jpg'
 
 const Testimonial = () => {
-    const { data, isLoading } = useReviewsQuery({});
+    const { data } = useReviewsQuery({});
     return (
         <section style={{ marginTop: '8rem', marginBottom: '8rem' }}>
             <div className="text-center">

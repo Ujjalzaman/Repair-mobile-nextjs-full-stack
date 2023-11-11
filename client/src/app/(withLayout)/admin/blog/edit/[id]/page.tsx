@@ -2,27 +2,35 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import UploadImage from "@/components/Forms/uploadImage";
 import FBreadCrumb from "@/components/UI/FBreadCrumb";
 import { useGetBlogQuery, useUpdateBlogMutation } from "@/redux/api/blogApi";
 import { Button, Col, Row, message } from "antd";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const EditAppointment = ({ params }: { params: any }) => {
     const { id } = params;
-    console.log(id)
     const router = useRouter();
     const [updateBlog] = useUpdateBlogMutation();
     const { data } = useGetBlogQuery(id);
-    console.log(data)
+
     const handleOnSubmit = async (values: any) => {
         message.loading("Updating ...")
+        const obj = {...values};
+        const file = obj['file'];
+        delete obj['file'];
+        const data = JSON.stringify(obj);
+        const formData = new FormData();
+        formData.append('file', file as Blob);
+        formData.append('data', data);
         try {
-            const res = await updateBlog({ id, body: values });
-            if (res) {
-                message.success("Successfully Blog Updated !");
+            const res = await updateBlog({id, data: formData});
+            if (!!res) {
+                message.success("Successfully Blog Created !");
                 router.push('/admin/blog')
             }
-        } catch (error: any) {
+        } catch (error:any) {
             message.loading(error.message)
         }
     }
@@ -30,6 +38,7 @@ const EditAppointment = ({ params }: { params: any }) => {
     const defaultValues = {
         title: data?.title || '',
         description: data?.description || '',
+        img: data?.img || '',
     }
     const base = 'admin'
     return (
@@ -51,7 +60,7 @@ const EditAppointment = ({ params }: { params: any }) => {
                     }}
                 >
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={24} style={{ margin: "10px 0" }}>
                             <FormInput
                                 name="title"
                                 type="text"
@@ -59,13 +68,33 @@ const EditAppointment = ({ params }: { params: any }) => {
                                 label="Name"
                             />
                         </Col>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={24} style={{ margin: "10px 0" }}>
                             <FormInput
                                 name="description"
                                 type="text"
                                 size="large"
                                 label="Name"
                             />
+                        </Col>
+
+                        <Col span={8} style={{ margin: "10px 0" }}>
+                            <div className="d-flex justify-content-center align-items-center gap-2">
+                                {defaultValues?.img &&
+                                    <div style={{ maxWidth: '100px' }}>
+                                        <Image
+                                            src={defaultValues?.img}
+                                            alt="avatar"
+                                            style={{ width: "100%" }}
+                                            width={100}
+                                            height={100}
+                                        />
+                                    </div>
+                                }
+                                <div>
+                                    <label>Change Image </label>
+                                    <UploadImage name="file" />
+                                </div>
+                            </div>
                         </Col>
 
                     </Row>

@@ -1,10 +1,10 @@
+'use client';
 import Image from "next/image"
-import blogImage from '@/assets/img/repair-by-pen.webp';
-import blogImage2 from '@/assets/img/repair-pen.jpg';
-import blogImage3 from '@/assets/img/repair-phone.jpg';
-import blogImage4 from '@/assets/img/repair-phone.jpg';
-
+import { useBlogsQuery } from "@/redux/api/blogApi";
+import { truncate } from "@/helpers/truncate";
+import dayjs from 'dayjs';
 const BlogAside = () => {
+    const {data} = useBlogsQuery({})
     return (
         <div>
             <div className="mb-4">
@@ -46,65 +46,25 @@ const BlogAside = () => {
 
             <div className="mb-4">
                 <h5 className="mb-3" style={{ fontWeight: '900' }}>RECEN POSTS</h5>
-                <div className="d-flex gap-2 align-items-center mb-2">
-                    <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
+                {data && data?.map((item:any) => (
+                <div className="d-flex gap-2 align-items-center mb-2" key={item.id}>
+                    {
+                        item?.img && <div style={{ minHeight: '4rem', overflow: 'hidden' }}>
+                        <Image src={item?.img} alt={item?.title} width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
                     </div>
+                    }
+                    
                     <div className="p-2">
-                        <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
+                        <h6 className="text-black text-start mb-1 text-primary"> {truncate(item?.title, 20)}</h6>
                         <div className="d-flex text-start gap-2">
                             <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
                                 <i className="ri-calendar-line"></i>
-                                <span className="form-text">01 January 2023</span>
+                                <span className="form-text">{dayjs(item?.createdAt).format('MMM D, YYYY hh:mm A')}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="d-flex gap-2 align-items-center mb-2">
-                    <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage2} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
-                    </div>
-                    <div className="p-2">
-                        <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
-                        <div className="d-flex text-start gap-2">
-                            <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
-                                <i className="ri-calendar-line"></i>
-                                <span className="form-text">01 January 2023</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="d-flex gap-2 align-items-center mb-2">
-                    <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage3} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
-                    </div>
-                    <div className="p-2">
-                        <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
-                        <div className="d-flex text-start gap-2">
-                            <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
-                                <i className="ri-calendar-line"></i>
-                                <span className="form-text">01 January 2023</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="d-flex gap-2 align-items-center mb-2">
-                    <div className="" style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={blogImage4} alt="blog Image" width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
-                    </div>
-                    <div className="p-2">
-                        <h6 className="text-black text-start mb-1 text-primary"> Unlocking Pin Protected Devices</h6>
-                        <div className="d-flex text-start gap-2">
-                            <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
-                                <i className="ri-calendar-line"></i>
-                                <span className="form-text">01 January 2023</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
 
             <div className="mb-4">

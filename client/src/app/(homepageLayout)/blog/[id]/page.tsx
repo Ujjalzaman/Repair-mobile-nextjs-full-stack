@@ -1,15 +1,16 @@
 import BlogDetail from "@/components/homepageUI/BlogDetail";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
     title: 'FixMyPhone/Detail-page',
     description: 'Welcome to FixMyPhone',
   }
 
-const BlogDetailPage = () => {
+const BlogDetailPage = ({ params }: { params: any }) => {
+    const {id} = params;
     return (
         <div>
-            <BlogDetail/>
+            <BlogDetail id={id}/>
         </div>
     )
 }

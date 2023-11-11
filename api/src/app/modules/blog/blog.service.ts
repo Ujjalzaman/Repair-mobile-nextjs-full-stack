@@ -1,12 +1,29 @@
 import { Blogs } from "@prisma/client";
 import prisma from "../../../shared/prisma";
+import { Request } from "express";
+import { CloudinaryHelper } from "../../../helpers/uploadHelper";
+import { IUpload } from "../../../interfaces/file";
+import ApiError from "../../errors/apiError";
+import httpStatus from "http-status";
 
-const createBlog = async (user: any, payload: Blogs): Promise<Blogs> => {
+const createBlog = async (req: Request): Promise<Blogs> => {
+    const user = req.user;
+    const data = JSON.parse(req.body.data);
+    const file = req.file;
+
+    if (file) {
+        const uploadImage = await CloudinaryHelper.uploadFile(file);
+        if (uploadImage) {
+            data['img'] = uploadImage.secure_url
+        } else {
+            throw new ApiError(httpStatus.EXPECTATION_FAILED, 'Failed to Upload Image !')
+        }
+    }
     if (user) {
-        payload['userId'] = user.id
+        data['userId'] = user.id
     }
     const result = await prisma.blogs.create({
-        data: payload
+        data: data
     })
     return result
 }
@@ -37,12 +54,24 @@ const deleteBlog = async (id: string): Promise<Blogs | null> => {
     return result;
 }
 
-const updateBlog = async (id: string, payload: Partial<Blogs>): Promise<Blogs | null> => {
+const updateBlog = async (req: Request): Promise<Blogs | null> => {
+    const data: Partial<Blogs> = JSON.parse(req.body.data);
+    const file = req.file;
+    const id = req.params.id;
+
+    if (file) {
+        const uploadImage = await CloudinaryHelper.uploadFile(file);
+        if (uploadImage) {
+            data['img'] = uploadImage.secure_url
+        } else {
+            throw new ApiError(httpStatus.EXPECTATION_FAILED, 'Failed to Upload Image !')
+        }
+    }
     const result = await prisma.blogs.update({
         where: {
             id: id
         },
-        data: payload
+        data: data
     })
     return result;
 }

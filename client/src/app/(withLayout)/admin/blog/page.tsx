@@ -4,7 +4,7 @@ import Actionbar from "@/components/UI/ActionBar"
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks"
-import { Button, Input, message } from "antd"
+import { Button, message } from "antd"
 import Link from "next/link"
 import { useState } from "react"
 import dayjs from 'dayjs';
@@ -15,6 +15,7 @@ import {
     EyeOutlined
 } from "@ant-design/icons";
 import { useBlogsQuery, useDeleteBlogMutation } from "../../../../redux/api/blogApi"
+import { truncate } from "@/helpers/truncate"
 
 const Appointment = () => {
     const query: Record<string, any> = {};
@@ -73,10 +74,17 @@ const Appointment = () => {
         {
             title: 'Title',
             dataIndex: 'title',
+            render: function(data:any){
+                return data && truncate(data, 30)
+            }
         },
         {
             title: 'Description',
-            dataIndex: 'description'
+            dataIndex: 'description',
+            render: function(data:any){
+                return data && truncate(data, 50)
+
+            }
         },
         {
             title: 'createdAt',

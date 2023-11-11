@@ -52,7 +52,7 @@ export default function HomepageHeader() {
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link text-white" href="/contact">Blog</Link>
+              <Link className="nav-link text-white" href="/blog">Blog</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-white" href="/contact">Contact</Link>

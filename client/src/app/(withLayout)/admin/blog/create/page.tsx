@@ -3,6 +3,7 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import FormTextArea from "@/components/Forms/FormTextArea";
+import UploadImage from "@/components/Forms/uploadImage";
 import FBreadCrumb from "@/components/UI/FBreadCrumb";
 import { useAddBlogMutation } from "@/redux/api/blogApi";
 import { Button, Col, Row, message } from "antd";
@@ -14,14 +15,22 @@ const CreateAdminPage = () => {
     const [addBlog] = useAddBlogMutation();
 
     const handleOnSubmit = async (values: any) => {
+        message.loading("Creating ...")
+        const obj = {...values};
+        const file = obj['file'];
+        delete obj['file'];
+        const data = JSON.stringify(obj);
+        const formData = new FormData();
+        formData.append('file', file as Blob);
+        formData.append('data', data);
         try {
-            const res = await addBlog({ ...values });
-            if (res) {
+            const res = await addBlog(formData);
+            if (!!res) {
                 message.success("Successfully Blog Created !");
                 router.push('/admin/blog')
             }
-        } catch (error) {
-            console.error(error);
+        } catch (error:any) {
+            message.loading(error.message)
         }
     }
     return (
@@ -42,7 +51,7 @@ const CreateAdminPage = () => {
                     }}
                 >
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={24} style={{ margin: "10px 0" }}>
                             <FormInput
                                 name="title"
                                 type="text"
@@ -51,10 +60,15 @@ const CreateAdminPage = () => {
                             />
                         </Col>
 
-                        <Col span={8} style={{ margin: "10px 0" }}>
+                        <Col span={24} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="description"
                                 label="description"
+                            />
+                        </Col>
+                        <Col span={8} style={{ margin: "10px 0" }}>
+                            <UploadImage
+                                name="file"
                             />
                         </Col>
                     </Row>
