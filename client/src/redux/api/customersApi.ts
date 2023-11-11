@@ -43,10 +43,11 @@ const customersApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.customers]
         }),
         updateCustomers: build.mutation({
-            query: (data) => ({
-                url: `${CUSTEMERS}/${data.id}`,
+            query: ({id, data}) => ({
+                url: `${CUSTEMERS}/${id}`,
                 method: 'PATCH',
-                data: data.body
+                data: data,
+                headers: { 'Content-Type': 'multipart/form-data'},
             }),
             invalidatesTags: [tagTypes.customers]
         })
