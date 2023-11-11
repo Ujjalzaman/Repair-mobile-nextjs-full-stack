@@ -78,10 +78,10 @@ export default function HomepageHeader() {
                     :
                     <>
                       <Link href={'/login'} className="me-2">
-                        <Button type='primary'>Login</Button>
+                        <Button type='primary' className='bg-primary'>Login</Button>
                       </Link>
                       <Link href={'/login'} className="">
-                        <Button type='primary'>SignUp</Button>
+                        <Button type='primary' className='bg-primary'>SignUp</Button>
                       </Link>
                     </>
                 }

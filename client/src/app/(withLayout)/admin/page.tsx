@@ -108,7 +108,7 @@ const ManageAdmin = () => {
             <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
               <EyeOutlined />
             </Button>
-            <Link href={`/admin/edit/${data.id}`}>
+            <Link href={`/customers/edit/${data.id}`}>
               <Button type='primary' style={{ margin: "5px 5px" }}>
                 <EditOutlined />
               </Button>

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button, Layout, Menu } from "antd";
 import { sidebarItems } from "@/constants/sidebarItems";
 import Image from "next/image";
-import avatar2 from '@/assets/boyAvatar.png';
 import avatar from '@/assets/avatar.jpg';
 import { getUserInfo } from "@/service/auth.service";
 import { useCustomerQuery } from "@/redux/api/customersApi";
@@ -32,18 +31,26 @@ const SideBar = () => {
         >
             <div className="text-center p-3">
                 <div className="h-100 w-100 border-rounded">
-
-                    <Image src={data?.role === 'admin' ? avatar : avatar2} width={80} height={80} alt="logo" style={{
-                        borderRadius: '50%',
-                        border: "5px solid #296eb0",
-                        objectFit: "cover"
-                    }}
-                    />
+                    {
+                        data && data?.profileImg ? <Image src={data?.profileImg} width={80} height={80} alt={data?.name} style={{
+                            borderRadius: '50%',
+                            border: "5px solid #296eb0",
+                            objectFit: "cover"
+                        }}
+                        />
+                        :
+                        <Image src={avatar} width={80} height={80} alt={data?.name} style={{
+                            borderRadius: '50%',
+                            border: "5px solid #296eb0",
+                            objectFit: "cover"
+                        }}
+                        />
+                    }
 
                 </div>
                 <div className="mt-2">
-                    <h4 className="text-capitalize">{data?.name}</h4>
-                    <p>Email: {data?.email}</p>
+                    <h4 className="text-capitalize text-white">{data?.name}</h4>
+                    <p className="text-white">{data?.email}</p>
                     <Link href={`/${data?.role}/view-profile`}>
                         <Button type="primary">View Profile</Button>
                     </Link>

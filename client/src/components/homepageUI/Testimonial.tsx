@@ -19,7 +19,7 @@ const Testimonial = () => {
                 <h3 className="text-black mb-0" style={{ fontWeight: 900 }}>WHAT OUR CLIENTS SAY’S</h3>
                 <p className="text-muted text-primary">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque, quidem.</p>
             </div>
-            <div className='mx-5 rounded p-5' style={{ background: '#5881572e' }}>
+            <div className='container rounded p-5' style={{ background: '#5881572e' }}>
                 <Swiper
                     centeredSlides={true}
                     spaceBetween={10}
