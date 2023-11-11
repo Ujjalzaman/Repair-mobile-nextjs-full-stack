@@ -20,20 +20,21 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
+const uploadFile = async (file: IUpload): Promise<ICloudinaryResponse> => {
+    if (!file || !file.path) {
+        throw new Error("File not provided or invalid.");
+    }
 
-const uploadFile = async (file: IUpload):Promise<ICloudinaryResponse> => {
     return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(file.path,
-            (error: Error, result: ICloudinaryResponse) => {
-                fs.unlinkSync(file.path)
-                if (error) {
-                    reject(error)
-                }
-                else {
-                    resolve(result)
-                }
-            })
-    })
+        cloudinary.uploader.upload(file.path, (error: Error, result: ICloudinaryResponse) => {
+            fs.unlinkSync(file.path);
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
 };
 
 export const CloudinaryHelper = {

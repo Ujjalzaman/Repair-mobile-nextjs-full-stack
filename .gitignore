@@ -1,4 +1,6 @@
+/node_modules
 /api/node_modules
 /api/prisma/migrations
 /api/dist
 **.env
+package-lock.json

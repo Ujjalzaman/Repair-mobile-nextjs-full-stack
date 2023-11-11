@@ -1,10 +1,11 @@
 export interface IUser {
-    address: string;
+    address?: string;
     createdAt: string;
     updatedAt: string;
     email: string;
     id: string;
     name: string;
     password: string;
-    role: string;
+    role?: string;
+    profileImg?: string
 }

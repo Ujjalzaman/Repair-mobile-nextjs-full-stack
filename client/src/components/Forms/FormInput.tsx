@@ -23,7 +23,7 @@ const FormInput = ({
     validation,
     label,
 }: IInput) => {
-    const { control, formState: { errors } } = useFormContext();
+    const { control, formState: { errors, isSubmitted } } = useFormContext();
     const errorMessage = getErrorMessageByPropertyName(errors, name)
     return (
         <>

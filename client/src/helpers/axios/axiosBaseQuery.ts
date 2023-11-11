@@ -11,23 +11,25 @@ export const axiosBaseQuery =
             url: string
             method: AxiosRequestConfig['method']
             data?: AxiosRequestConfig['data']
-            params?: AxiosRequestConfig['params']
+            params?: AxiosRequestConfig['params'];
+            headers?: AxiosRequestConfig['headers'];
             meta?: IMeta
             contentType?: string
         },
         unknown,
         unknown
     > =>
-        async ({ url, method, data, params, contentType }) => {
+        async ({ url, method, data, params, contentType,headers}) => {
             try {
                 const result = await instance({
                     url: baseUrl + url,
                     method,
                     data,
                     params,
-                    headers: {
-                        'Content-Type': contentType || 'application/json'
-                    }
+                    headers: headers
+                    // headers: {
+                    //     'Content-Type': contentType || 'application/json'
+                    // }
                 })
                 return result
             } catch (axiosError) {

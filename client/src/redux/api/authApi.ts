@@ -12,10 +12,10 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 data: loginData,
             }),
-            async onQueryStarted(arg, {queryFulfilled,dispatch}) {
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = (await queryFulfilled).data;
-                    setUserInfo({accessToken: result.accessToken});
+                    setUserInfo({ accessToken: result.accessToken });
                     dispatch(userLoggedIn(result.user))
                 } catch (error) {
                     console.log(error)
@@ -23,10 +23,11 @@ export const authApi = baseApi.injectEndpoints({
             },
         }),
         userSignUp: build.mutation({
-            query: (loginData) => ({
+            query: (data) => ({
                 url: `${AUTH_URL}/signup`,
                 method: 'POST',
-                data: loginData,
+                data,
+                headers: { 'Content-Type': 'multipart/form-data'},
             }),
         }),
     })
