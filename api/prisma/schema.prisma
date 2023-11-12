@@ -24,6 +24,7 @@ model User {
   appointmentSchedule appointmentSchedule[]
   reviews             Reviews[]
   Blogs               Blogs[]
+  Service             Service[]
 
   @@map("users")
 }
@@ -72,6 +73,32 @@ model appointmentSchedule {
   updatedAt DateTime @updatedAt
 
   @@map("appointment_schedule")
+}
+
+model Service {
+  id               String   @id @default(uuid())
+  appointment_date DateTime
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+
+  deviceType       String
+  issueDescription String
+
+  technician                String?
+  estimated_completion_time DateTime?
+  pickup_date               DateTime?
+  status                    ServiceStatus @default(pending)
+  isPaid                    Boolean?
+  isAppointmented           Boolean?
+  isReady                   Boolean       @default(false)
+  isFixed                   Boolean       @default(false)
+  deviceIssue               String?
+  img                       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("services")
 }
 
 model Reviews {
