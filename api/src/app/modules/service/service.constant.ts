@@ -1,0 +1,2 @@
+export const serviceFilterField = ['searchTerm', 'deviceType', 'issueDescription','technician','status','isPaid','isAppointmented','isReady','isFixed','deviceIssue']
+export const serviceSearchTermField = ['deviceType', 'issueDescription','technician','status','isPaid','isAppointmented','isReady','isFixed','deviceIssue']

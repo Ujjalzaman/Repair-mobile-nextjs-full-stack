@@ -4,6 +4,8 @@ import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { Service } from "@prisma/client";
 import { ServicesService } from "./service.service";
+import pick from "../../../shared/pick";
+import { serviceFilterField } from "./service.constant";
 
 const CreateService = catchAsync(async (req: Request, res: Response) => {
     const result = await ServicesService.CreateService(req);
@@ -16,7 +18,9 @@ const CreateService = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllServices = catchAsync(async (req: Request, res: Response) => {
-    const result = await ServicesService.getServices(req.user);
+    const filter = pick(req.query, serviceFilterField);
+    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder'])
+    const result = await ServicesService.getServices(req.user, filter, options);
     sendResponse<Service[]>(res, {
         statusCode: httpStatus.OK,
         message: "Services Retrive Successfully",

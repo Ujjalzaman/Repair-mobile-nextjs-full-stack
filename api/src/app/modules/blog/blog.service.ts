@@ -2,10 +2,13 @@ import { Blogs } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { Request } from "express";
 import { CloudinaryHelper } from "../../../helpers/uploadHelper";
-import { IUpload } from "../../../interfaces/file";
 import ApiError from "../../errors/apiError";
 import httpStatus from "http-status";
 import { UserInstance } from "../../../constant";
+import { IPaginationOtpions } from "../../../interfaces/pagination";
+import { IBlogFilters, blogSearchablFields } from "./blog.interface";
+import calculatePagination from "../../../shared/paginationHelper";
+import { IGenericResponse } from "../../../interfaces/common";
 
 const createBlog = async (req: Request): Promise<Blogs> => {
     const user = req.user;
@@ -28,16 +31,53 @@ const createBlog = async (req: Request): Promise<Blogs> => {
     })
     return result
 }
+const getAllBlogs = async (
+    filters: IBlogFilters,
+    options: IPaginationOtpions
+): Promise<IGenericResponse<Blogs[]>> => {
+    const { limit, page, skip } = calculatePagination(options);
+    const { searchTerm, ...filterData } = filters;
 
-const getAllBlogs = async (): Promise<Blogs[] | null> => {
+    const andConditions = [];
+    if (searchTerm) {
+        andConditions.push({
+            OR: blogSearchablFields.map((field) => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive'
+                }
+            }))
+        })
+    };
+    if (Object.keys(filterData).length > 0) {
+        andConditions.push({
+            AND: Object.entries(filterData).map(([key, value]) => ({
+                [key]: { equals: value }
+            }))
+        });
+    }
+    const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+
     const result = await prisma.blogs.findMany({
-        include: {
-            user: {
-                select: UserInstance
-            }
+        skip,
+        take: limit,
+        where: whereConditions,
+        orderBy: options.sortBy && options.sortOrder ? {
+            [options.sortBy]: options.sortOrder
+        } : {
+            createdAt: 'desc'
         }
-    });
-    return result;
+    })
+    const total = await prisma.blogs.count({ where: whereConditions });
+
+    return {
+        meta: {
+            page,
+            limit,
+            total
+        },
+        data: result
+    }
 }
 
 const getBlog = async (id: string): Promise<Blogs | null> => {

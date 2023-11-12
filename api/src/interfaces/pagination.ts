@@ -1,6 +1,6 @@
 export type IPaginationOtpions = {
-    page?: number;
-    limit?: number;
+    page?: number | undefined;
+    limit?: number | undefined;
     sortBy?: string;
     sortOrder?: 'asc' | 'dsc';
 }

@@ -4,6 +4,7 @@ import sendResponse from "../../../shared/sendResponse";
 import { Reviews } from "@prisma/client";
 import httpStatus from "http-status";
 import { ReviewService } from "./reviews.service";
+import pick from "../../../shared/pick";
 
 const createReview = catchAsync(async (req: Request, res: Response) => {
     await ReviewService.createReview(req.user, req.body);
@@ -15,8 +16,10 @@ const createReview = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllReviews = catchAsync(async (req: Request, res: Response) => {
-    const result = await ReviewService.getAllReviews();
-    sendResponse<Reviews[]>(res, {
+    const filter = pick(req.query, ['searchTerm', 'title', 'description']);
+    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder'])
+    const result = await ReviewService.getAllReviews(filter, options);
+    sendResponse(res, {
         statusCode: httpStatus.OK,
         message: "Reviews Retrive Successfully",
         success: true,

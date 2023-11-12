@@ -1,6 +1,10 @@
-import { Reviews, UserRole } from "@prisma/client";
+import { Prisma, Reviews, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { UserInstance } from "../../../constant";
+import { IBlogFilters } from "../blog/blog.interface";
+import { IPaginationOtpions } from "../../../interfaces/pagination";
+import { IGenericResponse } from "../../../interfaces/common";
+import calculatePagination from "../../../shared/paginationHelper";
 
 const createReview = async (user: any, payload: Reviews): Promise<Reviews> => {
     if (user) {
@@ -12,15 +16,56 @@ const createReview = async (user: any, payload: Reviews): Promise<Reviews> => {
     return result
 }
 
-const getAllReviews = async (): Promise<Reviews[] | null> => {
-    const result = await prisma.reviews.findMany({
-        include: {
-            user: {
-                select: UserInstance
-            }
+const getAllReviews = async (
+    filters: IBlogFilters,
+    options: IPaginationOtpions
+): Promise<IGenericResponse<Reviews[]>> => {
+    const { limit, page, skip } = calculatePagination(options);
+    const { searchTerm, ...filterData } = filters;
+
+    const andConditions = [];
+
+
+    if (Object.keys(filterData).length > 0) {
+        andConditions.push({
+            AND: Object.entries(filterData).map(([key, value]) => ({
+                [key]: { equals: value }
+            }))
+        });
+    }
+
+    if (searchTerm) {
+        andConditions.push({
+            OR: ['title', 'description'].map((field) => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive'
+                }
+            }))
+        })
+    };
+    const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+
+    const result = await prisma.blogs.findMany({
+        skip,
+        take: limit,
+        where: whereConditions,
+        orderBy: options.sortBy && options.sortOrder ? {
+            [options.sortBy]: options.sortOrder
+        } : {
+            createdAt: 'desc'
         }
-    });
-    return result;
+    })
+    const total = await prisma.blogs.count({ where: whereConditions });
+
+    return {
+        meta: {
+            page,
+            limit,
+            total
+        },
+        data: result
+    }
 }
 
 const getMyReviews = async (user: any): Promise<Reviews[] | null> => {

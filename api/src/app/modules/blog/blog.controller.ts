@@ -4,6 +4,7 @@ import sendResponse from "../../../shared/sendResponse";
 import { Blogs } from "@prisma/client";
 import httpStatus from "http-status";
 import { BlogService } from "./blog.service";
+import pick from "../../../shared/pick";
 
 const createBlog = catchAsync(async (req: Request, res: Response) => {
     const result = await BlogService.createBlog(req);
@@ -15,8 +16,10 @@ const createBlog = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllBlogs = catchAsync(async (req: Request, res: Response) => {
-    const result = await BlogService.getAllBlogs();
-    sendResponse<Blogs[]>(res, {
+    const filter = pick(req.query, ['searchTerm', 'title', 'description']);
+    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder'])
+    const result = await BlogService.getAllBlogs(filter, options);
+    sendResponse(res, {
         statusCode: httpStatus.OK,
         message: "Blogs Retrive Successfully",
         success: true,

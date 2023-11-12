@@ -5,10 +5,15 @@ import sendResponse from "../../../shared/sendResponse";
 import { User } from "@prisma/client";
 import httpStatus from "http-status";
 import { IUser } from "../../../interfaces/common";
+import pick from "../../../shared/pick";
+import { serviceSearchTermField } from "../service/service.constant";
 
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
-    const result = await UserService.getAllUser();
-    sendResponse<IUser[]>(res, {
+    const filter = pick(req.query, serviceSearchTermField);
+    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder'])
+    
+    const result = await UserService.getAllUser(filter, options);
+    sendResponse(res, {
         statusCode: httpStatus.OK,
         message: "Users Retrieve Successfully",
         success: true,
