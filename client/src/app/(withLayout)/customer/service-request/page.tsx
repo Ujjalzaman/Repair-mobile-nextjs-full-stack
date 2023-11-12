@@ -45,7 +45,7 @@ const ServiceRequest = () => {
     if (!!debouncedTerm) {
         query['searchTerm'] = debouncedTerm
     }
-    
+
 
     const [deleteService] = useDeleteServiceMutation();
 
@@ -104,7 +104,21 @@ const ServiceRequest = () => {
             key: 'Action',
             render: function (data: any) {
                 return (
-                    <>
+                    <>  
+                    {services?.status === 'ready_for_appointment' || services?.status === 'scheduled' &&
+                        <Link href={'/schedule'}>
+                        <Button type='primary' style={{ margin: "5px 5px" }}>
+                            Get Interview
+                        </Button>
+                        </Link>
+                    }
+                    {services?.status === 'payment_pending' &&
+                        <Link href={`/submit-payment/${data.id}`}>
+                        <Button type='primary' style={{ margin: "5px 5px" }}>
+                            Get Interview
+                        </Button>
+                        </Link>
+                    }
                         <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>

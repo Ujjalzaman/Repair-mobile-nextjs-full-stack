@@ -105,6 +105,7 @@ const serviceStatus = [
     "completed",
     "canceled",
     "scheduled",
+    "fixed",
     "payment_pending",
     "delayed",
     "closed",

@@ -54,7 +54,7 @@ const EditService = ({ params }: { params: any }) => {
                     { label: "service", link: `/${base}/service-request` },
                 ]}
             />
-            <h5 className='p-2 text-white'>Update User</h5>
+            <h5 className='p-2'>Update Service Request</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -65,7 +65,7 @@ const EditService = ({ params }: { params: any }) => {
                     }}
                 >
                     <p style={{ fontSize: "18px", fontWeight: "500", margin: "5px 0px" }}>
-                        Basic information
+                        My Servicing Issues
                     </p>
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }} >
                         <Col span={12} style={{ margin: "10px 0" }}>

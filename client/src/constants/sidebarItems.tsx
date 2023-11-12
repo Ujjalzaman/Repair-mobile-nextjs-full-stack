@@ -25,6 +25,10 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/customers`
         },
         {
+            label: <Link href={`/${role}/order`}>Order</Link>,
+            key: `/${role}/order`,
+        },
+        {
             label: <Link href={`/${role}/service-request`}>Services</Link>,
             key: `/${role}/service-request`,
         },
@@ -45,12 +49,12 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/service-request`,
         },
         {
-            label: <Link href={`/${role}/appointment`}>Appointment</Link>,
-            key: `/${role}/appointment`,
+            label: <Link href={`/${role}/order`}>My Order</Link>,
+            key: `/${role}/order`,
         },
         {
-            label: <Link href={`/${role}/service-request/tracking`}>Tracking</Link>,
-            key: `/${role}/service-request/tracking`,
+            label: <Link href={`/${role}/appointments`}>Appointment</Link>,
+            key: `/${role}/appointment`,
         },
         {
             label: <Link href={`/${role}/testimonials`}>Testimonials</Link>,

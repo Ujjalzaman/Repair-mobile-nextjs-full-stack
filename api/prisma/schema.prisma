@@ -23,8 +23,8 @@ model User {
   ServiceRequest      ServiceRequest[]
   appointmentSchedule appointmentSchedule[]
   reviews             Reviews[]
-  Blogs               Blogs[]
-  Service             Service[]
+  blogs               Blogs[]
+  service             Service[]
 
   @@map("users")
 }
@@ -96,6 +96,7 @@ model Service {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  order     Order[]
 
   @@map("services")
 }
@@ -127,6 +128,25 @@ model Blogs {
   @@map("blogs")
 }
 
+model Order {
+  id              String   @id @default(uuid())
+  hardware        Int?
+  software       Int?
+  parts           String?
+  technician_bill Int?
+  totalAmount     Int?
+  tax             Int?
+  oversarbation   String?
+  invoiceNumber   String?
+  serviceId       String
+  isPaid          Boolean  @default(false)
+  service         Service  @relation(fields: [serviceId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("orders")
+}
+
 enum UserRole {
   admin
   customer
@@ -143,6 +163,7 @@ enum ServiceStatus {
   ready_for_appointment
   completed
   canceled
+  fixed
   scheduled
   payment_pending
   delayed

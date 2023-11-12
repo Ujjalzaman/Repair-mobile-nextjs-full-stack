@@ -17,7 +17,7 @@ const ServiceApi = baseApi.injectEndpoints({
                     meta
                 }
             },
-            providesTags: [tagTypes.blog]
+            providesTags: [tagTypes.service]
         }),
         addService: build.mutation({
             query: (data) => ({
@@ -26,21 +26,21 @@ const ServiceApi = baseApi.injectEndpoints({
                 data: data,
                 headers: { 'Content-Type': 'multipart/form-data' },
             }),
-            invalidatesTags: [tagTypes.blog]
+            invalidatesTags: [tagTypes.service]
         }),
         service: build.query({
             query: (id) => ({
                 url: `${SERVICE_URL}/${id}`,
                 method: 'GET'
             }),
-            providesTags: [tagTypes.blog]
+            providesTags: [tagTypes.service]
         }),
         deleteService: build.mutation({
             query: (id) => ({
                 url: `${SERVICE_URL}/${id}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: [tagTypes.blog]
+            invalidatesTags: [tagTypes.service]
         }),
         updateService: build.mutation({
             query: ({ id, data }) => ({
@@ -49,9 +49,16 @@ const ServiceApi = baseApi.injectEndpoints({
                 data: data,
                 headers: { 'Content-Type': 'multipart/form-data' },
             }),
-            invalidatesTags: [tagTypes.blog]
+            invalidatesTags: [tagTypes.service]
+        }),
+        appointment: build.query({
+            query: (id) => ({
+                url: `${SERVICE_URL}?status=scheduled`,
+                method: 'GET'
+            }),
+            providesTags: [tagTypes.service]
         }),
     }),
 })
 
-export const { useAddServiceMutation, useDeleteServiceMutation, useServiceQuery, useServicesQuery, useUpdateServiceMutation } = ServiceApi;   
+export const { useAppointmentQuery, useAddServiceMutation, useDeleteServiceMutation, useServiceQuery, useServicesQuery, useUpdateServiceMutation } = ServiceApi;   

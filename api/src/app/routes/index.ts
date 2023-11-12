@@ -7,6 +7,7 @@ import { ServiceResolveRoutes } from '../modules/serviceResolve/serviceResolve.r
 import { ReviewRoutes } from '../modules/reviews/reviews.route';
 import { BlogRoutes } from '../modules/blog/blog.route';
 import { ServicesRoutes } from '../modules/service/service.route';
+import { OrderRoutes } from '../modules/orders/order.route';
 
 const router = express.Router();
 
@@ -18,7 +19,8 @@ const modulesRoutes = [
     { path: '/service-resolve', route: ServiceResolveRoutes },
     { path: '/reviews', route: ReviewRoutes },
     { path: '/blog', route: BlogRoutes },
-    { path: '/services', route: ServicesRoutes }
+    { path: '/services', route: ServicesRoutes },
+    { path: '/order', route: OrderRoutes }
 ]
 
 modulesRoutes.map((route) => router.use(route.path, route.route))
