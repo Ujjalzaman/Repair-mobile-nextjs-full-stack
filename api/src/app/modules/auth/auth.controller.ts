@@ -26,9 +26,8 @@ const SignUpUser = catchAsync(async (req: Request, res: Response) => {
     const result = await AuthService.SignUpUser(req);
     sendResponse<User>(res, {
         statusCode: httpStatus.OK,
-        message: "User SignUp Successfully",
-        success: true,
-        data: result
+        message: "Successfully SignUp !",
+        success: true
     })
 })
 

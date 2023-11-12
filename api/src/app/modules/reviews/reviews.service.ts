@@ -1,5 +1,6 @@
 import { Reviews, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
+import { UserInstance } from "../../../constant";
 
 const createReview = async (user: any, payload: Reviews): Promise<Reviews> => {
     if (user) {
@@ -13,28 +14,38 @@ const createReview = async (user: any, payload: Reviews): Promise<Reviews> => {
 
 const getAllReviews = async (): Promise<Reviews[] | null> => {
     const result = await prisma.reviews.findMany({
-        include:{
-            user: true
+        include: {
+            user: {
+                select: UserInstance
+            }
         }
     });
     return result;
 }
 
 const getMyReviews = async (user: any): Promise<Reviews[] | null> => {
-    const {id} = user;
+    const { id } = user;
     if (user.role === UserRole.customer) {
         const result = await prisma.reviews.findMany({
             where: {
                 userId: id
             },
-            include:{
-                user: true
+            include: {
+                user: {
+                    select: UserInstance
+                }
             }
         });
         return result;
     }
     else {
-        const result = await prisma.reviews.findMany({});
+        const result = await prisma.reviews.findMany({
+            include: {
+                user: {
+                    select: UserInstance
+                }
+            }
+        });
         return result;
     }
 }
@@ -42,8 +53,10 @@ const getMyReviews = async (user: any): Promise<Reviews[] | null> => {
 const getReview = async (id: string): Promise<Reviews | null> => {
     const result = await prisma.reviews.findUnique({
         where: { id },
-        include:{
-            user: true
+        include: {
+            user: {
+                select: UserInstance
+            }
         }
     });
     return result;

@@ -1,12 +1,31 @@
 import { UserRole, appointmentSchedule } from "@prisma/client";
 import prisma from "../../../shared/prisma";
+import { UserInstance } from "../../../constant";
 
 const createAppointment = async (user: any, payload: appointmentSchedule): Promise<appointmentSchedule> => {
     if (user) {
         payload.userId = user.id
     }
     const result = await prisma.appointmentSchedule.create({
-        data: payload
+        data: payload,
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
+                    address: true,
+                    profileImg: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    ServiceRequest: true,
+                    appointmentSchedule: true,
+                    reviews: true,
+                    Blogs: true,
+                }
+            }
+        }
     });
     return result;
 }
@@ -18,9 +37,12 @@ const getAllAppointment = async (user: any): Promise<appointmentSchedule[] | nul
                 userId: user.id
             },
             include: {
-                user: true,
-                serviceRequest: true
-            }
+                user: {
+                    select: UserInstance
+                },
+                serviceRequest: true,
+            },
+
         });
         return result;
     }
@@ -38,6 +60,11 @@ const getAllAppointment = async (user: any): Promise<appointmentSchedule[] | nul
 const getSingleAppointment = async (id: string): Promise<appointmentSchedule | null> => {
     const result = await prisma.appointmentSchedule.findUnique({
         where: { id },
+        include: {
+            user: {
+                select: UserInstance
+            }
+        }
 
     });
     return result;

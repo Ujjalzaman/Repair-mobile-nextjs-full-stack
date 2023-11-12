@@ -15,7 +15,7 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
     const { email: IEmail, password } = user;
     const isUserExist = await prisma.user.findUnique({
         where: {
-            email: IEmail
+            email: IEmail,
         }
     })
     if (!isUserExist) {
@@ -33,7 +33,7 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
         config.jwt_secret as Secret,
         config.jwt_expiredIn as string
     )
-    return { accessToken, user: isUserExist }
+    return { accessToken, user: {email, role, id, profileImg} }
 }
 
 const SignUpUser = async (req: Request): Promise<User | null> => {

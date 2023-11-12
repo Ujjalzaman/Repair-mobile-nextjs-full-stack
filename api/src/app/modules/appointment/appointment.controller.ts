@@ -10,8 +10,7 @@ const createAppointment = catchAsync(async (req: Request, res: Response) => {
     sendResponse<appointmentSchedule>(res, {
         statusCode: httpStatus.OK,
         message: "Appoinment Created Successfully",
-        success: true,
-        data: result
+        success: true
     })
 })
 
@@ -40,8 +39,7 @@ const updateAppointment = catchAsync(async (req: Request, res: Response) => {
     sendResponse<appointmentSchedule>(res, {
         statusCode: httpStatus.OK,
         message: "Appointment Updated Successfully",
-        success: true,
-        data: result
+        success: true
     })
 })
 

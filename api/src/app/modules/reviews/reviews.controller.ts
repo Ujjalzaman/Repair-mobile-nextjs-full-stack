@@ -6,12 +6,11 @@ import httpStatus from "http-status";
 import { ReviewService } from "./reviews.service";
 
 const createReview = catchAsync(async (req: Request, res: Response) => {
-    const result = await ReviewService.createReview(req.user, req.body);
+    await ReviewService.createReview(req.user, req.body);
     sendResponse<Reviews>(res, {
         statusCode: httpStatus.OK,
-        message: "Review Created Successfully",
+        message: "Successfully Submited Review ",
         success: true,
-        data: result
     })
 })
 

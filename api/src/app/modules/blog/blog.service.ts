@@ -5,6 +5,7 @@ import { CloudinaryHelper } from "../../../helpers/uploadHelper";
 import { IUpload } from "../../../interfaces/file";
 import ApiError from "../../errors/apiError";
 import httpStatus from "http-status";
+import { UserInstance } from "../../../constant";
 
 const createBlog = async (req: Request): Promise<Blogs> => {
     const user = req.user;
@@ -23,7 +24,7 @@ const createBlog = async (req: Request): Promise<Blogs> => {
         data['userId'] = user.id
     }
     const result = await prisma.blogs.create({
-        data: data
+        data: data,
     })
     return result
 }
@@ -31,7 +32,9 @@ const createBlog = async (req: Request): Promise<Blogs> => {
 const getAllBlogs = async (): Promise<Blogs[] | null> => {
     const result = await prisma.blogs.findMany({
         include: {
-            user: true
+            user: {
+                select: UserInstance
+            }
         }
     });
     return result;
@@ -41,7 +44,9 @@ const getBlog = async (id: string): Promise<Blogs | null> => {
     const result = await prisma.blogs.findUnique({
         where: { id },
         include: {
-            user: true
+            user: {
+                select: UserInstance
+            }
         }
     });
     return result;

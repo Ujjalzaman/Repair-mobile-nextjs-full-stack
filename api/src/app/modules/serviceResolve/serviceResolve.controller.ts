@@ -10,8 +10,7 @@ const createServiceResolv = catchAsync(async (req: Request, res: Response) => {
     sendResponse<ServiceRequestResolving>(res, {
         statusCode: httpStatus.OK,
         message: "Service Resolving Created Successfully",
-        success: true,
-        data: result
+        success: true
     })
 })
 
@@ -40,8 +39,7 @@ const updateServiceResolv = catchAsync(async (req: Request, res: Response) => {
     sendResponse<ServiceRequestResolving>(res, {
         statusCode: httpStatus.OK,
         message: "Service Resolving Updated Successfully",
-        success: true,
-        data: result
+        success: true
     })
 })
 

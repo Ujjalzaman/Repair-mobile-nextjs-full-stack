@@ -5,15 +5,20 @@ import { Request } from "express";
 import { CloudinaryHelper } from "../../../helpers/uploadHelper";
 import ApiError from "../../errors/apiError";
 import httpStatus from "http-status";
+import { IUser } from "../../../interfaces/common";
+import { UserInstance } from "../../../constant";
 
-const getAllUser = async (): Promise<User[] | null> => {
-    const result = await prisma.user.findMany({});
+const getAllUser = async (): Promise<IUser[] | null> => {
+    const result = await prisma.user.findMany({
+        select: UserInstance
+    });
     return result;
 }
 
-const getSingleAllUser = async (id: string): Promise<User | null> => {
+const getSingleAllUser = async (id: string): Promise<IUser | null> => {
     const result = await prisma.user.findUnique({
-        where: { id }
+        where: { id },
+        select: UserInstance
     });
     return result;
 }
@@ -25,7 +30,7 @@ const deleteUser = async (id: string): Promise<User | null> => {
     return result;
 }
 
-const updateUser = async (req: Request): Promise<User | null> => {
+const updateUser = async (req: Request): Promise<IUser | null> => {
     const file = req.file as IUpload;
     const id = req.params.id as string;
     const user = JSON.parse(req.body.data);
@@ -39,12 +44,26 @@ const updateUser = async (req: Request): Promise<User | null> => {
     }
     const result = await prisma.user.update({
         where: { id },
-        data: user
+        data: user,
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            address: true,
+            profileImg: true,
+            createdAt: true,
+            updatedAt: true,
+            ServiceRequest: true,
+            appointmentSchedule: true,
+            reviews: true,
+            Blogs: true,
+        }
     });
     return result;
 }
 
-const getAdminUsers = async (): Promise<User[] | null> => {
+const getAdminUsers = async (): Promise<IUser[] | null> => {
     const result = await prisma.user.findMany({
         where: {
             role: UserRole.admin || UserRole.super_admin

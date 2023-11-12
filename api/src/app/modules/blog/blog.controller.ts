@@ -10,8 +10,7 @@ const createBlog = catchAsync(async (req: Request, res: Response) => {
     sendResponse<Blogs>(res, {
         statusCode: httpStatus.OK,
         message: "Blog Created Successfully",
-        success: true,
-        data: result
+        success: true
     })
 })
 
@@ -41,7 +40,6 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
         statusCode: httpStatus.OK,
         message: "Blog Updated Successfully",
         success: true,
-        data: result
     })
 })
 

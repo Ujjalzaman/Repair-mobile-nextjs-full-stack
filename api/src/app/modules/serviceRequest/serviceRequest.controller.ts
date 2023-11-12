@@ -7,13 +7,11 @@ import { ServiceRequestService } from "./serviceRequest.service";
 import { IUser } from "./serviceRequest.interface";
 
 const createServiceRequest = catchAsync(async (req: Request, res: Response) => {
-    
-    const result = await ServiceRequestService.createServiceRequest(req.user, req.body);
+    await ServiceRequestService.createServiceRequest(req.user, req.body);
     sendResponse<ServiceRequest>(res, {
         statusCode: httpStatus.OK,
         message: "Service Request Created Successfully",
         success: true,
-        data: result
     })
 })
 
@@ -42,8 +40,7 @@ const updateServiceRequest = catchAsync(async (req: Request, res: Response) => {
     sendResponse<ServiceRequest>(res, {
         statusCode: httpStatus.OK,
         message: "Service Request Updated Successfully",
-        success: true,
-        data: result
+        success: true
     })
 })
 
