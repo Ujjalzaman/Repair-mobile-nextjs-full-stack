@@ -3,8 +3,44 @@ import Image from "next/image"
 import { useBlogsQuery } from "@/redux/api/blogApi";
 import { truncate } from "@/helpers/truncate";
 import dayjs from 'dayjs';
+import { Empty, message } from "antd";
+import BlogAsideSkeleton from "../UI/BlogAsideSkeleton";
+
 const BlogAside = () => {
-    const {data} = useBlogsQuery({})
+    const { data, isError, isLoading } = useBlogsQuery({ limit: 4 });
+    let content = null;
+    if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
+    if (!isLoading && !isError && data?.length === 0) content = <Empty />
+    if (!isLoading && !isError && data?.length > 0) content =
+        <>
+            {data && data?.map((item: any) => (
+                <div className="d-flex gap-2 align-items-center mb-2" key={item.id}>
+                    {
+                        item?.img && <div style={{ minHeight: '4rem', overflow: 'hidden' }}>
+                            <Image src={item?.img} alt={item?.title} width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover" />
+                        </div>
+                    }
+                    <div className="p-2">
+                        <h6 className="text-black text-start mb-1 text-primary"> {truncate(item?.title, 20)}</h6>
+                        <div className="d-flex text-start gap-2">
+                            <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
+                                <i className="ri-calendar-line"></i>
+                                <span className="form-text">{dayjs(item?.createdAt).format('MMM D, YYYY hh:mm A')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </>
+
+    if (isLoading) content =
+        <div>
+            {Array.from({ length: 4 }).map((_, index) => (
+                <div className="col-4 mb-3" style={{ maxWidth: '25rem' }} >
+                    <BlogAsideSkeleton />
+                </div>
+            ))}
+        </div>
     return (
         <div>
             <div className="mb-4">
@@ -46,25 +82,7 @@ const BlogAside = () => {
 
             <div className="mb-4">
                 <h5 className="mb-3" style={{ fontWeight: '900' }}>RECEN POSTS</h5>
-                {data && data?.map((item:any) => (
-                <div className="d-flex gap-2 align-items-center mb-2" key={item.id}>
-                    {
-                        item?.img && <div style={{ minHeight: '4rem', overflow: 'hidden' }}>
-                        <Image src={item?.img} alt={item?.title} width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover"/>
-                    </div>
-                    }
-                    
-                    <div className="p-2">
-                        <h6 className="text-black text-start mb-1 text-primary"> {truncate(item?.title, 20)}</h6>
-                        <div className="d-flex text-start gap-2">
-                            <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
-                                <i className="ri-calendar-line"></i>
-                                <span className="form-text">{dayjs(item?.createdAt).format('MMM D, YYYY hh:mm A')}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ))}
+                {content}
             </div>
 
             <div className="mb-4">
@@ -81,5 +99,4 @@ const BlogAside = () => {
         </div>
     )
 }
-
 export default BlogAside

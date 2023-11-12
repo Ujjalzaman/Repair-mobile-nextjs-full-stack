@@ -10,9 +10,48 @@ import 'swiper/css/navigation';
 import { useReviewsQuery } from '@/redux/api/reviewsApi';
 import Image from 'next/image';
 import avatar from '@/assets/avatar.jpg'
+import BlogSkeleton from '../UI/BlogSkeleton';
+import { Empty, message } from 'antd';
 
 const Testimonial = () => {
-    const { data } = useReviewsQuery({});
+    const { data, isError, isLoading } = useReviewsQuery({});
+    let content = null;
+    if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
+    if (!isLoading && !isError && data?.length === 0) content = <Empty />
+    if (!isLoading && !isError && data?.length > 0) content =
+        <>
+            {
+                data &&
+                data?.map((item: any) => (
+                    <SwiperSlide key={item.id}>
+                        <div className="row mx-2">
+                            <div className="col">
+                                <div className="mx-auto">
+                                    <div className={style.review}>
+                                        <Image src={avatar} alt="image" />
+                                        <h5 className={style.testimonialName}>{item.title} </h5>
+                                        <h6 className={style.testimonialAddress}>New yourk</h6>
+                                        <p><i>{item.description}</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))
+            }
+        </>
+
+    if (isLoading) content =
+        <div className='container'>
+            <div className='row justify-content-center'>
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <div className="col-4" style={{ maxWidth: '18rem' }} >
+                        <BlogSkeleton />
+                    </div>
+                ))}
+            </div>
+        </div>
+
     return (
         <section style={{ marginTop: '8rem', marginBottom: '8rem' }}>
             <div className="text-center">
@@ -35,26 +74,7 @@ const Testimonial = () => {
                     modules={[Autoplay, Pagination, Navigation]}
                     slidesPerView={3}
                 >
-                    {
-                        data &&
-                        data?.map((item: any) => (
-                            <SwiperSlide key={item.id}>
-                                <div className="row mx-2">
-                                    <div className="col">
-                                        <div className="mx-auto">
-                                            <div className={style.review}>
-                                                <Image src={avatar} alt="image" />
-                                                <h5 className={style.testimonialName}>{item.title} </h5>
-                                                <h6 className={style.testimonialAddress}>New yourk</h6>
-                                                <p><i>{item.description}</i></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </SwiperSlide>
-                        ))
-                    }
+                    {content}
                 </Swiper>
             </div>
         </section>
