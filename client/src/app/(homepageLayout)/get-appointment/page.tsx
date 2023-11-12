@@ -9,11 +9,13 @@ import SubHeader from "@/components/UI/SubHeader"
 import { DeviceTypeOptions, deviceIssueOptions } from "@/constants/global";
 import { useAddServiceMutation } from "@/redux/api/serviceApi";
 import { Button, Col, Row, message } from "antd";
+import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2'
 
 const GetAppointment = () => {
     const base = 'customer';
     const [addService] = useAddServiceMutation();
+    const router = useRouter();
     const serviceRequestOnSubmit = async (values: any) => {
         message.loading("Creating ...");
         const obj = { ...values };
@@ -34,6 +36,7 @@ const GetAppointment = () => {
                     showConfirmButton: false,
                     timer: 6000
                   });
+                router.push('customer/service-request')
             }
         } catch (error: any) {
             message.error(error.message)

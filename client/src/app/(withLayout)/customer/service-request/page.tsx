@@ -3,22 +3,32 @@ import Actionbar from "@/components/UI/ActionBar"
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks"
-import { Button, message } from "antd"
+import { Button } from "antd"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import dayjs from 'dayjs';
 import {
-    DeleteOutlined,
+    EditOutlined,
+    EyeOutlined
 } from "@ant-design/icons";
-import { useDeleteServiceRequestMutation, useServiceRequestsQuery } from "@/redux/api/serviceRequestApi"
+
+import { useDeleteServiceMutation, useServiceQuery, useServicesQuery } from "@/redux/api/serviceApi"
+import { truncate } from "@/helpers/truncate"
+import PopDelete from "@/components/UI/PopDelete"
+
+import { Modal } from 'antd';
+import FModal from "@/components/UI/FModal"
+import Image from "next/image"
 
 const ServiceRequest = () => {
+
     const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
     const [sortBy, setSortBy] = useState<string>("")
     const [sortOrder, setSortOrder] = useState<string>("")
     const [searchTerm, setSearchTerm] = useState<string>("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     query['limit'] = size;
     query['page'] = page;
@@ -33,20 +43,9 @@ const ServiceRequest = () => {
     if (!!debouncedTerm) {
         query['searchTerm'] = debouncedTerm
     }
+    const { data, isLoading } = useServicesQuery({ ...query });
+    const [deleteService] = useDeleteServiceMutation();
 
-    const { data, isLoading } = useServiceRequestsQuery({ ...query });
-    const [deleteServiceRequest] = useDeleteServiceRequestMutation();
-    const deleteHandler = async (id: string) => {
-        message.loading("Deleting ...");
-        try {
-            const res = deleteServiceRequest(id);
-            if (!!res) {
-                message.success("Successfully Deleted !!");
-            }
-        } catch (error: any) {
-            message.error(error.message);
-        }
-    }
 
     const onTableChange = (pagination: any, filter: any, sorter: any) => {
         const { order, field } = sorter;
@@ -64,6 +63,7 @@ const ServiceRequest = () => {
         setSortOrder("");
     }
 
+
     const columns = [
         {
             title: 'deviceType',
@@ -79,8 +79,9 @@ const ServiceRequest = () => {
         {
             title: 'issueDescription',
             dataIndex: 'issueDescription',
-            key: 'issueDescription'
-
+            render: function (data: any) {
+                return data && truncate(data, 30)
+            }
         },
         {
             title: 'createdAt',
@@ -96,31 +97,56 @@ const ServiceRequest = () => {
             key: 'Action',
             render: function (data: any) {
                 return (
-                    <div key={data.id}>
-                        <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
-                            <DeleteOutlined />
+                    <>
+                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
+                            <EyeOutlined />
                         </Button>
-                        {data.status === 'ready_for_appointment' &&
-                            <Link href={`/customer/appointment/${data.id}`} >
-                                <Button type='primary' style={{ margin: "5px 5px" }}>
-                                    Get Appointment
-                                </Button>
-                            </Link>
-                        }
-                    </div>
+                        <Link href={`/customer/service-request/edit/${data.id}`}>
+                            <Button type='primary' style={{ margin: "5px 5px" }}>
+                                <EditOutlined />
+                            </Button>
+                        </Link>
+                        <PopDelete title="Service Request" fc={() => deleteService(data.id)} />
+                    </>
                 )
             }
         },
 
     ];
 
+    const [skipId, setSkipId] = useState<string>("");
+    const [isSkip, setSkip] = useState<boolean>(true);
+    const { data: serviceData } = useServiceQuery(skipId, {
+        skip: isSkip
+    });
+
+
+    const showModal = (id: string) => {
+        setSkipId(id);
+        setIsModalOpen(true);
+
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+    useEffect(() => {
+        if (skipId) {
+            setSkip(false)
+        }
+    }, [skipId]);
+
+
     return (
         <>
             <FBreadCrumb items={[{ label: "dashboard", link: `/dashboard` }]} />
-            <Actionbar title="Service Request">
+            <Actionbar title="Services">
                 <div>
-                    <Link href="/customer/service-request/create">
-                        <Button type='primary'>Create</Button>
+                    <Link href="/get-appointment">
+                        <Button type='primary' className="bg-primary">Get Appointment</Button>
                     </Link>
                 </div>
             </Actionbar>
@@ -137,6 +163,30 @@ const ServiceRequest = () => {
                     showSizeChanger={true}
                 />
             </div>
+            <>
+                <FModal title="Service" isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk}>
+                    {
+                        serviceData &&
+
+                        <div className="card">
+                            <div className="card-header py-2">
+                                <h5 className="m-0">Device Type : {serviceData?.deviceType}</h5>
+                                <p className="mb-0">AppointMent Date : {dayjs(serviceData?.appointment_date).format('MMM D, YYYY hh:mm A')}</p>
+                            </div>
+                            <div className="p-2">
+                                <p className="mb-0 py-1">Device Issue : {serviceData?.deviceIssue}</p>
+                                <p className="mb-0 py-1">Description : {serviceData?.issueDescription}</p>
+                                <p className="mb-0 py-1">Technigniacl : {serviceData?.technician}</p>
+                                <p className="mb-0 py-1">Status : {serviceData?.status}</p>
+                                <p className="mb-0 py-1">Is paid : {serviceData?.isPaid}</p>
+                                <p className="mb-0 py-1">is Ready : {serviceData?.isReady}</p>
+                                <p className="mb-0 py-1">isFixed : {serviceData?.isFixed}</p>
+                            </div>
+                            {serviceData.img && <Image src={serviceData?.img} alt={serviceData?.deviceIssue} width={150} height={100} />}
+                        </div>
+                    }
+                </FModal>
+            </>
         </>
     )
 }

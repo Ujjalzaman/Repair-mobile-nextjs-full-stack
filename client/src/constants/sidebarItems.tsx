@@ -45,7 +45,7 @@ export const sidebarItems = (role: string) => {
     const customerItems: MenuProps['items'] = [
         ...defaultSidebarProps,
         {
-            label: <Link href={`/${role}/service-request`}>Service Request</Link>,
+            label: <Link href={`/${role}/service-request`}>Services</Link>,
             key: `/${role}/service-request`,
         },
         {

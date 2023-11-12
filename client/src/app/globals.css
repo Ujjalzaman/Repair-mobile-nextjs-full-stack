@@ -58,9 +58,9 @@ body {
   background: transparent;
 }
 
-.ant-modal .ant-modal-content {
+/* .ant-modal .ant-modal-content {
   background: linear-gradient(160deg, rgba(34, 83, 195, 1) 18%, rgba(253, 45, 175, 1) 85%);
-}
+} */
 
 :where(.css-dev-only-do-not-override-amq5gd).ant-modal .ant-modal-title {
   color: #fff;

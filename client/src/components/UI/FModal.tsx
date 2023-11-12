@@ -1,19 +1,16 @@
 import { Modal } from 'antd';
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useState } from 'react'
 type IProps = {
     children?: ReactElement | ReactNode;
     title?: string;
-    visible: boolean;
     handleCancel: () => void;
+    handleOk: () => void;
+    isModalOpen: boolean;
 }
 
-const FModal = ({ children, title, visible, handleCancel }: IProps) => {
+const FModal = ({ children, title, isModalOpen, handleCancel, handleOk }: IProps) => {
     return (
-        <Modal
-            title={title}
-            open={visible}
-            onOk={handleCancel}
-            onCancel={handleCancel}>
+        <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             {children}
         </Modal>
     )
