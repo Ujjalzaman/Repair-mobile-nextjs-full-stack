@@ -104,21 +104,28 @@ const ServiceRequest = () => {
             key: 'Action',
             render: function (data: any) {
                 return (
-                    <>  
-                    {services?.status === 'ready_for_appointment' || services?.status === 'scheduled' &&
-                        <Link href={'/schedule'}>
-                        <Button type='primary' style={{ margin: "5px 5px" }}>
-                            Get Interview
-                        </Button>
-                        </Link>
-                    }
-                    {services?.status === 'payment_pending' &&
-                        <Link href={`/submit-payment/${data.id}`}>
-                        <Button type='primary' style={{ margin: "5px 5px" }}>
-                            Get Interview
-                        </Button>
-                        </Link>
-                    }
+                    <>
+                        {
+                            data?.status === 'ready_for_appointment' &&
+                            <>
+                                <Link href={'/schedule'}>
+                                <Button type='primary' style={{ margin: "5px 5px" }}>
+                                    Get Interview
+                                </Button>
+                                </Link>
+                            </>
+                        }
+                      
+                        {
+                            data?.status === 'payment_pending' &&
+                            <>
+                                <Link href={`/submit-payment/${data.id}`}>
+                                    <Button type='primary' style={{ margin: "5px 5px" }}>
+                                        Pay
+                                    </Button>
+                                </Link>
+                            </>
+                        }
                         <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
@@ -130,6 +137,7 @@ const ServiceRequest = () => {
                         <PopDelete title="Service Request" fc={() => deleteService(data.id)} />
                     </>
                 )
+
             }
         },
 

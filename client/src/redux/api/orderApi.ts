@@ -27,6 +27,12 @@ const orderApi = baseApi.injectEndpoints({
             }),
             providesTags: [tagTypes.order]
         }),
+        getOrderByService: build.query({
+            query: (id) => ({
+                url: `${ORDER_URL}/service/${id}`,
+                method: 'GET'
+            })
+        }),
         deleteOrder: build.mutation({
             query: (id) => ({
                 url: `${ORDER_URL}/${id}`,
@@ -35,7 +41,7 @@ const orderApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.order]
         }),
         updateOrder: build.mutation({
-            query: ({id,data}) => ({
+            query: ({ id, data }) => ({
                 url: `${ORDER_URL}/${id}`,
                 method: 'PATCH',
                 data: data
@@ -46,4 +52,4 @@ const orderApi = baseApi.injectEndpoints({
     }),
 })
 
-export const { useAddOrderMutation, useDeleteOrderMutation, useOrderQuery, useOrdersQuery, useUpdateOrderMutation } = orderApi;   
+export const { useGetOrderByServiceQuery, useAddOrderMutation, useDeleteOrderMutation, useOrderQuery, useOrdersQuery, useUpdateOrderMutation } = orderApi;   

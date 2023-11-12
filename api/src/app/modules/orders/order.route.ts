@@ -5,6 +5,11 @@ import { OrderController } from './order.controller';
 
 const router = express.Router();
 
+
+router.get('/service/:serviceId',
+auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
+OrderController.getOrderByServiceId);
+
 router.get('/:id',
     auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
     OrderController.getSingleOrder);

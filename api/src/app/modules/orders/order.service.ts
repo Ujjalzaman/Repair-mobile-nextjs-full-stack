@@ -1,6 +1,5 @@
 import { Order, ServiceStatus, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
-import { UserInstance } from "../../../constant";
 
 const generateOrder = async (payload: Order): Promise<any> => {
     if (payload) {
@@ -49,6 +48,14 @@ const order = async (id: string): Promise<Order | null> => {
     return result;
 }
 
+const getOrderByService = async (id: any): Promise<Order | null> => {
+    const result = await prisma.order.findFirst({
+        where: {
+            serviceId: id
+        }
+    })
+    return result;
+}
 const deleteOrder = async (id: string): Promise<Order | null> => {
     const result = await prisma.order.delete({
         where: { id }
@@ -56,17 +63,28 @@ const deleteOrder = async (id: string): Promise<Order | null> => {
     return result;
 }
 
-const updateOrder = async (id: string, payload: Partial<Order>): Promise<Order | null> => {
-    const result = await prisma.order.update({
-        where: { id },
-        data: payload
-    });
-    return result;
+const updateOrder = async (id: string, payload: Partial<Order>): Promise<any> => {
+    await prisma.$transaction(async (tx) => {
+        await tx.service.update({
+            where: {
+                id: payload.serviceId
+            },
+            data: {
+                status: ServiceStatus.ready_for_pickup
+            }
+        })
+        const result = await prisma.order.update({
+            where: { id },
+            data: payload
+        });
+        return result;
+    })
 }
 export const OrdersServices = {
     generateOrder,
     order,
     orders,
     deleteOrder,
-    updateOrder
+    updateOrder,
+    getOrderByService
 }

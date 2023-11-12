@@ -1,50 +1,40 @@
 'use client';
 import Form from "@/components/Forms/Form";
-import FormInput from "@/components/Forms/FormInput";
 import SubHeader from "@/components/UI/SubHeader";
-import { Button, Col, Input, Row } from "antd";
+import { useGetOrderByServiceQuery, useUpdateOrderMutation } from "@/redux/api/orderApi";
+import { useServiceQuery } from "@/redux/api/serviceApi";
+import { Button, Col, Input, Row, message } from "antd";
+import Image from "next/image";
 
-const PaymentPage = () => {
-    const base = 'customer';
-    // const [addService] = useAddServiceMutation();
-    // const router = useRouter();
+const PaymentPage = ({ params }: { params: any }) => {
+    const { id } = params;
+    const { data } = useGetOrderByServiceQuery(id);
+    const { data: service } = useServiceQuery(id)
+    const [updateOrder] = useUpdateOrderMutation();
 
-    const serviceRequestOnSubmit = async () => {
-        // message.loading("Creating ...");
-        // const obj = { ...values };
-        // const file = obj['file'];
-        // delete obj['file'];
-        // const data = JSON.stringify(obj);
-        // const formData = new FormData();
-        // formData.append('file', file);
-        // formData.append('data', data)
-        // try {
-        //     const res = await addService(formData);
-        //     if (res) {
-        //         message.success("Successfully Added Service Request !");
-        //         Swal.fire({
-        //             icon: "success",
-        //             title: "Appointment Schedule",
-        //             text: 'We will email you meeting Link',
-        //             showConfirmButton: false,
-        //             timer: 6000
-        //           });
-        //         router.push('customer/service-request')
-        //     }
-        // } catch (error: any) {
-        //     message.error(error.message)
-        // }
-
+    const PlaceOrder = async (values: any) => {
+        message.loading("Creating ...");
+        const obj: any = {};
+        obj['isPaid'] = true
+        obj['invoiceNumber'] = '1234564789'
+        try {
+            const res = await updateOrder({id: data.id, data: obj});
+            if (res) {
+                message.success("Successfully Placed Order !");
+            }
+        } catch (error: any) {
+            message.error(error.message)
+        }
     }
     return (
         <div>
-            <SubHeader title='Get Appointment' />
+            <SubHeader title='Place Payment' />
             <div className="container-full mx-4" style={{ marginTop: '7rem', marginBottom: '8rem' }}>
                 <div className="row">
                     <div className="col-md-9">
                         <div className='container'>
                             <div>
-                                <Form submitHandler={serviceRequestOnSubmit}>
+                                <Form submitHandler={PlaceOrder}>
                                     <div
                                         style={{
                                             border: "1px solid #d9d9d9",
@@ -54,30 +44,30 @@ const PaymentPage = () => {
                                         }}
                                     >
                                         <p style={{ fontSize: "18px", fontWeight: "500", margin: "5px 0px" }}>
-                                            Proceed to Submit Payment
+                                            Proceed to Place Payment
                                         </p>
                                         <div className="row">
                                             <div className="col-md-6 col-sm-12">
                                                 <div className="card shadow p-3 border-0" style={{ maxWidth: '25rem' }}>
                                                     <div className="d-flex justify-content-between align-items-center">
                                                         <div>
-                                                            <p>Hardware Bill - </p>
-                                                            <p>Software Bill - </p>
-                                                            <p>Parts -</p>
-                                                            <p>Techincian Bill - </p>
-                                                            <p>Tex (including 15%) -</p>
+                                                            <p>Hardware Bill - {data?.hardware}</p>
+                                                            <p>Software Bill - {data?.hardware}</p>
+                                                            <p>Parts - </p>
+                                                            <p>Techincian Bill - {data?.technician_bill}</p>
+                                                            <p>Tex (including 15%) - </p>
                                                             <hr />
                                                             <p><b>Total Bill</b> -</p>
                                                         </div>
 
                                                         <div>
-                                                            <p>120 $</p>
-                                                            <p>120 $</p>
-                                                            <p>15 $</p>
-                                                            <p>120 $</p>
-                                                            <p>15 $</p>
+                                                            <p>{data?.hardware} $</p>
+                                                            <p>{data?.software} $</p>
+                                                            <p>{data?.parts} $</p>
+                                                            <p>{data?.technician_bill} $</p>
+                                                            <p>{data?.tax} $</p>
                                                             <hr />
-                                                            <p><b>720 $</b></p>
+                                                            <p><b>{data?.totalAmount} $</b></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,14 +78,15 @@ const PaymentPage = () => {
                                                     <div>
                                                         <h5>Technician Oversrbation</h5>
                                                         <p className="form-text">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, nihil quod! Consectetur quod, repellat vero temporibus fuga nulla totam consequuntur numquam ipsam ullam esse, veritatis hic, voluptas tenetur voluptate quae.
+                                                            {data?.oversarbation}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div className="card shadow p-3 border-0">
                                                     <div>
-                                                        <h5>Device Type Smapsung</h5>
-                                                        <h5>Crack on My Phone</h5>
+                                                        <h6>{service?.deviceType}</h6>
+                                                        <p>{service?.deviceIssue}</p>
+                                                        {service?.img && <Image src={service?.img} alt="device" height={100} width={100} />}
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,7 +98,7 @@ const PaymentPage = () => {
                                                     name="serviceNumber"
                                                     type="text"
                                                     size="large"
-                                                    defaultValue={15648674864}
+                                                    defaultValue={id}
                                                     disabled
                                                 />
                                             </Col>
@@ -117,7 +108,7 @@ const PaymentPage = () => {
                                                     name="amount"
                                                     type="text"
                                                     size="large"
-                                                    defaultValue={120}
+                                                    value={data?.totalAmount}
                                                     disabled
                                                 />
                                             </Col>

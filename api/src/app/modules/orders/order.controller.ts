@@ -24,8 +24,18 @@ const getAllOder = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getOrderByServiceId = catchAsync(async (req: Request, res: Response) => {
+    const result = await OrdersServices.getOrderByService(req.params.serviceId);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: "Orders Retrive Successfully",
+        success: true,
+        data: result
+    })
+})
+
 const getSingleOrder = catchAsync(async (req: Request, res: Response) => {
-    const result = await OrdersServices.order(req.params.id);
+    const result = await OrdersServices.getOrderByService(req.body);
     sendResponse<Order>(res, {
         statusCode: httpStatus.OK,
         message: "Order Retrive Successfully",
@@ -56,5 +66,6 @@ export const OrderController = {
     getAllOder,
     getSingleOrder,
     deleteOrder,
-    updateOrder
+    updateOrder,
+    getOrderByServiceId
 }
