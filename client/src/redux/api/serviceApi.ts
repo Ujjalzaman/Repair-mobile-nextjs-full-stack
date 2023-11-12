@@ -6,10 +6,17 @@ const SERVICE_URL = '/services'
 const ServiceApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         services: build.query({
-            query: () => ({
+            query: (arg: Record<string, any>) => ({
                 url: SERVICE_URL,
-                method: 'GET'
+                method: 'GET',
+                params: arg
             }),
+            transformResponse(response: any, meta:any){
+                return {
+                    services: response,
+                    meta
+                }
+            },
             providesTags: [tagTypes.blog]
         }),
         addService: build.mutation({

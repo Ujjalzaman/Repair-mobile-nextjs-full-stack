@@ -87,9 +87,8 @@ model Service {
   technician                String?
   estimated_completion_time DateTime?
   pickup_date               DateTime?
-  status                    ServiceStatus @default(pending)
+  status                    ServiceStatus @default(scheduled)
   isPaid                    Boolean?
-  isAppointmented           Boolean?
   isReady                   Boolean       @default(false)
   isFixed                   Boolean       @default(false)
   deviceIssue               String?

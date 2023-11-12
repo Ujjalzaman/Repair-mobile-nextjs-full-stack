@@ -6,10 +6,17 @@ const CUSTEMERS = '/users'
 const customersApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         customers: build.query({
-            query: () => ({
+            query: (arg:Record<string, any>) => ({
                 url: CUSTEMERS,
-                method: "GET"
+                method: "GET",
+                params: arg
             }),
+            transformResponse(response: any, meta: any){
+                return {
+                    users: response,
+                    meta
+                }
+            },
             providesTags: [tagTypes.customers]
         }),
         getAdmins: build.query({

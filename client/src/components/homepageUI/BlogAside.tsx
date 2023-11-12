@@ -3,18 +3,19 @@ import Image from "next/image"
 import { useBlogsQuery } from "@/redux/api/blogApi";
 import { truncate } from "@/helpers/truncate";
 import dayjs from 'dayjs';
-import { Empty, message } from "antd";
+import { Empty, Input, message } from "antd";
 import BlogAsideSkeleton from "../UI/BlogAsideSkeleton";
 
-const BlogAside = () => {
+const BlogAside = ({setSearchTerm}: {setSearchTerm: any}) => {
     const { data, isError, isLoading } = useBlogsQuery({ limit: 4 });
+    const blogData = data?.blogs?.data
     let content = null;
     if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    if (!isLoading && !isError && data?.length === 0) content = <Empty />
-    if (!isLoading && !isError && data?.length > 0) content =
+    if (!isLoading && !isError && blogData?.length === 0) content = <Empty />
+    if (!isLoading && !isError && blogData?.length > 0) content =
         <>
-            {data && data?.map((item: any) => (
-                <div className="d-flex gap-2 align-items-center mb-2" key={item.id}>
+            {blogData && blogData?.map((item: any, index:number) => (
+                <div className="d-flex gap-2 align-items-center mb-2" key={item?.id + index}>
                     {
                         item?.img && <div style={{ minHeight: '4rem', overflow: 'hidden' }}>
                             <Image src={item?.img} alt={item?.title} width={90} height={90} className="w-100 h-100 rounded image-hover object-fit-cover" />
@@ -36,7 +37,7 @@ const BlogAside = () => {
     if (isLoading) content =
         <div>
             {Array.from({ length: 4 }).map((_, index) => (
-                <div className="col-4 mb-3" style={{ maxWidth: '25rem' }} >
+                <div className="col-4 mb-3" style={{ maxWidth: '25rem' }} key={index + 5}>
                     <BlogAsideSkeleton />
                 </div>
             ))}
@@ -47,7 +48,7 @@ const BlogAside = () => {
                 <h5 className="mb-3" style={{ fontWeight: '900' }}>SEARCH</h5>
                 <div className="form-group has-search">
                     <i className="ri-search-line form-control-feedback"></i>
-                    <input type="text" className="form-control" placeholder="Search" />
+                    <Input type="text" className="form-control" placeholder="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
                 </div>
             </div>
             <div className="mb-4">

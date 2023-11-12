@@ -6,10 +6,10 @@ import { User } from "@prisma/client";
 import httpStatus from "http-status";
 import { IUser } from "../../../interfaces/common";
 import pick from "../../../shared/pick";
-import { serviceSearchTermField } from "../service/service.constant";
+import { userSearchableField } from "./users.constant";
 
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
-    const filter = pick(req.query, serviceSearchTermField);
+    const filter = pick(req.query, userSearchableField);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder'])
     
     const result = await UserService.getAllUser(filter, options);

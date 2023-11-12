@@ -108,7 +108,7 @@ const ServiceRequest = () => {
                         <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
-                        <Link href={`/customer/service-request/edit/${data.id}`}>
+                        <Link href={`/admin/service-request/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>

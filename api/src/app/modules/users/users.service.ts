@@ -10,6 +10,7 @@ import { IGenericResponse, IUser } from "../../../interfaces/common";
 import { UserInstance } from "../../../constant";
 import calculatePagination from '../../../shared/paginationHelper';
 import { userFilterableField } from './users.constant';
+import { Prisma } from '@prisma/client';
 
 const getAllUser = async (
     filters: any,
@@ -18,7 +19,7 @@ const getAllUser = async (
     const { limit, page, skip } = calculatePagination(options);
     const { searchTerm, ...filterData } = filters;
 
-    const andConditions = [];
+    const andConditions: Prisma.UserWhereInput[] = [];
 
     if (searchTerm) {
         andConditions.push({
@@ -26,43 +27,42 @@ const getAllUser = async (
                 [field]: {
                     contains: searchTerm,
                     mode: 'insensitive'
-                }
-            }))
-        })
-    };
+                },
+            })),
+        });
+    }
 
     if (Object.keys(filterData).length > 0) {
         andConditions.push({
             AND: Object.entries(filterData).map(([key, value]) => ({
-                [key]: { equals: value }
-            }))
+                [key]: value,
+            })),
         });
     }
 
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
 
-
     const result = await prisma.user.findMany({
         skip,
         take: limit,
         where: whereConditions,
-        orderBy: options.sortBy && options.sortOrder ? {
-            [options.sortBy]: options.sortOrder
-        } : {
-            createdAt: 'desc'
-        }
+        orderBy: options.sortBy && options.sortOrder
+            ? { [options.sortBy]: options.sortOrder }
+            : { createdAt: 'desc' },
     });
-    const total = await prisma.blogs.count({ where: whereConditions });
+
+    const total = await prisma.user.count({ where: whereConditions });
 
     return {
         meta: {
             page,
             limit,
-            total
+            total,
         },
-        data: result
-    }
-}
+        data: result,
+    };
+};
+
 
 const getSingleAllUser = async (id: string): Promise<IUser | null> => {
     const result = await prisma.user.findUnique({

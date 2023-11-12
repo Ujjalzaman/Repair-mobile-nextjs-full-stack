@@ -32,14 +32,14 @@ const SideBar = () => {
             <div className="text-center p-3">
                 <div className="h-100 w-100 border-rounded">
                     {
-                        data && data?.profileImg ? <Image src={data?.profileImg} width={80} height={80} alt={data?.name} style={{
+                        data && data?.profileImg ? <Image src={data?.profileImg} width={80} height={80} alt="user image" style={{
                             borderRadius: '50%',
                             border: "5px solid #296eb0",
                             objectFit: "cover"
                         }}
                         />
                         :
-                        <Image src={avatar} width={80} height={80} alt={data?.name} style={{
+                        <Image src={avatar} width={80} height={80} alt="user image" style={{
                             borderRadius: '50%',
                             border: "5px solid #296eb0",
                             objectFit: "cover"

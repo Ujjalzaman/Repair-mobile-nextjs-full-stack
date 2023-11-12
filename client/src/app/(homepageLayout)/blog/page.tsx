@@ -10,17 +10,35 @@ import dayjs from 'dayjs';
 import BlogSkeleton from "@/components/UI/BlogSkeleton";
 import { Empty, message } from "antd";
 import BlogAside from "@/components/homepageUI/BlogAside";
-
+import { useState } from 'react';
+import { useDebounced } from "@/redux/hooks";
+import { Pagination } from 'antd';
 const BlogPage = () => {
-    const { data, isError, isLoading } = useBlogsQuery({ limit: 3 });
+    const query: Record<string, any> = {};
+    const [size, setSize] = useState<number>(10);
+    const [searchTerm, setSearchTerm] = useState<string>("");
+
+
+    const debouncedTerm = useDebounced({
+        searchQuery: searchTerm,
+        delay: 600
+    })
+
+    if (!!debouncedTerm) {
+        query['searchTerm'] = debouncedTerm
+    }
+    const { data, isError, isLoading } = useBlogsQuery({ ...query });
+    const blogData = data?.blogs?.data;
+    const meta = data?.meta
+
     let content = null;
     if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    if (!isLoading && !isError && data?.length === 0) content = <Empty />
-    if (!isLoading && !isError && data?.length > 0) content =
+    if (!isLoading && !isError && blogData?.length === 0) content = <Empty />
+    if (!isLoading && !isError && blogData?.length > 0) content =
         <>
             {
-                data && data?.map((item: any) => (
-                    <div className="col-md-4" style={{ maxWidth: '25rem' }} key={item?.id}>
+                blogData && blogData?.map((item: any, index: number) => (
+                    <div className="col-md-4 mb-3" style={{ maxWidth: '25rem' }} key={item?.id + index}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             {item?.img &&
                                 <div className="flex-column p-0 border-0 d-flex justify-content-center align-items-center" style={{ height: '11rem', overflow: 'hidden' }}>
@@ -77,11 +95,20 @@ const BlogPage = () => {
                         <div className="container">
                             <div className="row p-5 container container align-items-center justify-content-center rounded" style={{ background: '#d7ded6', marginTop: '5rem', marginBottom: '8rem' }}>
                                 {content}
+                            <div className="text-center mt-5">
+                                <Pagination 
+                                defaultCurrent={size} 
+                                total={meta?.total} 
+                                showSizeChanger={true}
+                                showPrevNextJumpers={true}
+                                pageSize={size}
+                                />
+                            </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <BlogAside/>
+                        <BlogAside setSearchTerm={setSearchTerm} />
                     </div>
                 </div>
             </div>

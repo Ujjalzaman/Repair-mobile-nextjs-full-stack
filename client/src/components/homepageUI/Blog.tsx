@@ -10,13 +10,14 @@ import BlogSkeleton from "../UI/BlogSkeleton";
 
 const Blog = () => {
     const { data, isError, isLoading } = useBlogsQuery({ limit: 3 });
+    const blogData = data?.blogs?.data;
     let content = null;
     if (!isLoading && isError) content = <div>{message.error('something went Wrong!')}</div>
-    if (!isLoading && !isError && data?.length === 0) content = <Empty />
-    if (!isLoading && !isError && data?.length > 0) content =
+    if (!isLoading && !isError && blogData?.length === 0) content = <Empty />
+    if (!isLoading && !isError && blogData?.length > 0) content =
         <>
             {
-                data?.map((item: any) => (
+                blogData?.map((item: any) => (
                     <div className="col-md-4 col-sm-12 mb-3" style={{ maxWidth: '18rem' }} key={item?.id}>
                         <div className="card shadow text-center border-0 rounded-bottom">
                             {item?.img &&

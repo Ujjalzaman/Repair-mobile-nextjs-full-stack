@@ -25,12 +25,8 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/customers`
         },
         {
-            label: <Link href={`/${role}/requests`}>Customers Request</Link>,
-            key: `/${role}/customers-request`
-        },
-        {
-            label: <Link href={`/${role}/service-review`}>Services Review</Link>,
-            key: `/${role}/service-review`
+            label: <Link href={`/${role}/service-request`}>Services</Link>,
+            key: `/${role}/service-request`,
         },
         {
             label: <Link href={`/${role}/blog`}>Blog</Link>,

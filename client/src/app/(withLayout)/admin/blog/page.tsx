@@ -4,7 +4,7 @@ import Actionbar from "@/components/UI/ActionBar"
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks"
-import { Button, message } from "antd"
+import { Button, Input, message } from "antd"
 import Link from "next/link"
 import { useState } from "react"
 import dayjs from 'dayjs';
@@ -40,8 +40,9 @@ const Appointment = () => {
     }
 
     const { data, isLoading } = useBlogsQuery({ ...query });
+    const blogData = data?.blogs.data;
+    const meta = data?.meta
     const [deleteBlog] = useDeleteBlogMutation();
-  
     const deleteHandler = async (id: string) => {
         message.loading("Deleting ...");
         try {
@@ -74,6 +75,8 @@ const Appointment = () => {
         {
             title: 'Title',
             dataIndex: 'title',
+            sorter: true,
+            key: 'title',
             render: function(data:any){
                 return data && truncate(data, 30)
             }
@@ -81,9 +84,10 @@ const Appointment = () => {
         {
             title: 'Description',
             dataIndex: 'description',
+            sorter: true,
+            key: 'description',
             render: function(data:any){
                 return data && truncate(data, 50)
-
             }
         },
         {
@@ -97,6 +101,7 @@ const Appointment = () => {
         },
         {
             title: 'Action',
+            key:"action +",
             render: function (data: any) {
                 return (
                     <>
@@ -112,14 +117,25 @@ const Appointment = () => {
                 )
             }
         },
-
     ];
 
     return (
         <>
             <FBreadCrumb items={[{ label: "dashboard", link: "/admin/dashboard", },]} />
             <Actionbar title="Blog">
+                <Input
+                    type='text'
+                    size='large'
+                    placeholder='Search...'
+                    style={{ width: "35%" }}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
                 <div>
+                    {(!!sortBy || !!sortOrder || !!searchTerm) && (
+                        <Button type="primary" onClick={resetFilters} style={{ margin: '0px 5px' }}>
+                            <ReloadOutlined />
+                        </Button>
+                    )}
                     <Link href="/admin/blog/create">
                         <Button type='primary'>Create</Button>
                     </Link>
@@ -130,12 +146,13 @@ const Appointment = () => {
                 <FTable
                     loading={isLoading}
                     columns={columns}
-                    dataSource={data}
+                    dataSource={blogData}
                     onPaginationChange={onPaginationChange}
                     onTableChange={onTableChange}
                     showPagination={true}
                     pageSize={size}
                     showSizeChanger={true}
+                    totalPages={meta?.total}
                 />
             </div>
         </>

@@ -4,7 +4,7 @@ import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
-import { Button, message } from "antd";
+import { Button, Input, message } from "antd";
 import { useState, useEffect } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
@@ -16,6 +16,8 @@ import {
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
 import FModal from "@/components/UI/FModal";
+import Image from "next/image";
+import PopDelete from "@/components/UI/PopDelete";
 
 const CustomersPage = () => {
   const query: Record<string, any> = {};
@@ -41,19 +43,9 @@ const CustomersPage = () => {
   }
 
   const { data, isLoading } = useCustomersQuery({ ...query });
+  const users = data?.users?.data;
+  const meta = data?.meta;
   const [deleteCustomers] = useDeleteCustomersMutation();
-
-  const deleteHandler = async (id: string) => {
-    message.loading("Deleting ...");
-    try {
-      const res = await deleteCustomers(id);
-      if (res) {
-        message.success("Successfully Deleted !!");
-      }
-    } catch (error: any) {
-      message.error(error.message);
-    }
-  }
 
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
     const { order, field } = sorter;
@@ -75,22 +67,25 @@ const CustomersPage = () => {
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name'
+      key: 'nameCustomer',
+      sorter: true,
     },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email'
+      key: 'emailCustomer',
+      sorter: true,
+
     },
     {
       title: 'Role',
       dataIndex: 'role',
-      key: 'role'
+      key: 'roleCustomer'
     },
     {
       title: 'createdAt',
       dataIndex: 'createdAt',
-      key: 'createdAt',
+      key: 'createdAtCustomer',
       sorter: true,
       render: function (data: any) {
         return data && dayjs(data).format('MMM D, YYYY hh:mm A');
@@ -98,10 +93,11 @@ const CustomersPage = () => {
     },
     {
       title: 'Action',
+      key: 'Action',
       render: function (data: any) {
         return (
           <>
-            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
+            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
               <EyeOutlined />
             </Button>
 
@@ -110,49 +106,58 @@ const CustomersPage = () => {
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
-              <DeleteOutlined />
-            </Button>
-
+            <PopDelete title="Service Request" fc={() => deleteCustomers(data.id)} />
           </>
         )
       }
     },
-
   ];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [skipId, setSkipId] = useState<string>("");
   const [isSkip, setSkip] = useState<boolean>(true);
-  const { data: adminData } = useCustomerQuery(skipId, {
+
+  const { data: userData } = useCustomerQuery(skipId, {
     skip: isSkip
   });
-  const handleView = (id: string) => {
+
+
+  const showModal = (id: string) => {
     setSkipId(id);
-  }
+    setIsModalOpen(true);
 
-  useEffect(() => {
-    if (skipId !== '') {
-      setSkip(false);
-    }
-    if (adminData && adminData.id) {
-      showModal();
-    }
-  }, [adminData, skipId]);
-
-  const showModal = () => {
-    setIsVisible(true)
-  }
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
   const handleCancel = () => {
-    setIsVisible(false)
-  }
+    setIsModalOpen(false);
+  };
+  useEffect(() => {
+    if (skipId) {
+      setSkip(false)
+    }
+  }, [skipId]);
   return (
     <>
       <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
       <Actionbar title="Customers">
+        <Input
+          type='text'
+          size='large'
+          placeholder='Search...'
+          style={{ width: "35%" }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <div>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <Button type="primary" onClick={resetFilters} style={{ margin: '0px 5px' }}>
+              <ReloadOutlined />
+            </Button>
+          )}
           <Link href="/admin/customers/create">
-            <Button type='primary'>Create</Button>
+            <Button type='primary' className="bg-primary">Create</Button>
           </Link>
         </div>
       </Actionbar>
@@ -160,30 +165,35 @@ const CustomersPage = () => {
         <FTable
           loading={isLoading}
           columns={columns}
-          dataSource={data}
+          dataSource={users}
           onPaginationChange={onPaginationChange}
           onTableChange={onTableChange}
           showPagination={true}
           pageSize={size}
           showSizeChanger={true}
+          totalPages={meta?.total}
         />
       </div>
+      <>
+        <FModal title="User Information." isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk}>
+          {
+            userData &&
 
-      <FModal handleCancel={handleCancel} visible={isVisible} title='Customer Information.'>
-        {adminData?.id ?
-          <div className="text-white">
-            <h6 className="text-capitalize">Customer Name : {adminData?.name}</h6>
-            <p>User Id # {adminData?.id}</p>
-            <div className="border p-3">
-              <p className="p-0 m-1">Email : {adminData?.email}</p>
-              <p className="p-0 m-1 text-capitalize">Role : {adminData?.role}</p>
-              <p className="p-0 m-1">Address : {adminData?.address}</p>
-              <p className="p-0 m-1">Created At : {dayjs(adminData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+            <div className="card">
+              <div className="card-header py-2">
+                <h5 className="text-capitalize">Customer Name : {userData?.name}</h5>
+                <p className="mb-0">Created At : {dayjs(userData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+              </div>
+              <div className="p-2">
+                <p className="mb-0 py-1">User Email : {userData?.email}</p>
+                <p className="mb-0 py-1">Role : {userData?.role}</p>
+                <p className="mb-0 py-1">Address : {userData?.address}</p>
+              </div>
+              {userData?.profileImg && <Image src={userData?.profileImg} alt="user name" width={250} height={100} />}
             </div>
-          </div>
-          : <h2>Empty....</h2>
-        }
-      </FModal>
+          }
+        </FModal>
+      </>
     </>
   )
 }
