@@ -78,7 +78,7 @@ const BlogPage = () => {
     if (isLoading) content =
         <>
             {Array.from({ length: 6 }).map((_, index) => (
-                <div className="col-4 mb-3" style={{ maxWidth: '25rem' }} >
+                <div className="col-4 mb-3" style={{ maxWidth: '25rem' }} key={index + 1}>
                     <BlogSkeleton />
                 </div>
             ))}
@@ -95,15 +95,15 @@ const BlogPage = () => {
                         <div className="container">
                             <div className="row p-5 container container align-items-center justify-content-center rounded" style={{ background: '#d7ded6', marginTop: '5rem', marginBottom: '8rem' }}>
                                 {content}
-                            <div className="text-center mt-5">
-                                <Pagination 
-                                defaultCurrent={size} 
-                                total={meta?.total} 
-                                showSizeChanger={true}
-                                showPrevNextJumpers={true}
-                                pageSize={size}
-                                />
-                            </div>
+                                <div className="text-center mt-5">
+                                    <Pagination
+                                        defaultCurrent={size}
+                                        total={meta?.total}
+                                        showSizeChanger={true}
+                                        showPrevNextJumpers={true}
+                                        pageSize={size}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

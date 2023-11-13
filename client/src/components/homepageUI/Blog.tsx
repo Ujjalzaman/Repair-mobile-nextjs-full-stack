@@ -58,7 +58,7 @@ const Blog = () => {
     if (isLoading) content =
         <>
             {Array.from({ length: 3 }).map((_, index) => (
-                <div className="col-4" style={{ maxWidth: '18rem' }} >
+                <div className="col-4" style={{ maxWidth: '18rem' }} key={index + 55}>
                     <BlogSkeleton />
                 </div>
             ))}

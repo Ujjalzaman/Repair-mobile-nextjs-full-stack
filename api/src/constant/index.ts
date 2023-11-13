@@ -10,5 +10,4 @@ export const UserInstance = {
     ServiceRequest: false,
     appointmentSchedule: false,
     reviews: false,
-    Blogs: false,
 }

@@ -106,7 +106,6 @@ const updateUser = async (req: Request): Promise<IUser | null> => {
             ServiceRequest: true,
             appointmentSchedule: true,
             reviews: true,
-            Blogs: true,
         }
     });
     return result;

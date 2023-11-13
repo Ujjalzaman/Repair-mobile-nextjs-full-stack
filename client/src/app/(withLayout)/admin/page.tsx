@@ -105,7 +105,7 @@ const ManageAdmin = () => {
       render: function (data: any) {
         return (
           <>
-            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
+            <Button type='primary' style={{ margin: "5px 5px" }}>
               <EyeOutlined />
             </Button>
             <Link href={`/customers/edit/${data.id}`}>
@@ -123,28 +123,6 @@ const ManageAdmin = () => {
     },
 
   ];
-
-  const handleView = (id: string) => {
-    setSkipId(id);
-  }
-  
-  useEffect(() => {
-    if (skipId !== '') {
-      setSkip(false);
-    }
-    if (adminData && adminData.id) {
-      showModal();
-    }
-  }, [adminData, skipId]);
-
-  const showModal = () => {
-    setIsVisible(!isVisible)
-  }
-
-  const handleCancel = () => {
-    setIsVisible(!isVisible)
-  }
-
 
   return (
     <>
@@ -169,7 +147,7 @@ const ManageAdmin = () => {
         />
       </div>
 
-      <FModal handleCancel={handleCancel} visible={isVisible} title='Admin Information.'>
+      {/* <FModal handleCancel={handleCancel} visible={isVisible} title='Admin Information.'>
         {adminData?.id ?
           <div className="text-white">
             <h6 className="text-capitalize">User Name : {adminData?.name}</h6>
@@ -183,7 +161,7 @@ const ManageAdmin = () => {
           </div>
           : <h2>Empty....</h2>
         }
-      </FModal>
+      </FModal> */}
     </>
   )
 }

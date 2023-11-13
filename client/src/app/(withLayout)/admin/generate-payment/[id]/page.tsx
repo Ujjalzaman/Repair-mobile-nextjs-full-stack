@@ -9,14 +9,14 @@ import { useServiceQuery } from "@/redux/api/serviceApi";
 import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
 
-const page = ({ params }: { params: any }) => {
+const GeneratePayment = ({ params }: { params: any }) => {
     const { id } = params;
     const { data } = useServiceQuery(id);
     const [addOrder] = useAddOrderMutation()
     const handleOnSubmit = async (values: any) => {
         message.success("Creating ...");
-        const obj = {...values};
-        if(data){
+        const obj = { ...values };
+        if (data) {
             obj['serviceId'] = data.id
         }
         obj['hardware'] = parseInt(obj['hardware'])
@@ -114,4 +114,4 @@ const page = ({ params }: { params: any }) => {
     )
 }
 
-export default page
+export default GeneratePayment;

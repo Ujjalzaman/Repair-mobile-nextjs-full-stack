@@ -45,7 +45,7 @@ const Testimonial = () => {
         <div className='container'>
             <div className='row justify-content-center'>
                 {Array.from({ length: 3 }).map((_, index) => (
-                    <div className="col-4" style={{ maxWidth: '18rem' }} >
+                    <div className="col-4" style={{ maxWidth: '18rem' }} key={index + 12}>
                         <BlogSkeleton />
                     </div>
                 ))}

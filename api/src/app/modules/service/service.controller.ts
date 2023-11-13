@@ -21,7 +21,7 @@ const getAllServices = catchAsync(async (req: Request, res: Response) => {
     const filter = pick(req.query, serviceFilterField);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder'])
     const result = await ServicesService.getServices(req.user, filter, options);
-    sendResponse<Service[]>(res, {
+    sendResponse(res, {
         statusCode: httpStatus.OK,
         message: "Services Retrive Successfully",
         success: true,
