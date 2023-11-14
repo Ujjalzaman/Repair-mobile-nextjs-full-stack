@@ -27,7 +27,9 @@ const Blog = () => {
                             }
                             <div className="card-body p-0">
                                 <div className="p-2">
+                                    <Link href={`/blog/${item?.id}`}>
                                     <h6 className="text-black text-start mb-1 text-primary">{truncate(item?.title, 80)}</h6>
+                                    </Link>
                                     <div className="d-flex text-start gap-2">
                                         <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
                                             <i className="ri-user-3-line"></i>

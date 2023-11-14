@@ -62,6 +62,11 @@ const getAllBlogs = async (
         skip,
         take: limit,
         where: whereConditions,
+        include: {
+            user: {
+                select: UserInstance
+            }
+        },
         orderBy: options.sortBy && options.sortOrder ? {
             [options.sortBy]: options.sortOrder
         } : {

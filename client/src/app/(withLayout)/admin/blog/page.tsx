@@ -105,8 +105,13 @@ const Appointment = () => {
             render: function (data: any) {
                 return (
                     <>
+                    <Link href={`/blog/${data.id}`}>
+                            <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }}>
+                                <EyeOutlined />
+                            </Button>
+                        </Link>
                         <Link href={`/admin/blog/edit/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
+                            <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
                         </Link>
@@ -137,7 +142,7 @@ const Appointment = () => {
                         </Button>
                     )}
                     <Link href="/admin/blog/create">
-                        <Button type='primary'>Create</Button>
+                        <Button type='primary' className="bg-primary">Create</Button>
                     </Link>
                 </div>
             </Actionbar>

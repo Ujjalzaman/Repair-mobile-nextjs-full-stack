@@ -2,6 +2,7 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormTextArea from "@/components/Forms/FormTextArea";
 import UploadImage from "@/components/Forms/uploadImage";
 import FBreadCrumb from "@/components/UI/FBreadCrumb";
 import { useGetBlogQuery, useUpdateBlogMutation } from "@/redux/api/blogApi";
@@ -49,7 +50,7 @@ const EditAppointment = ({ params }: { params: any }) => {
                     { label: "blog", link: `/${base}/blog` },
                 ]}
             />
-            <h1>Update Appintment</h1>
+            <h4 className="my-2">Update Blog Info</h4>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -65,15 +66,14 @@ const EditAppointment = ({ params }: { params: any }) => {
                                 name="title"
                                 type="text"
                                 size="large"
-                                label="Name"
+                                label="Title"
                             />
                         </Col>
                         <Col span={24} style={{ margin: "10px 0" }}>
-                            <FormInput
+                            <FormTextArea
                                 name="description"
-                                type="text"
-                                size="large"
-                                label="Name"
+                                label="Description"
+                                rows={10}
                             />
                         </Col>
 
@@ -99,7 +99,7 @@ const EditAppointment = ({ params }: { params: any }) => {
 
                     </Row>
                 </div>
-                <Button htmlType="submit" type="primary">Update</Button>
+                <Button htmlType="submit" type="primary" className="bg-primary">Update</Button>
             </Form>
         </>
     )

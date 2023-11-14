@@ -8,7 +8,10 @@
   margin: 0;
   font-family: 'Roboto Condensed', sans-serif;
 }
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 body {
   background-color: #f3f3f3fa;
 }

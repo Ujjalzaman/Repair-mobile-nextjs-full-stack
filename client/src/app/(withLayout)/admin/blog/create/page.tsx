@@ -40,7 +40,7 @@ const CreateAdminPage = () => {
                 { label: `blog`, link: `/${base}/blog` }
 
             ]} />
-            <h5 className='p-2'>Create Blog</h5>
+            <h5 className='my-2'>Create Blog</h5>
             <Form submitHandler={handleOnSubmit}>
                 <div
                     style={{
@@ -56,14 +56,15 @@ const CreateAdminPage = () => {
                                 name="title"
                                 type="text"
                                 size="large"
-                                label="Name"
+                                label="Title"
                             />
                         </Col>
 
                         <Col span={24} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="description"
-                                label="description"
+                                label="Description"
+                                rows={10}
                             />
                         </Col>
                         <Col span={8} style={{ margin: "10px 0" }}>
@@ -73,7 +74,7 @@ const CreateAdminPage = () => {
                         </Col>
                     </Row>
                 </div>
-                <Button htmlType="submit" type="primary">submit</Button>
+                <Button htmlType="submit" type="primary" className="bg-primary">submit</Button>
             </Form>
         </>
     )

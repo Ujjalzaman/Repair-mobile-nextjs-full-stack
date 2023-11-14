@@ -5,6 +5,7 @@ import { truncate } from "@/helpers/truncate";
 import dayjs from 'dayjs';
 import { Empty, Input, message } from "antd";
 import BlogAsideSkeleton from "../UI/BlogAsideSkeleton";
+import Link from "next/link";
 
 const BlogAside = ({ setSearchTerm }: { setSearchTerm: any }) => {
     const { data, isError, isLoading } = useBlogsQuery({ limit: 4 });
@@ -22,13 +23,17 @@ const BlogAside = ({ setSearchTerm }: { setSearchTerm: any }) => {
                         </div>
                     }
                     <div className="p-2">
-                        <h6 className="text-black text-start mb-1 text-primary"> {truncate(item?.title, 20)}</h6>
-                        <div className="d-flex text-start gap-2">
-                            <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
-                                <i className="ri-calendar-line"></i>
-                                <span className="form-text">{dayjs(item?.createdAt).format('MMM D, YYYY hh:mm A')}</span>
+                        <Link href={`/blog/${item?.id}`}>
+                            <h6 className="text-black text-start mb-1 text-primary"> {truncate(item?.title, 20)}</h6>
+                        </Link>
+                        <Link href={`/blog/${item?.id}`}>
+                            <div className="d-flex text-start gap-2">
+                                <div className="d-flex gap-1 text-muted align-items-center justify-content-center">
+                                    <i className="ri-calendar-line"></i>
+                                    <span className="form-text">{dayjs(item?.createdAt).format('MMM D, YYYY hh:mm A')}</span>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             ))}

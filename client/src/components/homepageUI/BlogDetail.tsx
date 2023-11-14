@@ -22,8 +22,8 @@ const BlogDetail = ({ id }: { id: string }) => {
                     <div className="col-md-9">
                         <div className="card shadow text-center border-0 rounded-bottom">
                             {data?.img &&
-                                <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ overflow: 'hidden', maxHeight: '30rem' }}>
-                                    <Image src={data?.img} alt="blog Image" width={800} height={400} className="image-hover w-100 rounded-top object-fit-cover" />
+                                <div className="flex-column card-header p-0 border-0 d-flex justify-content-center align-items-center" style={{ overflow: 'hidden', maxHeight: '40rem' }}>
+                                    <Image src={data?.img} alt="blog Image" width={800} height={500} className="image-hover w-100 rounded-top" style={{objectFit:'cover'}}/>
                                 </div>
                             }
                             <div className="card-body p-0">
