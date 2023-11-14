@@ -78,7 +78,7 @@ const BlogDetail = ({ id }: { id: string }) => {
                         <BlogComments />
                     </div>
                     <div className="col-md-3">
-                        <BlogAside />
+                        <BlogAside setSearchTerm={undefined}/>
                     </div>
                 </div>
             </div>

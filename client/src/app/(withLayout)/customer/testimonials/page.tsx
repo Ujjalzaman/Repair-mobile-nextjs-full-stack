@@ -103,7 +103,7 @@ const TestimonialPage = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => handleView(data.id)}>
+                        <Button type='primary' style={{ margin: "5px 5px" }}>
                             <EyeOutlined />
                         </Button>
 
@@ -123,31 +123,31 @@ const TestimonialPage = () => {
 
     ];
 
-    const [skipId, setSkipId] = useState<string>("");
-    const [isSkip, setSkip] = useState<boolean>(true);
-    const { data: adminData } = useReviewQuery(skipId, {
-        skip: isSkip
-    });
-    const handleView = (id: string) => {
-        setSkipId(id);
-    }
+    // const [skipId, setSkipId] = useState<string>("");
+    // const [isSkip, setSkip] = useState<boolean>(true);
+    // const { data: adminData } = useReviewQuery(skipId, {
+    //     skip: isSkip
+    // });
+    // const handleView = (id: string) => {
+    //     setSkipId(id);
+    // }
 
-    useEffect(() => {
-        if (skipId !== '') {
-            setSkip(false);
-        }
-        if (adminData && adminData.id) {
-            showModal();
-        }
-    }, [adminData, skipId]);
+    // useEffect(() => {
+    //     if (skipId !== '') {
+    //         setSkip(false);
+    //     }
+    //     if (adminData && adminData.id) {
+    //         showModal();
+    //     }
+    // }, [adminData, skipId]);
 
-    const showModal = () => {
-        setIsVisible(true)
-    }
+    // const showModal = () => {
+    //     setIsVisible(true)
+    // }
 
-    const handleCancel = () => {
-        setIsVisible(false)
-    }
+    // const handleCancel = () => {
+    //     setIsVisible(false)
+    // }
     return (
         <>
             <FBreadCrumb items={[{ label: `Dashboard`, link: `/dashboard`, }]} />
@@ -171,7 +171,7 @@ const TestimonialPage = () => {
                 />
             </div>
 
-            <FModal handleCancel={handleCancel} visible={isVisible} title='Review Information.'>
+            {/* <FModal handleCancel={handleCancel} visible={isVisible} title='Review Information.'>
                 {adminData?.id ?
                     <div className="text-white">
                         <h6 className="text-capitalize">Reviewer Name : {adminData?.user?.name}</h6>
@@ -184,7 +184,7 @@ const TestimonialPage = () => {
                     </div>
                     : <h2>Empty....</h2>
                 }
-            </FModal>
+            </FModal> */}
         </>
     )
 }
