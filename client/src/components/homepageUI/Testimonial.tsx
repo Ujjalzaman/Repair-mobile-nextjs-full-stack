@@ -15,7 +15,6 @@ import { Empty, message } from 'antd';
 const Testimonial = () => {
     const { data, isError, isLoading } = useReviewsQuery({limit:10});
     const reviewData = data?.review?.data;
-    console.log(reviewData)
     let content = null;
     if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
     if (!isLoading && !isError && reviewData?.length === 0) content = <Empty />
@@ -29,10 +28,10 @@ const Testimonial = () => {
                             <div className="col">
                                 <div className="mx-auto">
                                     <div className={style.review}>
-                                        <Image src={item?.user?.profileImg} alt="image" width={100} height={100}/>
-                                        <h5 className={style.testimonialName}>{item.title} </h5>
+                                       {item?.user?.profileImg && <Image src={item?.user?.profileImg} alt="image" width={100} height={100}/>}
+                                        <h5 className={style.testimonialName}>{item?.title} </h5>
                                         <h6 className={style.testimonialAddress}>New yourk</h6>
-                                        <p><i>{item.description}</i></p>
+                                        <p><i>{item?.description}</i></p>
                                     </div>
                                 </div>
                             </div>
