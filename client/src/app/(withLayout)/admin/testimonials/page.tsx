@@ -3,7 +3,7 @@
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks";
-import { Button, message } from "antd";
+import { Button, Input, message } from "antd";
 import { useState, useEffect } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
@@ -16,6 +16,8 @@ import {
 import Actionbar from "@/components/UI/ActionBar";
 import FModal from "@/components/UI/FModal";
 import { useDeleteReviewMutation, useReviewQuery, useReviewsQuery } from "@/redux/api/reviewsApi";
+import { truncate } from "@/helpers/truncate";
+import Image from "next/image";
 
 const TestimonialPage = () => {
     const query: Record<string, any> = {};
@@ -24,7 +26,6 @@ const TestimonialPage = () => {
     const [sortBy, setSortBy] = useState<string>("")
     const [sortOrder, setSortOrder] = useState<string>("")
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     query['limit'] = size;
     query['page'] = page;
@@ -41,6 +42,8 @@ const TestimonialPage = () => {
     }
 
     const { data, isLoading } = useReviewsQuery({ ...query });
+    const review = data?.review?.data;
+    const meta = data?.meta;
     const [deleteReview] = useDeleteReviewMutation();
 
     const deleteHandler = async (id: string) => {
@@ -70,26 +73,31 @@ const TestimonialPage = () => {
         setSearchTerm("");
         setSortOrder("");
     }
-
     const columns = [
         {
             title: 'Name',
-            sorter: true,
+            key: 'name',
             render: function (data: any) {
                 return data.user.name
             }
         },
         {
             title: 'Title',
+            key: 'title',
             dataIndex: 'title',
-            key: 'title'
+            sorter: true,
+            render: function (data: any) {
+                return data && truncate(data, 30)
+            }
         },
         {
             title: 'Description',
             dataIndex: 'description',
-            key: 'email'
+            key: 'description',
+            render: function (data: any) {
+                return data && truncate(data, 30)
+            }
         },
-
         {
             title: 'createdAt',
             dataIndex: 'createdAt',
@@ -104,10 +112,9 @@ const TestimonialPage = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Button type='primary' style={{ margin: "5px 5px" }}>
+                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
-
                         <Link href={`/admin/testimonials/edit/${data.id}`}>
                             <Button type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
@@ -116,47 +123,55 @@ const TestimonialPage = () => {
                         <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
                             <DeleteOutlined />
                         </Button>
-
                     </>
                 )
             }
         },
-
     ];
 
-    // const [skipId, setSkipId] = useState<string>("");
-    // const [isSkip, setSkip] = useState<boolean>(true);
-    // const { data: adminData } = useReviewQuery(skipId, {
-    //     skip: isSkip
-    // });
-    // const handleView = (id: string) => {
-    //     // console.log( id)
-    //     setSkipId(id);
-    // }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [skipId, setSkipId] = useState<string>("");
+    const [isSkip, setSkip] = useState<boolean>(true);
 
-    // useEffect(() => {
-    //     if (skipId !== '') {
-    //         setSkip(false);
-    //     }
-    //     if (adminData && adminData.id) {
-    //         showModal();
-    //     }
-    // }, [adminData, skipId]);
+    const { data: reviewData } = useReviewQuery(skipId, {
+        skip: isSkip
+    });
+    const showModal = (id: string) => {
+        setSkipId(id);
+        setIsModalOpen(true);
 
-    // const showModal = () => {
-    //     setIsVisible(true)
-    // }
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
 
-    // const handleCancel = () => {
-    //     setIsVisible(false)
-    // }
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+    useEffect(() => {
+        if (skipId) {
+            setSkip(false)
+        }
+    }, [skipId]);
     return (
         <>
             <FBreadCrumb items={[{ label: `admin`, link: `/admin`, }]} />
-            <Actionbar title="Testimonials">
+            <Actionbar title="Reviews">
+                <Input
+                    type='text'
+                    size='large'
+                    placeholder='Search...'
+                    style={{ width: "35%" }}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
                 <div>
+                    {(!!sortBy || !!sortOrder || !!searchTerm) && (
+                        <Button type="primary" onClick={resetFilters} style={{ margin: '0px 5px' }}>
+                            <ReloadOutlined />
+                        </Button>
+                    )}
                     <Link href="/admin/testimonials/create">
-                        <Button type='primary'>Create</Button>
+                        <Button type='primary' className="bg-primary">Create</Button>
                     </Link>
                 </div>
             </Actionbar>
@@ -164,29 +179,32 @@ const TestimonialPage = () => {
                 <FTable
                     loading={isLoading}
                     columns={columns}
-                    dataSource={data}
+                    dataSource={review}
                     onPaginationChange={onPaginationChange}
                     onTableChange={onTableChange}
                     showPagination={true}
                     pageSize={size}
                     showSizeChanger={true}
+                    totalPages={meta?.total}
                 />
             </div>
 
-            {/* <FModal handleCancel={handleCancel} visible={isVisible} title='Customer Information.'>
-                {adminData?.id ?
-                    <div className="text-white">
-                        <h6 className="text-capitalize">Customer Name : {adminData?.user?.name}</h6>
-                        <p>User Id # {adminData?.id}</p>
-                        <div className="border p-3">
-                            <p className="p-0 m-1">Title : {adminData?.title}</p>
-                            <p className="p-0 m-1">Address : {adminData?.description}</p>
-                            <p className="p-0 m-1">Created At : {dayjs(adminData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+            <FModal title="User Information." isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk}>
+                {
+                    reviewData &&
+                    <div className="card">
+                        <div className="card-header py-2">
+                            <h6 className="text-capitalize">Customer Name : {reviewData?.user?.name}</h6>
+                            <p className="mb-0">Created At : {dayjs(reviewData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
                         </div>
+                        <div className="p-2">
+                            <p className="mb-0 py-1">Subject : {reviewData?.title}</p>
+                            <p className="mb-0 py-1">Review: {reviewData?.description}</p>
+                        </div>
+                        {reviewData?.img && <Image src={reviewData?.img} alt="user name" width={250} height={100} />}
                     </div>
-                    : <h2>Empty....</h2>
                 }
-            </FModal> */}
+            </FModal>
         </>
     )
 }

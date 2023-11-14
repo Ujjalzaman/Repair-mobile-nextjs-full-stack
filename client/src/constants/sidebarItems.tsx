@@ -37,7 +37,7 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/blog`
         },
         {
-            label: <Link href={`/${role}/testimonials`}>Testimonials</Link>,
+            label: <Link href={`/${role}/testimonials`}>Reviews</Link>,
             key: `/${role}/testimonials`
         },
     ]
@@ -57,7 +57,7 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/appointment`,
         },
         {
-            label: <Link href={`/${role}/testimonials`}>Testimonials</Link>,
+            label: <Link href={`/${role}/testimonials`}>Reviews</Link>,
             key: `/${role}/testimonials`
         },
     ];

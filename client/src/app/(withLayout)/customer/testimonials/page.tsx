@@ -2,7 +2,6 @@
 
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { useDebounced } from "@/redux/hooks";
 import { Button, message } from "antd";
 import { useState, useEffect } from "react";
 import dayjs from 'dayjs'
@@ -14,32 +13,12 @@ import {
 } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
 import FModal from "@/components/UI/FModal";
-import { useDeleteReviewMutation, useMyReviewsQuery, useReviewQuery, useReviewsQuery } from "@/redux/api/reviewsApi";
+import { useDeleteReviewMutation, useMyReviewsQuery, useReviewQuery } from "@/redux/api/reviewsApi";
+import Image from "next/image";
+import { truncate } from "@/helpers/truncate";
 
 const TestimonialPage = () => {
-    const query: Record<string, any> = {};
-    const [page, setPage] = useState<number>(1);
-    const [size, setSize] = useState<number>(10);
-    const [sortBy, setSortBy] = useState<string>("")
-    const [sortOrder, setSortOrder] = useState<string>("")
-    const [searchTerm, setSearchTerm] = useState<string>("");
-    const [isVisible, setIsVisible] = useState<boolean>(false);
-
-    query['limit'] = size;
-    query['page'] = page;
-    query['sortBy'] = sortBy;
-    query['sortOrder'] = sortOrder;
-
-    const debouncedTerm = useDebounced({
-        searchQuery: searchTerm,
-        delay: 600
-    })
-
-    if (!!debouncedTerm) {
-        query['searchTerm'] = debouncedTerm
-    }
-
-    const { data, isLoading } = useMyReviewsQuery({ ...query });
+    const { data, isLoading } = useMyReviewsQuery({});
     const [deleteReview] = useDeleteReviewMutation();
 
     const deleteHandler = async (id: string) => {
@@ -54,22 +33,6 @@ const TestimonialPage = () => {
         }
     }
 
-    const onTableChange = (pagination: any, filter: any, sorter: any) => {
-        const { order, field } = sorter;
-        setSortBy(field as string);
-        setSortOrder(order === 'ascend' ? 'asc' : 'desc')
-    }
-
-    const onPaginationChange = (page: number, pageSize: number) => {
-        setPage(page);
-        setSize(pageSize);
-    }
-    const resetFilters = () => {
-        setSortBy("");
-        setSearchTerm("");
-        setSortOrder("");
-    }
-
     const columns = [
         {
             title: 'Name',
@@ -81,14 +44,19 @@ const TestimonialPage = () => {
         {
             title: 'Title',
             dataIndex: 'title',
-            key: 'title'
+            key: 'title',
+            render: function (data: any) {
+                return truncate(data, 25);
+            }
         },
         {
             title: 'Description',
             dataIndex: 'description',
-            key: 'email'
+            key: 'description',
+            render: function (data: any) {
+                return truncate(data, 25);
+            }
         },
-
         {
             title: 'createdAt',
             dataIndex: 'createdAt',
@@ -103,12 +71,12 @@ const TestimonialPage = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Button type='primary' style={{ margin: "5px 5px" }}>
+                        <Button className="bg-primary" type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
 
                         <Link href={`/customer/testimonials/edit/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
+                            <Button className="bg-primary" type='primary' style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
                         </Link>
@@ -120,41 +88,41 @@ const TestimonialPage = () => {
                 )
             }
         },
-
     ];
 
-    // const [skipId, setSkipId] = useState<string>("");
-    // const [isSkip, setSkip] = useState<boolean>(true);
-    // const { data: adminData } = useReviewQuery(skipId, {
-    //     skip: isSkip
-    // });
-    // const handleView = (id: string) => {
-    //     setSkipId(id);
-    // }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [skipId, setSkipId] = useState<string>("");
+    const [isSkip, setSkip] = useState<boolean>(true);
 
-    // useEffect(() => {
-    //     if (skipId !== '') {
-    //         setSkip(false);
-    //     }
-    //     if (adminData && adminData.id) {
-    //         showModal();
-    //     }
-    // }, [adminData, skipId]);
+    const { data: reviewData } = useReviewQuery(skipId, {
+        skip: isSkip
+    });
 
-    // const showModal = () => {
-    //     setIsVisible(true)
-    // }
 
-    // const handleCancel = () => {
-    //     setIsVisible(false)
-    // }
+    const showModal = (id: string) => {
+        setSkipId(id);
+        setIsModalOpen(true);
+
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+    useEffect(() => {
+        if (skipId) {
+            setSkip(false)
+        }
+    }, [skipId]);
     return (
         <>
-            <FBreadCrumb items={[{ label: `Dashboard`, link: `/dashboard`, }]} />
-            <Actionbar title="Testimonials">
+            <FBreadCrumb items={[{ label: `Dashboard`, link: `/customer/dashboard`, }]} />
+            <Actionbar title="My Reviews">
                 <div>
                     <Link href="/customer/testimonials/create">
-                        <Button type='primary'>Create</Button>
+                        <Button type='primary' className="bg-primary">Create</Button>
                     </Link>
                 </div>
             </Actionbar>
@@ -163,28 +131,29 @@ const TestimonialPage = () => {
                     loading={isLoading}
                     columns={columns}
                     dataSource={data}
-                    onPaginationChange={onPaginationChange}
-                    onTableChange={onTableChange}
                     showPagination={true}
-                    pageSize={size}
                     showSizeChanger={true}
                 />
             </div>
 
-            {/* <FModal handleCancel={handleCancel} visible={isVisible} title='Review Information.'>
-                {adminData?.id ?
-                    <div className="text-white">
-                        <h6 className="text-capitalize">Reviewer Name : {adminData?.user?.name}</h6>
-                        <p>User Id # {adminData?.id}</p>
-                        <div className="border p-3">
-                            <p className="p-0 m-1">Title : {adminData?.title}</p>
-                            <p className="p-0 m-1">Descripition : {adminData?.description}</p>
-                            <p className="p-0 m-1">Created At : {dayjs(adminData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+            <>
+                <FModal title="User Information." isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk}>
+                    {
+                        reviewData &&
+                        <div className="card">
+                            <div className="card-header py-2">
+                                <h5 className="text-capitalize">User Name : {reviewData?.user?.name}</h5>
+                                <p className="mb-0">Created At : {dayjs(reviewData?.createdAt).format('MMM D, YYYY hh:mm A')}</p>
+                            </div>
+                            <div className="p-2">
+                                <p className="mb-0 py-1">Subject : {reviewData?.title}</p>
+                                <p className="mb-0 py-1">Review : {reviewData?.description}</p>
+                            </div>
+                            {reviewData?.user?.profileImg && <Image src={reviewData?.user?.profileImg} alt="user name" width={250} height={100} />}
                         </div>
-                    </div>
-                    : <h2>Empty....</h2>
-                }
-            </FModal> */}
+                    }
+                </FModal>
+            </>
         </>
     )
 }

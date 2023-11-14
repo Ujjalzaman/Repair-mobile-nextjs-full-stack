@@ -6,9 +6,7 @@ import { ReivewController } from './reviews.controller';
 const router = express.Router();
 
 router.get('/my-review', auth(AuthUser.CUSTOMER, AuthUser.ADMIN, AuthUser.SUPER_ADMIN), ReivewController.getMyReviews);
-router.get('/:id',
-auth(AuthUser.ADMIN, AuthUser.CUSTOMER, AuthUser.SUPER_ADMIN),
-ReivewController.getReview);
+router.get('/:id',ReivewController.getReview);
 
 router.post('/',
     auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN, AuthUser.CUSTOMER),

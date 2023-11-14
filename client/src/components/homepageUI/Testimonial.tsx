@@ -9,26 +9,27 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { useReviewsQuery } from '@/redux/api/reviewsApi';
 import Image from 'next/image';
-import avatar from '@/assets/avatar.jpg'
 import BlogSkeleton from '../UI/BlogSkeleton';
 import { Empty, message } from 'antd';
 
 const Testimonial = () => {
-    const { data, isError, isLoading } = useReviewsQuery({});
+    const { data, isError, isLoading } = useReviewsQuery({limit:10});
+    const reviewData = data?.review?.data;
+    console.log(reviewData)
     let content = null;
     if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    if (!isLoading && !isError && data?.length === 0) content = <Empty />
-    if (!isLoading && !isError && data?.length > 0) content =
+    if (!isLoading && !isError && reviewData?.length === 0) content = <Empty />
+    if (!isLoading && !isError && reviewData?.length > 0) content =
         <>
             {
-                data &&
-                data?.map((item: any) => (
+                reviewData &&
+                reviewData?.map((item: any) => (
                     <SwiperSlide key={item.id}>
                         <div className="row mx-2">
                             <div className="col">
                                 <div className="mx-auto">
                                     <div className={style.review}>
-                                        <Image src={avatar} alt="image" />
+                                        <Image src={item?.user?.profileImg} alt="image" width={100} height={100}/>
                                         <h5 className={style.testimonialName}>{item.title} </h5>
                                         <h6 className={style.testimonialAddress}>New yourk</h6>
                                         <p><i>{item.description}</i></p>

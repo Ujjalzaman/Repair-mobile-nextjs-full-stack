@@ -37,10 +37,10 @@ const EditReviews = ({ params }: { params: any }) => {
             <FBreadCrumb
                 items={[
                     { label: `${base}`, link: `/${base}` },
-                    { label: "testimonials", link: `/${base}/testimonials` },
+                    { label: "reviews", link: `/${base}/testimonials` },
                 ]}
             />
-            <h5 className='p-2'>Update Testimonials</h5>
+            <h5 className='my-2'>Update My Review</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -51,7 +51,7 @@ const EditReviews = ({ params }: { params: any }) => {
                     }}
                 >
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                        <Col span={12} style={{ margin: "10px 0" }}>
+                        <Col span={24} style={{ margin: "10px 0" }}>
                             <FormInput
                                 name="title"
                                 type="text"
@@ -62,16 +62,16 @@ const EditReviews = ({ params }: { params: any }) => {
                         
                     </Row>
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-                        
-                        <Col span={12} style={{ margin: "10px 0" }}>
+                        <Col span={24} style={{ margin: "10px 0" }}>
                             <FormTextArea
                                 name="description"
                                 label="Description"
+                                rows={6}
                             />
                         </Col>
                     </Row>
                 </div>
-                <Button htmlType="submit" type="primary">Update</Button>
+                <Button htmlType="submit" type="primary" className="bg-primary">Update</Button>
             </Form>
         </>
     )

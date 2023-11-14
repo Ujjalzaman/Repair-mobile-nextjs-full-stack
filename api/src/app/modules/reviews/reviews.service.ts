@@ -1,4 +1,4 @@
-import { Prisma, Reviews, UserRole } from "@prisma/client";
+import { Reviews, UserRole } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { UserInstance } from "../../../constant";
 import { IBlogFilters } from "../blog/blog.interface";
@@ -25,7 +25,6 @@ const getAllReviews = async (
 
     const andConditions = [];
 
-
     if (Object.keys(filterData).length > 0) {
         andConditions.push({
             AND: Object.entries(filterData).map(([key, value]) => ({
@@ -46,10 +45,15 @@ const getAllReviews = async (
     };
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
 
-    const result = await prisma.blogs.findMany({
+    const result = await prisma.reviews.findMany({
         skip,
         take: limit,
         where: whereConditions,
+        include: {
+            user: {
+                select: UserInstance
+            }
+        },
         orderBy: options.sortBy && options.sortOrder ? {
             [options.sortBy]: options.sortOrder
         } : {
