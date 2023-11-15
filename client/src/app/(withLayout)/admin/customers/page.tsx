@@ -4,12 +4,11 @@ import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useCustomerQuery, useCustomersQuery, useDeleteCustomersMutation } from "@/redux/api/customersApi";
 import { useDebounced } from "@/redux/hooks";
-import { Button, Input, message } from "antd";
+import { Button, Input } from "antd";
 import { useState, useEffect } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
 import {
-  DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
   EyeOutlined
@@ -26,7 +25,6 @@ const CustomersPage = () => {
   const [sortBy, setSortBy] = useState<string>("")
   const [sortOrder, setSortOrder] = useState<string>("")
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   query['limit'] = size;
   query['page'] = page;
@@ -97,12 +95,12 @@ const CustomersPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
+            <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
               <EyeOutlined />
             </Button>
 
             <Link href={`/admin/customers/edit/${data.id}`}>
-              <Button type='primary' style={{ margin: "5px 5px" }}>
+              <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }}>
                 <EditOutlined />
               </Button>
             </Link>
@@ -120,7 +118,6 @@ const CustomersPage = () => {
   const { data: userData } = useCustomerQuery(skipId, {
     skip: isSkip
   });
-
 
   const showModal = (id: string) => {
     setSkipId(id);
@@ -152,7 +149,7 @@ const CustomersPage = () => {
         />
         <div>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button type="primary" onClick={resetFilters} style={{ margin: '0px 5px' }}>
+            <Button type="primary" className="bg-primary me-2" onClick={resetFilters}>
               <ReloadOutlined />
             </Button>
           )}

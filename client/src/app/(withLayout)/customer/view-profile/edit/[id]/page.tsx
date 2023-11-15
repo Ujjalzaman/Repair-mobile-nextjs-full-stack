@@ -27,8 +27,8 @@ const EditCustomer = ({ params }: { params: any }) => {
         try {
             const res = await updateCustomers({id, data: formData});
             if (res) {
-                message.success("Successfully Added Service Request !");
-                router.push('/admin/customers')
+                message.success("Successfully Updated User Profile!");
+                router.push('/customer/view-profile')
             }
         } catch (error: any) {
             message.loading(error.message)
@@ -42,16 +42,16 @@ const EditCustomer = ({ params }: { params: any }) => {
         address: data?.address || '',
         profileImg: data?.profileImg || ''
     }
-    const base = 'admin'
+    const base = 'customer'
     return (
         <>
             <FBreadCrumb
                 items={[
                     { label: `${base}`, link: `/${base}` },
-                    { label: "customers", link: `/${base}/customers` },
+                    { label: "view profile", link: `/${base}/view-profile` },
                 ]}
             />
-            <h5 className='my-2'>Update Customer Info</h5>
+            <h5 className='my-2'>Update My Info</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -83,6 +83,7 @@ const EditCustomer = ({ params }: { params: any }) => {
                                 name="role"
                                 label="User Role"
                                 options={UserTypeOptions}
+                                disabled={true}
                             />
                         </Col>
 

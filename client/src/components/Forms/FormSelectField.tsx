@@ -17,16 +17,16 @@ type SelectFieldProps = {
     label?: string;
     defaultValue?: SelectOptions;
     handleChange?: (el: string) => void;
+    disabled?: boolean;
 };
 
 const FormSelectField = ({
     name,
     size = "large",
-    value,
     placeholder = "select",
     options,
     label,
-    defaultValue,
+    disabled,
     handleChange,
 }: SelectFieldProps) => {
     const { control } = useFormContext();
@@ -45,6 +45,7 @@ const FormSelectField = ({
                         value={value}
                         style={{ width: "100%" }}
                         placeholder={placeholder}
+                        disabled={disabled}
                     />
                 )}
             />

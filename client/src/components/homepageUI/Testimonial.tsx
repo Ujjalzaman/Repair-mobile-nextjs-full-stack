@@ -11,6 +11,8 @@ import { useReviewsQuery } from '@/redux/api/reviewsApi';
 import Image from 'next/image';
 import BlogSkeleton from '../UI/BlogSkeleton';
 import { Empty, message } from 'antd';
+import { truncate } from '@/helpers/truncate';
+import avatar from '@/assets/avatar.jpg';
 
 const Testimonial = () => {
     const { data, isError, isLoading } = useReviewsQuery({limit:10});
@@ -28,10 +30,10 @@ const Testimonial = () => {
                             <div className="col">
                                 <div className="mx-auto">
                                     <div className={style.review}>
-                                       {item?.user?.profileImg && <Image src={item?.user?.profileImg} alt="image" width={100} height={100}/>}
-                                        <h5 className={style.testimonialName}>{item?.title} </h5>
-                                        <h6 className={style.testimonialAddress}>New yourk</h6>
-                                        <p><i>{item?.description}</i></p>
+                                       {item?.user?.profileImg && <Image src={item.user.profileImg ? item?.user?.profileImg : avatar} alt="image" width={100} height={100}/>}
+                                        <h6 className={style.testimonialName}>{truncate(item?.title, 50)} </h6>
+                                        <h6 className={style.testimonialAddress}>{item?.user?.address}</h6>
+                                        <p style={{maxHeight:'200px', minHeight: '200px', overflow:'hidden'}}><i>{truncate(item?.description, 300)}</i></p>
                                     </div>
                                 </div>
                             </div>

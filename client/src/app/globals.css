@@ -48,6 +48,9 @@ body {
   background-color: #457b9d !important;
   border: none;
 }
+.ant-btn span{
+  display: flex;
+}
 
 .ant-layout-sider-children,
 .ant-menu-dark {

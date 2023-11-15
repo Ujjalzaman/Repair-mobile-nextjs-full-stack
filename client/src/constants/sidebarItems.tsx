@@ -13,32 +13,32 @@ export const sidebarItems = (role: string) => {
     const AdminSidebarItems: MenuProps['items'] = [
         ...defaultSidebarProps,
         {
-            label: <Link href={`/${role}/`}>Manage Admin</Link>,
-            key: `/${role}/manage`
+            label: <Link href={`/admin/`}>Manage Admin</Link>,
+            key: `/admin/manage`
         },
         {
-            label: <Link href={`/${role}/appointments`}>Appointmets</Link>,
-            key: `/${role}/admin/appointments`
+            label: <Link href={`/admin/appointments`}>Appointmets</Link>,
+            key: `/admin/admin/appointments`
         },
         {
-            label: <Link href={`/${role}/customers`}>Customers</Link>,
-            key: `/${role}/customers`
+            label: <Link href={`/admin/customers`}>Customers</Link>,
+            key: `/admin/customers`
         },
         {
-            label: <Link href={`/${role}/order`}>Order</Link>,
-            key: `/${role}/order`,
+            label: <Link href={`/admin/order`}>Order</Link>,
+            key: `/admin/order`,
         },
         {
-            label: <Link href={`/${role}/service-request`}>Services</Link>,
-            key: `/${role}/service-request`,
+            label: <Link href={`/admin/service-request`}>Services</Link>,
+            key: `/admin/service-request`,
         },
         {
-            label: <Link href={`/${role}/blog`}>Blog</Link>,
-            key: `/${role}/blog`
+            label: <Link href={`/admin/blog`}>Blog</Link>,
+            key: `/admin/blog`
         },
         {
-            label: <Link href={`/${role}/testimonials`}>Reviews</Link>,
-            key: `/${role}/testimonials`
+            label: <Link href={`/admin/testimonials`}>Reviews</Link>,
+            key: `/admin/testimonials`
         },
     ]
 

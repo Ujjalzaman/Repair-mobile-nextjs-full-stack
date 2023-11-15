@@ -1,5 +1,5 @@
 import { Button, message, Popconfirm } from 'antd';
-
+import {DeleteOutlined} from "@ant-design/icons";
 
 const PopDelete = ({title, fc}: {title: string, fc: any}) => {
     const confirm = (e: any) => {
@@ -13,13 +13,13 @@ const PopDelete = ({title, fc}: {title: string, fc: any}) => {
     return (
         <Popconfirm
             title={title}
-            description="Are you sure to delete this ?"
+            description="Are you sure to delete ?"
             onConfirm={confirm}
             onCancel={cancel}
             okText="Yes"
             cancelText="No"
         >
-            <Button danger>Delete</Button>
+            <Button danger><DeleteOutlined/></Button>
         </Popconfirm>
     )
 }

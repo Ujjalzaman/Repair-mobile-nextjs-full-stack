@@ -14,17 +14,15 @@ const ViewProfile = () => {
             {
                 data && data?.id ?
                     <div className="card shadow border-0 mx-auto p-3 text-center" style={{ maxWidth: '400px' }}>
-                        <Link href={`/admin/customers/edit/${data?.id}`}>
+                        <Link href={`/customer/view-profile/edit/${data?.id}`}>
                             <button className="btn btn-primary d-flex align-items-center gap-2 justify-content-end mx-auto">Edit
                                 <i className="ri-edit-box-line"></i></button>
                         </Link>
                         <div>
                             {data?.profileImg ?
-                                <>
-                                <div className="my-3" style={{borderRadius: '50%'}}>
-                                    {data?.profileImg && <Image src={data?.profileImg} alt={data?.name} width={100} height={100} style={{objectFit:'cover'}}/>}
+                                <div className="my-3">
+                                    {data?.profileImg && <Image src={data?.profileImg} alt={data?.name} width={100} height={100} style={{ objectFit: 'cover', borderRadius: '50%' }} />}
                                 </div>
-                                </>
                                 :
                                 <div className="bg-white">
                                     <Image src={profileImg} alt={data?.name} width={100} style={{ borderRadius: '50%' }} className="my-2" />
