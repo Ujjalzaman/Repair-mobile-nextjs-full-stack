@@ -111,6 +111,7 @@ const EditService = ({ params }: { params: any }) => {
                             <FormDatePicker
                                 name="pickup_date"
                                 label="Select Date"
+                                isShow={false}
                             />
                         </Col>
                         <Col span={12} style={{ margin: "10px 0" }}>

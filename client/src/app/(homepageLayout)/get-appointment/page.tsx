@@ -8,14 +8,19 @@ import UploadImage from "@/components/Forms/uploadImage";
 import SubHeader from "@/components/UI/SubHeader"
 import { DeviceTypeOptions, deviceIssueOptions } from "@/constants/global";
 import { useAddServiceMutation } from "@/redux/api/serviceApi";
+import { isLoggedIn } from "@/service/auth.service";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2'
 
 const GetAppointment = () => {
-    const base = 'customer';
-    const [addService] = useAddServiceMutation();
+    const isUserLoggedIn = isLoggedIn();
     const router = useRouter();
+
+    if (!isUserLoggedIn) {
+        router.push('/login');
+    }
+    const [addService] = useAddServiceMutation();
     const serviceRequestOnSubmit = async (values: any) => {
         message.loading("Creating ...");
         const obj = { ...values };
@@ -27,7 +32,7 @@ const GetAppointment = () => {
         formData.append('data', data)
         try {
             const res = await addService(formData);
-            if (res) {
+            if (!!res) {
                 message.success("Successfully Added Service Request !");
                 Swal.fire({
                     icon: "success",
@@ -35,14 +40,14 @@ const GetAppointment = () => {
                     text: 'We will email you meeting Link',
                     showConfirmButton: false,
                     timer: 6000
-                  });
+                });
                 router.push('customer/service-request')
             }
         } catch (error: any) {
             message.error(error.message)
         }
-
     }
+
     return (
         <div>
             <SubHeader title='Get Appointment' />
@@ -70,33 +75,34 @@ const GetAppointment = () => {
                                                     label="Your Device Type"
                                                     options={DeviceTypeOptions}
                                                 />
-                                            </Col>
+                                                <div className="mt-3">
+                                                    <FormSelectField
+                                                        name="deviceIssue"
+                                                        label="Your Device Issue"
+                                                        options={deviceIssueOptions}
+                                                    />
+                                                </div>
 
+                                                <div className="mt-3">
+                                                    <label>Upload ScreenShot</label>
+                                                    <UploadImage
+                                                        name="file"
+                                                    />
+                                                </div>
+
+                                                <div className="mt-3">
+                                                    <FormTextArea
+                                                        name="issueDescription"
+                                                        label="Issue Description"
+                                                        rows={6}
+                                                    />
+                                                </div>
+                                            </Col>
                                             <Col span={12} style={{ margin: "10px 0" }}>
                                                 <FormDatePicker
                                                     name="appointment_date"
                                                     label="Select Date"
-                                                />
-                                            </Col>
-                                            <Col span={12} style={{ margin: "10px 0" }}>
-                                                <FormSelectField
-                                                    name="deviceIssue"
-                                                    label="Your Device Issue"
-                                                    options={deviceIssueOptions}
-                                                />
-                                            </Col>
-
-                                            <Col span={12} style={{ margin: "10px 0" }}>
-                                                <label>Upload ScreenShot</label>
-                                                <UploadImage
-                                                    name="file"
-                                                />
-                                            </Col>
-                                            <Col span={12} style={{ margin: "10px 0" }}>
-                                                <FormTextArea
-                                                    name="issueDescription"
-                                                    label="Issue Description"
-                                                    rows={6}
+                                                    isShow={true}
                                                 />
                                             </Col>
                                         </Row>
@@ -138,4 +144,4 @@ const GetAppointment = () => {
     )
 }
 
-export default GetAppointment
+export default GetAppointment;

@@ -13,17 +13,13 @@ import {
     EyeOutlined,
     ReloadOutlined
 } from "@ant-design/icons";
-
 import { useDeleteServiceMutation, useServiceQuery, useServicesQuery } from "@/redux/api/serviceApi"
 import { truncate } from "@/helpers/truncate"
 import PopDelete from "@/components/UI/PopDelete"
-
-import { Modal } from 'antd';
 import FModal from "@/components/UI/FModal"
 import Image from "next/image"
 
 const ServiceRequest = () => {
-
     const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
@@ -46,9 +42,7 @@ const ServiceRequest = () => {
         query['searchTerm'] = debouncedTerm
     }
 
-
     const [deleteService] = useDeleteServiceMutation();
-
 
     const onTableChange = (pagination: any, filter: any, sorter: any) => {
         const { order, field } = sorter;
@@ -69,7 +63,6 @@ const ServiceRequest = () => {
     const services = data?.services?.data;
     const meta = data?.meta;
 
-
     const columns = [
         {
             title: 'deviceType',
@@ -80,7 +73,6 @@ const ServiceRequest = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status'
-
         },
         {
             title: 'issueDescription',
@@ -104,12 +96,12 @@ const ServiceRequest = () => {
             key: 'Action',
             render: function (data: any) {
                 return (
-                    <>
+                    <div className="d-flex align-items-center">
                         {
                             data?.status === 'ready_for_appointment' &&
                             <>
                                 <Link href={'/schedule'}>
-                                <Button type='primary' style={{ margin: "5px 5px" }}>
+                                <Button type='primary' className="bg-info" style={{ margin: "5px 5px" }}>
                                     Get Interview
                                 </Button>
                                 </Link>
@@ -120,27 +112,25 @@ const ServiceRequest = () => {
                             data?.status === 'payment_pending' &&
                             <>
                                 <Link href={`/submit-payment/${data.id}`}>
-                                    <Button type='primary' style={{ margin: "5px 5px" }}>
+                                    <Button type='primary' className="bg-warning" style={{ margin: "5px 5px" }}>
                                         Pay
                                     </Button>
                                 </Link>
                             </>
                         }
-                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
+                        <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
                         <Link href={`/customer/service-request/edit/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
+                            <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
                         </Link>
                         <PopDelete title="Service Request" fc={() => deleteService(data.id)} />
-                    </>
+                    </div>
                 )
-
             }
         },
-
     ];
 
     const [skipId, setSkipId] = useState<string>("");
@@ -149,11 +139,9 @@ const ServiceRequest = () => {
         skip: isSkip
     });
 
-
     const showModal = (id: string) => {
         setSkipId(id);
         setIsModalOpen(true);
-
     };
     const handleOk = () => {
         setIsModalOpen(false);

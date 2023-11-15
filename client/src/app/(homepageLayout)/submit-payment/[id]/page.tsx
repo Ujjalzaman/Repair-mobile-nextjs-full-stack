@@ -3,14 +3,22 @@ import Form from "@/components/Forms/Form";
 import SubHeader from "@/components/UI/SubHeader";
 import { useGetOrderByServiceQuery, useUpdateOrderMutation } from "@/redux/api/orderApi";
 import { useServiceQuery } from "@/redux/api/serviceApi";
+import { isLoggedIn } from "@/service/auth.service";
 import { Button, Col, Input, Row, message } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const PaymentPage = ({ params }: { params: any }) => {
     const { id } = params;
     const { data } = useGetOrderByServiceQuery(id);
     const { data: service } = useServiceQuery(id)
     const [updateOrder] = useUpdateOrderMutation();
+    const isUserLoggedIn = isLoggedIn();
+    const router = useRouter();
+
+    if (!isUserLoggedIn) {
+        router.push('/login');
+    }
 
     const PlaceOrder = async (values: any) => {
         message.loading("Creating ...");

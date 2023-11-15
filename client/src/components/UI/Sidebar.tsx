@@ -52,7 +52,7 @@ const SideBar = () => {
                     <h4 className="text-capitalize text-white">{data?.name}</h4>
                     <p className="text-white">{data?.email}</p>
                     <Link href={`/${data?.role}/view-profile`}>
-                        <Button type="primary">View Profile</Button>
+                        <Button type="primary" className="bg-primary">View Profile</Button>
                     </Link>
                 </div>
             </div>

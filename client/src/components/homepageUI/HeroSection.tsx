@@ -14,7 +14,7 @@ const HeroSection = () => {
                                 <div style={{ background: "#58815775" }} className='p-2 rounded shadow'>
                                     <h1 className='text-white' style={{ fontWeight: "900" }}>We Make Your <span className='text-primary'>Phone Workable</span> For <br />you</h1>
                                     <p className='text-white p-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, odit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil repellat aliquid ullam, soluta neque vitae accusantium magnam facilis doloremque nesciunt ratione porro voluptatum deserunt.</p>
-                                    <Link href={'/customer/service-request/create'}>
+                                    <Link href={'/get-appointment'}>
                                         <button className="mb-2 btn w-50 text-white bg-primary border-0">Get Appointment</button>
                                     </Link>
                                 </div>

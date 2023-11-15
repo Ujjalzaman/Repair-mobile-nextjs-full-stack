@@ -1,4 +1,6 @@
-import React from "react";
+'use client';
+
+import React, { useState } from "react";
 import { DatePicker } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 import dayjs, { Dayjs } from "dayjs";
@@ -6,16 +8,20 @@ import dayjs, { Dayjs } from "dayjs";
 type FormDatePickerProps = {
   name: string;
   label?: string;
+  isShow?: boolean | undefined;
 };
 
-const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label }) => {
+const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label,isShow }) => {
   const { control, setValue } = useFormContext();
+  const [show, setShow] = useState<boolean | undefined>(isShow);
 
   const handleOnChange = (date: Dayjs | null, dateString: string) => {
     const formattedDate = date ? date.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") : null;
     setValue(name, formattedDate);
   };
-
+  const onOpenChange = () => {
+      setShow(!show)
+  }
   const defaultValue = dayjs();
 
   return (
@@ -33,6 +39,8 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label }) => {
               onChange(date);
               handleOnChange(date, dateString);
             }}
+            open={show}
+            onOpenChange={() => onOpenChange()}
           />
         )}
       />
