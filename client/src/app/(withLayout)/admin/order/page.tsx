@@ -3,12 +3,7 @@
 import Actionbar from "@/components/UI/ActionBar"
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
-import { Button } from "antd"
-import Link from "next/link"
 import dayjs from 'dayjs';
-import {
-    EditOutlined,
-} from "@ant-design/icons";
 import { truncate } from "@/helpers/truncate"
 import { useDeleteOrderMutation, useOrdersQuery } from "@/redux/api/orderApi"
 import PopDelete from "@/components/UI/PopDelete"
@@ -52,14 +47,8 @@ const AllOrder = () => {
             key: "action",
             render: function (data: any) {
                 return (
-                    <>
-                        {/* <Link href={`/admin/blog/edit/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
-                                <EditOutlined />
-                            </Button>
-                        </Link> */}
-                        <PopDelete title="Service Request" fc={() => deleteOrder(data.id)} />
-                    </>
+                    <PopDelete title="Service Request" fc={() => deleteOrder(data.id)} />
+                
                 )
             }
         },

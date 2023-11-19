@@ -27,8 +27,8 @@ router.delete('/:id',
     auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN),
     OrderController.deleteOrder);
 
-router.patch('/:id',
-    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN),
+router.patch('/update-order',
+    auth(AuthUser.ADMIN, AuthUser.SUPER_ADMIN, AuthUser.CUSTOMER),
     OrderController.updateOrder);
 
 

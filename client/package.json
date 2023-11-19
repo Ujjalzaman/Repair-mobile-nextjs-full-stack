@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
+    "@stripe/react-stripe-js": "^2.3.2",
+    "@stripe/stripe-js": "^2.1.11",
     "antd": "^5.10.0",
     "axios": "^1.5.1",
     "jwt-decode": "^3.1.2",

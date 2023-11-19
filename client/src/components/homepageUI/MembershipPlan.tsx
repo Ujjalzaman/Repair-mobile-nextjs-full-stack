@@ -1,4 +1,19 @@
+
 const MembershipPlan = () => {
+    const handleMembershipPlan = (type: string) => {
+        // let payType = 
+        // type === 'basic' 
+        // ? 'price_1OE7dQKuo3j4qr1Nj4uRheqs' 
+        // : type === 'gold'
+        // ? 'price_1OE7cIKuo3j4qr1NYKy9RnXv'
+        // : 'price_1OE7bTKuo3j4qr1N9gj30ehT'
+
+        // if(payType){
+        //     checkout({ lineItems: [{ price: payType ,quantity: 1 }]});
+        // }
+    }
+
+
     return (
         <div className="mx-auto" style={{ marginTop: "8rem", marginBottom: '7rem' }}>
             <div className="mb-5 text-center">

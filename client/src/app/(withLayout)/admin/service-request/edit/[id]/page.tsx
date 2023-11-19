@@ -6,8 +6,7 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import UploadImage from "@/components/Forms/uploadImage";
 import FBreadCrumb from "@/components/UI/FBreadCrumb";
-import { DeviceTypeOptions, StatusOptions, TechnicianNameOptions, UserTypeOptions, deviceIssueOptions } from "@/constants/global";
-import { useCustomerQuery, useUpdateCustomersMutation } from "@/redux/api/customersApi";
+import { DeviceTypeOptions, StatusOptions, TechnicianNameOptions, deviceIssueOptions } from "@/constants/global";
 import { useServiceQuery, useUpdateServiceMutation } from "@/redux/api/serviceApi";
 import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
@@ -29,7 +28,7 @@ const EditService = ({ params }: { params: any }) => {
         formData.append('data', data)
         try {
             const res = await updateService({ id, data: formData });
-            if (res) {
+            if (!!res) {
                 message.success("Successfully Added Service Request !");
                 router.push('/admin/service-request')
             }
@@ -50,14 +49,14 @@ const EditService = ({ params }: { params: any }) => {
     }
     const base = 'admin'
     return (
-        <>
+        <div style={{marginBottom:'8rem', marginTop:'2rem'}}>
             <FBreadCrumb
                 items={[
                     { label: `${base}`, link: `/${base}` },
                     { label: "service", link: `/${base}/service-request` },
                 ]}
             />
-            <h5 className='p-2'>Update User</h5>
+            <h5 className='my-2'>Take Action on User Requests</h5>
             <Form submitHandler={handleOnSubmit} defaultValues={defaultValues}>
                 <div
                     style={{
@@ -68,20 +67,20 @@ const EditService = ({ params }: { params: any }) => {
                     }}
                 >
                     <p style={{ fontSize: "18px", fontWeight: "500", margin: "5px 0px" }}>
-                        Basic information
+                        Customer Request Informations
                     </p>
                     <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }} >
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormSelectField
                                 name="deviceType"
-                                label="Your Device Type"
+                                label="Device Type"
                                 options={DeviceTypeOptions}
                             />
                         </Col>
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormSelectField
                                 name="deviceIssue"
-                                label="Your Device Issue"
+                                label="Device Issue"
                                 options={deviceIssueOptions}
                             />
                         </Col>
@@ -95,7 +94,7 @@ const EditService = ({ params }: { params: any }) => {
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormSelectField
                                 name="status"
-                                label="Current Status"
+                                label="Status"
                                 options={StatusOptions}
                             />
                         </Col>
@@ -103,24 +102,32 @@ const EditService = ({ params }: { params: any }) => {
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormDatePicker
                                 name="appointment_date"
-                                label="Select Date"
+                                label="Appointment Date With Customer"
+                            />
+                        </Col>
+                        <Col span={12} style={{ margin: "10px 0" }}>
+                            <FormDatePicker
+                                name="estimated_completion_time"
+                                label="Estimated Completion Date and Time"
+                                isShow={false}
                             />
                         </Col>
 
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <FormDatePicker
                                 name="pickup_date"
-                                label="Select Date"
+                                label="Pickup Date (if device is ready)"
                                 isShow={false}
                             />
                         </Col>
                         <Col span={12} style={{ margin: "10px 0" }}>
-                            <FormDatePicker
-                                name="estimated_completion_time"
-                                label="Select Date"
+                            <FormTextArea
+                                name="issueDescription"
+                                label="Issue Description"
+                                rows={8}
                             />
                         </Col>
-
+                        
                         <Col span={12} style={{ margin: "10px 0" }}>
                             <div className="d-flex justify-content-center align-items-center gap-2">
                                 {defaultValues?.img &&
@@ -128,9 +135,9 @@ const EditService = ({ params }: { params: any }) => {
                                         <Image
                                             src={defaultValues?.img}
                                             alt="avatar"
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%", objectFit:'contain' }}
                                             width={100}
-                                            height={100}
+                                            height={200}
                                         />
                                     </div>
                                 }
@@ -140,18 +147,12 @@ const EditService = ({ params }: { params: any }) => {
                                 </div>
                             </div>
                         </Col>
-                        <Col span={12} style={{ margin: "10px 0" }}>
-                            <FormTextArea
-                                name="issueDescription"
-                                label="Issue Description"
-                                rows={6}
-                            />
-                        </Col>
+                        
                     </Row>
                 </div>
                 <Button htmlType="submit" type="primary" className="bg-primary">submit</Button>
             </Form>
-        </>
+        </div>
     )
 }
 

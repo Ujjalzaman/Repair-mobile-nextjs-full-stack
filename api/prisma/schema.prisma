@@ -88,7 +88,7 @@ model Service {
   estimated_completion_time DateTime?
   pickup_date               DateTime?
   status                    ServiceStatus @default(scheduled)
-  isPaid                    Boolean?
+  isPaid                    Boolean?      @default(false)
   isReady                   Boolean       @default(false)
   isFixed                   Boolean       @default(false)
   deviceIssue               String?
@@ -131,7 +131,7 @@ model Blogs {
 model Order {
   id              String   @id @default(uuid())
   hardware        Int?
-  software       Int?
+  software        Int?
   parts           String?
   technician_bill Int?
   totalAmount     Int?

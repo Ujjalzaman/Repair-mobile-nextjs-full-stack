@@ -30,7 +30,7 @@ const Testimonial = () => {
                             <div className="col">
                                 <div className="mx-auto">
                                     <div className={style.review}>
-                                       {item?.user?.profileImg && <Image src={item.user.profileImg ? item?.user?.profileImg : avatar} alt="image" width={100} height={100}/>}
+                                       {item?.user?.profileImg && <Image style={{objectFit:'cover'}} src={item.user.profileImg ? item?.user?.profileImg : avatar} alt="image" width={100} height={100}/>}
                                         <h6 className={style.testimonialName}>{truncate(item?.title, 50)} </h6>
                                         <h6 className={style.testimonialAddress}>{item?.user?.address}</h6>
                                         <p style={{maxHeight:'200px', minHeight: '200px', overflow:'hidden'}}><i>{truncate(item?.description, 300)}</i></p>

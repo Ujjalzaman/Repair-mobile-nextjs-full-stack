@@ -90,6 +90,11 @@ const getServices = async (
         const result = await prisma.service.findMany({
             skip,
             take: limit,
+            include: {
+                user: {
+                    select : UserInstance
+                }
+            },
             where: whereConditions,
             orderBy: options.sortBy && options.sortOrder ? {
                 [options.sortBy]: options.sortOrder

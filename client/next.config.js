@@ -13,8 +13,15 @@ module.exports = {
           port: '',
           pathname: '**',
         },
+        {
+          protocol: 'https',
+          hostname: 'images.unsplash.com',
+          port: '',
+          pathname: '**',
+        },
       ],
     },
   }
 
 // res.cloudinary.com
+// images.unsplash.com

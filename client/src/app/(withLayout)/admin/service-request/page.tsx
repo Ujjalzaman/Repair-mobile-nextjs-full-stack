@@ -9,7 +9,6 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import dayjs from 'dayjs';
 import {
-    EditOutlined,
     EyeOutlined,
     ReloadOutlined
 } from "@ant-design/icons";
@@ -17,13 +16,10 @@ import {
 import { useDeleteServiceMutation, useServiceQuery, useServicesQuery } from "@/redux/api/serviceApi"
 import { truncate } from "@/helpers/truncate"
 import PopDelete from "@/components/UI/PopDelete"
-
-import { Modal } from 'antd';
 import FModal from "@/components/UI/FModal"
 import Image from "next/image"
 
 const ServiceRequest = () => {
-
     const query: Record<string, any> = {};
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
@@ -46,9 +42,7 @@ const ServiceRequest = () => {
         query['searchTerm'] = debouncedTerm
     }
 
-
     const [deleteService] = useDeleteServiceMutation();
-
 
     const onTableChange = (pagination: any, filter: any, sorter: any) => {
         const { order, field } = sorter;
@@ -69,22 +63,28 @@ const ServiceRequest = () => {
     const services = data?.services?.data;
     const meta = data?.meta;
 
-
     const columns = [
+        {
+            title: 'user',
+            key: 'user-name+55',
+            render: function(data:any){
+                return data && data?.user?.name
+            }
+        },
         {
             title: 'deviceType',
             dataIndex: 'deviceType',
-            key: 'deviceType'
+            key: 'deviceType+55'
         },
         {
             title: 'Status',
             dataIndex: 'status',
-            key: 'status',
+            key: 'status+55',
         },
         {
             title: 'issueDescription',
             dataIndex: 'issueDescription',
-            key: 'issueDescription',
+            key: 'issueDescription+55',
             render: function (data: any) {
                 return data && truncate(data, 30)
             }
@@ -92,7 +92,7 @@ const ServiceRequest = () => {
         {
             title: 'createdAt',
             dataIndex: 'createdAt',
-            key: 'createdAt',
+            key: 'createdAt+88',
             sorter: true,
             render: function (data: any) {
                 return data && dayjs(data).format('MMM D, YYYY hh:mm A');
@@ -100,7 +100,7 @@ const ServiceRequest = () => {
         },
         {
             title: 'Action',
-            key: 'Action',
+            key: 'Action+55',
             render: function (data: any) {
                 return (
                     <>
@@ -108,19 +108,19 @@ const ServiceRequest = () => {
                             data?.status === 'fixed' &&
                             <>
                                 <Link href={`/admin/generate-payment/${data?.id}`}>
-                                    <Button type='primary' style={{ margin: "5px 5px" }}>
+                                    <Button type='primary' className="bg-warning" style={{ margin: "0px 5px" }}>
                                         Init Payment
                                     </Button>
 
                                 </Link>
                             </>
                         }
-                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
+                        <Button type='primary' style={{ margin: "0px 5px" }} className="bg-primary" onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
                         <Link href={`/admin/service-request/edit/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
-                                <EditOutlined />
+                            <Button type='primary' className="bg-primary" style={{ margin: "0px 5px" }}>
+                                Action
                             </Button>
                         </Link>
                         <PopDelete title="Service Request" fc={() => deleteService(data.id)} />
@@ -128,7 +128,6 @@ const ServiceRequest = () => {
                 )
             }
         },
-
     ];
 
     const [skipId, setSkipId] = useState<string>("");
@@ -141,7 +140,6 @@ const ServiceRequest = () => {
     const showModal = (id: string) => {
         setSkipId(id);
         setIsModalOpen(true);
-
     };
     const handleOk = () => {
         setIsModalOpen(false);
@@ -156,11 +154,10 @@ const ServiceRequest = () => {
         }
     }, [skipId]);
 
-
     return (
         <>
             <FBreadCrumb items={[{ label: "dashboard", link: `/dashboard` }]} />
-            <Actionbar title="Services">
+            <Actionbar title="Customer Reqesuts">
                 <Input
                     type='text'
                     size='large'
@@ -191,17 +188,16 @@ const ServiceRequest = () => {
                     pageSize={size}
                     showSizeChanger={true}
                     totalPages={meta?.total}
-
                 />
             </div>
             <>
                 <FModal title="Service" isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk}>
                     {
                         serviceData &&
-
                         <div className="card">
                             <div className="card-header py-2">
-                                <h5 className="m-0">Device Type : {serviceData?.deviceType}</h5>
+                                <h4 className="m-0">Customer Name : {serviceData?.user?.name}</h4>
+                                <h4 className="m-0">Device Type : {serviceData?.deviceType}</h4>
                                 <p className="mb-0">AppointMent Date : {dayjs(serviceData?.appointment_date).format('MMM D, YYYY hh:mm A')}</p>
                             </div>
                             <div className="p-2">
@@ -213,7 +209,7 @@ const ServiceRequest = () => {
                                 <p className="mb-0 py-1">is Ready : {serviceData?.isReady}</p>
                                 <p className="mb-0 py-1">isFixed : {serviceData?.isFixed}</p>
                             </div>
-                            {serviceData.img && <Image src={serviceData?.img} alt={serviceData?.deviceIssue} width={150} height={100} />}
+                            {serviceData.img && <Image src={serviceData?.img} alt={serviceData?.deviceIssue} width={350} height={200} style={{objectFit:'contain'}}/>}
                         </div>
                     }
                 </FModal>
@@ -221,5 +217,4 @@ const ServiceRequest = () => {
         </>
     )
 }
-
 export default ServiceRequest

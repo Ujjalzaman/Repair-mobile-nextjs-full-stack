@@ -2,6 +2,7 @@
 import Form from "@/components/Forms/Form";
 import SubHeader from "@/components/UI/SubHeader";
 import { useGetOrderByServiceQuery, useUpdateOrderMutation } from "@/redux/api/orderApi";
+import { useAddPaymentMutation } from "@/redux/api/payment";
 import { useServiceQuery } from "@/redux/api/serviceApi";
 import { isLoggedIn } from "@/service/auth.service";
 import { Button, Col, Input, Row, message } from "antd";
@@ -12,26 +13,25 @@ const PaymentPage = ({ params }: { params: any }) => {
     const { id } = params;
     const { data } = useGetOrderByServiceQuery(id);
     const { data: service } = useServiceQuery(id)
-    const [updateOrder] = useUpdateOrderMutation();
-    const isUserLoggedIn = isLoggedIn();
     const router = useRouter();
+    const isUserLoggedIn = isLoggedIn();
 
     if (!isUserLoggedIn) {
         router.push('/login');
     }
+    const [addPayment] = useAddPaymentMutation();
 
     const PlaceOrder = async (values: any) => {
         message.loading("Creating ...");
-        const obj: any = {};
-        obj['isPaid'] = true
-        obj['invoiceNumber'] = '1234564789'
-        try {
-            const res = await updateOrder({id: data.id, data: obj});
-            if (res) {
-                message.success("Successfully Placed Order !");
-            }
-        } catch (error: any) {
-            message.error(error.message)
+        const obj = ({
+            price: data?.totalAmount,
+            name: service?.deviceIssue,
+            description: service?.issueDescription,
+            images: service?.img
+        })
+        if (obj.price) {
+            const result = await addPayment({ ...obj }).unwrap();
+            router.replace(result.url)
         }
     }
     return (

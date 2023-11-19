@@ -63,21 +63,38 @@ const deleteOrder = async (id: string): Promise<Order | null> => {
     return result;
 }
 
-const updateOrder = async (id: string, payload: Partial<Order>): Promise<any> => {
+const updateOrder = async (id: string, payload: any) => {
+
     await prisma.$transaction(async (tx) => {
-        await tx.service.update({
+        const getOrder = await tx.order.findFirst({
             where: {
-                id: payload.serviceId
+                service: {
+                    user: {
+                        email: payload.email
+                    }
+                }
+            }
+        });
+        await tx.order.update({
+            where: {
+                id: getOrder?.id
             },
             data: {
+                isPaid: payload.isPaid === 'paid' && true,
+                invoiceNumber: payload.invoiceNumber
+            }
+        })
+        
+        await tx.service.update({
+            where: {
+                id: getOrder?.serviceId
+            },
+            data: {
+                isPaid: true,
+                isReady: true,
                 status: ServiceStatus.ready_for_pickup
             }
         })
-        const result = await prisma.order.update({
-            where: { id },
-            data: payload
-        });
-        return result;
     })
 }
 export const OrdersServices = {

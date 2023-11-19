@@ -14,5 +14,9 @@ export default {
         name: process.env.CLOUND_NAME,
         key: process.env.API_KEY,
         secret: process.env.API_SECRET
+    },
+    stripe:{
+        publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+        secretKey: process.env.STRIPE_SECRET_KEY
     }
 }

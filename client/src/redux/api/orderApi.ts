@@ -41,8 +41,8 @@ const orderApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.order]
         }),
         updateOrder: build.mutation({
-            query: ({ id, data }) => ({
-                url: `${ORDER_URL}/${id}`,
+            query: ({ data }) => ({
+                url: `${ORDER_URL}/update-order`,
                 method: 'PATCH',
                 data: data
             }),
