@@ -15,7 +15,7 @@ const DashboarPage = () => {
   if (!isLoading && !isError && serviceData?.length > 0) content = <>
     {
       serviceData && serviceData.map((item: any, id: number) => (
-        <div className="mb-4 p-2 border">
+        <div className="mb-4 p-2 border" key={id + 100}>
           <div className="card shadow border-0 mt-5">
             <div className="d-flex align-items-center justify-content-between mx-3">
               <div className="d-flex align-items-center justify-content-start">

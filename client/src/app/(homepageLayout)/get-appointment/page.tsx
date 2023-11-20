@@ -14,12 +14,16 @@ import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2'
 
 const GetAppointment = () => {
-    const isUserLoggedIn = isLoggedIn();
     const router = useRouter();
 
-    if (!isUserLoggedIn) {
-        router.push('/login');
-    }
+    if (typeof window !== 'undefined') {
+        const isUserLoggedIn = isLoggedIn();
+      
+        if (!isUserLoggedIn) {
+          router.push('/login');
+        }
+      }
+
     const [addService] = useAddServiceMutation();
     const serviceRequestOnSubmit = async (values: any) => {
         message.loading("Creating ...");

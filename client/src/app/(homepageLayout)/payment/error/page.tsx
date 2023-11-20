@@ -1,13 +1,19 @@
+'use client';
+
 import { isLoggedIn } from '@/service/auth.service';
 import { Button, Result } from 'antd';
 import { useRouter } from 'next/navigation';
 const ErrorPage = () => {
   const router = useRouter();
-  const isUserLoggedIn = isLoggedIn();
 
-  if (!isUserLoggedIn) {
-    router.push('/login');
+  if (typeof window !== 'undefined') {
+    const isUserLoggedIn = isLoggedIn();
+
+    if (!isUserLoggedIn) {
+      router.push('/login');
+    }
   }
+
   return (
     <div style={{ height: '60vh' }}>
       <div className='mt-5'>

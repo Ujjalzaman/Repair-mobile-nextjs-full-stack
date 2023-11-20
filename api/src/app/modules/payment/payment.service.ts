@@ -23,6 +23,12 @@ const createPayment = async (user: any, data:IProps): Promise<any> => {
         currency: 'usd',
         product: product.id,
     });
+    const SuccessURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/payment/success?session_id={CHECKOUT_SESSION_ID}` 
+    : `https://fix-my-phone-ujjalzaman.vercel.app/payment/success?session_id={CHECKOUT_SESSION_ID}`
+
+    const ErrorURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/payment/error?session_id={CHECKOUT_SESSION_ID}` 
+    : `https://fix-my-phone-ujjalzaman.vercel.app/payment/error?session_id={CHECKOUT_SESSION_ID}`
+
 
     const result = await stripe.checkout.sessions.create({
         line_items: [
@@ -33,8 +39,8 @@ const createPayment = async (user: any, data:IProps): Promise<any> => {
         ],
         customer_email: email,
         mode: 'payment',
-        success_url: `http://localhost:3000/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `http://localhost:3000/payment/error`,
+        success_url: SuccessURL,
+        cancel_url: ErrorURL,
     });
  
     return result

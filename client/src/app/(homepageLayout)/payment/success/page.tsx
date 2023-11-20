@@ -40,7 +40,7 @@ const SuccessPage = () => {
             router.push('/customer/dashboard')
         }, 3000);
         fetchData();
-    }, [data])
+    }, [data, updateOrder, router])
 
 
 

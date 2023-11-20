@@ -1,9 +1,5 @@
+const url:string = process.env.NODE_ENV === "development" ?  "http://localhost:5051/api/v1" : 'https://fixmyphone-ujjalzaman.vercel.app/api/v1'
+
 export const getBaseUrl = ():string =>{
-    return "http://localhost:5051/api/v1"
+    return  url;
 }
-
-export const getApiKey = ():string =>{
-    return process.env.IMAGEBBKEY || "http://localhost:5051/api/v1"
-}
-
-// process.env.NEXT_PUBLIC_API_BASE_URL || 
