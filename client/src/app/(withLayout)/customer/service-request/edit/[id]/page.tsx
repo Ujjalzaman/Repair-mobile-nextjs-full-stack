@@ -45,7 +45,7 @@ const EditService = ({ params }: { params: any }) => {
         issueDescription: data?.issueDescription || '',
         img: data?.img || ''
     }
-    const base = 'admin'
+    const base = 'customer'
     return (
         <>
             <FBreadCrumb

@@ -103,8 +103,6 @@ const updateUser = async (req: Request): Promise<IUser | null> => {
             profileImg: true,
             createdAt: true,
             updatedAt: true,
-            ServiceRequest: true,
-            appointmentSchedule: true,
             reviews: true,
         }
     });

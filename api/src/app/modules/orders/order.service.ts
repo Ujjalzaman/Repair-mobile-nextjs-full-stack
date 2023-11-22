@@ -92,6 +92,7 @@ const updateOrder = async (id: string, payload: any) => {
             data: {
                 isPaid: true,
                 isReady: true,
+                isFixed: true,
                 status: ServiceStatus.ready_for_pickup
             }
         })

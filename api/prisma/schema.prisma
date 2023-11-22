@@ -20,8 +20,6 @@ model User {
   profileImg          String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
-  ServiceRequest      ServiceRequest[]
-  appointmentSchedule appointmentSchedule[]
   reviews             Reviews[]
   blogs               Blogs[]
   service             Service[]
@@ -29,61 +27,13 @@ model User {
   @@map("users")
 }
 
-model ServiceRequest {
-  id                       String                    @id @default(uuid())
-  userId                   String
-  user                     User                      @relation(fields: [userId], references: [id])
-  deviceType               String
-  issueDescription         String
-  status                   ServiceStatus             @default(pending)
-  reviewed                 Boolean                   @default(false)
-  createdAt                DateTime                  @default(now())
-  updatedAt                DateTime                  @updatedAt
-  serviceRequestResolvings ServiceRequestResolving[]
-  appointmentSchedule      appointmentSchedule[]
-
-  @@map("service_request")
-}
-
-model ServiceRequestResolving {
-  id                        String         @id @default(uuid())
-  serviceRequestId          String
-  serviceRequest            ServiceRequest @relation(fields: [serviceRequestId], references: [id])
-  technician_assigne_name   String?
-  estimated_completion_time DateTime?
-  ready_for_pickup          DateTime?
-  status                    ServiceStatus  @default(pending)
-  createdAt                 DateTime       @default(now())
-  updatedAt                 DateTime       @updatedAt
-
-  @@map("service_request_resolving")
-}
-
-model appointmentSchedule {
-  id               String   @id @default(uuid())
-  appointment_date DateTime
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
-  serviceRequestId String
-  serviceRequest   ServiceRequest @relation(fields: [serviceRequestId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("appointment_schedule")
-}
-
 model Service {
   id               String   @id @default(uuid())
   appointment_date DateTime
   userId           String
   user             User     @relation(fields: [userId], references: [id])
-
   deviceType       String
   issueDescription String
-
   technician                String?
   estimated_completion_time DateTime?
   pickup_date               DateTime?
@@ -105,7 +55,6 @@ model Reviews {
   id          String @id @default(uuid())
   title       String
   description String
-
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
@@ -154,17 +103,14 @@ enum UserRole {
 }
 
 enum ServiceStatus {
-  pending
   in_progress
   awaiting_parts
   on_hold
   ready_for_pickup
-  ready_for_appointment
   completed
   fixed
   scheduled
   payment_pending
-  closed
   dispatched
   assignToTechnican
 }

@@ -17,15 +17,20 @@ const SignUP = () => {
         if (data.password !== data.repassword) {
             setIsMatch(true);
         }
-        const {repassword, ...signUpData} = data;
-        try {
-            message.loading("Signing up ....")
-            const res = await userSignUp(signUpData).unwrap();
-            if (res && res.id) {
-                message.success("Successfully Signup");
-                router.push('/login')
-            }
-        } catch (err) { }
+        if (!isMatch) {
+            const { repassword, ...signUpData } = data;
+            const obj = JSON.stringify(signUpData);
+            const formData = new FormData();
+            formData.append('data', obj)
+            try {
+                message.loading("Signing up ....")
+                const res = await userSignUp(formData).unwrap();
+                if (!!res) {
+                    message.success("Successfully Signup");
+                    router.push('/login')
+                }
+            } catch (err) { }
+        }
     };
     return (
         <Row

@@ -95,22 +95,16 @@ export const TechnicianNameOptions = TechncianName?.map((data) => {
 })
 
 const serviceStatus = [
-    "pending",
     "in_progress",
     "awaiting_parts",
     "on_hold",
-    "quality_check",
     "ready_for_pickup",
-    "ready_for_appointment",
     "completed",
-    "canceled",
-    "scheduled",
     "fixed",
+    "scheduled",
     "payment_pending",
-    "delayed",
-    "closed",
     "dispatched",
-    "assignToTechnican",
+    "assignToTechnican"
 ]
 export const StatusOptions = serviceStatus?.map((data) => {
     return {

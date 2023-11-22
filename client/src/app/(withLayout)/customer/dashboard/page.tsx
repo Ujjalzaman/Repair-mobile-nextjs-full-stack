@@ -33,7 +33,7 @@ const DashboarPage = () => {
               }}>
                 <h5 className="m-0">Status</h5>
                 {
-                  item?.status === 'ready_for_appointment' && 
+                  item?.status === 'scheduled' && 
                   <Button type="primary" href="/schedule">{item?.status}</Button>
                 }
                 {
@@ -66,11 +66,11 @@ const DashboarPage = () => {
           <div className="d-flex justify-content-around align-items-center mt-5">
             <div className="card shadow border-0 py-3 text-center" style={{ minWidth: '20rem' }}>
               <p>Estimated Completion Date</p>
-              <h4>{dayjs(item?.estimated_completion_time).format('MMM D, YYYY hh:mm A')}</h4>
+              <h4>{item?.estimated_completion_time ? dayjs(item?.estimated_completion_time).format('MMM D, YYYY hh:mm A') : '-'}</h4>
             </div>
             <div className="card shadow border-0 py-3 text-center" style={{ minWidth: '20rem' }}>
               <p>Pickup Date</p>
-              <h4>{dayjs(item?.pickup_date).format('MMM D, YYYY hh:mm A')}</h4>
+              <h4>{item?.pickup_date ? dayjs(item?.pickup_date).format('MMM D, YYYY hh:mm A') : '-'}</h4>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 'use client';
+
 import Form from "@/components/Forms/Form";
 import SubHeader from "@/components/UI/SubHeader";
 import { useGetOrderByServiceQuery, useUpdateOrderMutation } from "@/redux/api/orderApi";
@@ -14,11 +15,14 @@ const PaymentPage = ({ params }: { params: any }) => {
     const { data } = useGetOrderByServiceQuery(id);
     const { data: service } = useServiceQuery(id)
     const router = useRouter();
-    const isUserLoggedIn = isLoggedIn();
-
-    if (!isUserLoggedIn) {
-        router.push('/login');
-    }
+    
+    if (typeof window !== 'undefined') {
+        const isUserLoggedIn = isLoggedIn();
+    
+        if (!isUserLoggedIn) {
+          router.push('/login');
+        }
+      }
     const [addPayment] = useAddPaymentMutation();
 
     const PlaceOrder = async (values: any) => {

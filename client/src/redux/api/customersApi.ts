@@ -31,6 +31,7 @@ const customersApi = baseApi.injectEndpoints({
                 url: `/auth/signup`,
                 method: 'POST',
                 data: data,
+                headers: {'Content-Type': 'multipart/form-data'}
             }),
             invalidatesTags: [tagTypes.customers]
 

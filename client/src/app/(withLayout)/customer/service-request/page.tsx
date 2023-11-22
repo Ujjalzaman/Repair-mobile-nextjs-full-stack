@@ -98,7 +98,7 @@ const ServiceRequest = () => {
                 return (
                     <div className="d-flex align-items-center">
                         {
-                            data?.status === 'ready_for_appointment' &&
+                            data?.status === 'scheduled' &&
                             <>
                                 <Link href={'/schedule'}>
                                 <Button type='primary' className="bg-info" style={{ margin: "5px 5px" }}>
@@ -207,7 +207,7 @@ const ServiceRequest = () => {
                             <div className="p-2">
                                 <p className="mb-0 py-1">Device Issue : {serviceData?.deviceIssue}</p>
                                 <p className="mb-0 py-1">Description : {serviceData?.issueDescription}</p>
-                                <p className="mb-0 py-1">Technigniacl : {serviceData?.technician}</p>
+                                <p className="mb-0 py-1">Technigniac : {serviceData?.technician}</p>
                                 <p className="mb-0 py-1">Status : {serviceData?.status}</p>
                                 <p className="mb-0 py-1">Is paid : {serviceData?.isPaid}</p>
                                 <p className="mb-0 py-1">is Ready : {serviceData?.isReady}</p>

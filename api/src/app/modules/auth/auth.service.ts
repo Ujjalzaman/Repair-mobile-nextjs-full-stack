@@ -12,7 +12,7 @@ import { Request } from 'express';
 import { ICloudinaryResponse, IUpload } from '../../../interfaces/file';
 
 const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
-    const { email: IEmail, password } = user;
+    const { email: IEmail } = user;
     const isUserExist = await prisma.user.findUnique({
         where: {
             email: IEmail,
@@ -37,11 +37,15 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
 }
 
 const SignUpUser = async (req: Request): Promise<User | null> => {
-    const file = req.file as IUpload;
     let user: User = JSON.parse(req.body.data)
-    const uploadImage: ICloudinaryResponse = await CloudinaryHelper.uploadFile(file);
-    if (uploadImage) {
-        user.profileImg = uploadImage.secure_url;
+    const file = req.file as IUpload;
+    if(file){
+        const uploadImage: ICloudinaryResponse = await CloudinaryHelper.uploadFile(file);
+        if (uploadImage) {
+            user.profileImg = uploadImage.secure_url;
+        }else{
+            throw new ApiError(httpStatus.EXPECTATION_FAILED, 'Failed to upload image')
+        }
     }
 
     const { password } = user;

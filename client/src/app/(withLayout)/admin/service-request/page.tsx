@@ -103,7 +103,7 @@ const ServiceRequest = () => {
             key: 'Action+55',
             render: function (data: any) {
                 return (
-                    <>
+                    <div className="d-flex">
                         {
                             data?.status === 'fixed' &&
                             <>
@@ -124,7 +124,7 @@ const ServiceRequest = () => {
                             </Button>
                         </Link>
                         <PopDelete title="Service Request" fc={() => deleteService(data.id)} />
-                    </>
+                    </div>
                 )
             }
         },

@@ -1,6 +1,6 @@
 import config from "../../../config";
 
-const stripe = require('stripe')(config.stripe.publishableKey);
+const stripe = require('stripe')(config.stripe.secretKey);
 
 interface IProps  {
     description?: string,
