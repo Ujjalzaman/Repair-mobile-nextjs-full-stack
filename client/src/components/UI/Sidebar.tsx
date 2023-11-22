@@ -51,9 +51,14 @@ const SideBar = () => {
                 <div className="mt-2">
                     <h4 className="text-capitalize text-white">{data?.name}</h4>
                     <p className="text-white">{data?.email}</p>
-                    <Link href={`/${data?.role}/view-profile`}>
-                        <Button type="primary" className="bg-primary">View Profile</Button>
+                    <div className="gap-2 d-flex">
+                    <Link href={`/${data?.role}/view-profile`} className="shadow">
+                        <Button type="primary" className="bg-secondary">View Profile</Button>
                     </Link>
+                    <Link href={`/`} className="shadow">
+                        <Button type="primary" className="bg-primary">Back To Home</Button>
+                    </Link>
+                    </div>
                 </div>
             </div>
 

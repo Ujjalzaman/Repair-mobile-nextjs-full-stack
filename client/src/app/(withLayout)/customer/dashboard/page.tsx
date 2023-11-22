@@ -1,10 +1,10 @@
 'use client'
 
 import Image from "next/image";
-import demoImg from '@/assets/avatar.jpg';
 import { Button, Empty, message } from "antd";
 import { useServicesQuery } from "@/redux/api/serviceApi";
 import dayjs from 'dayjs';
+import { truncate } from "@/helpers/truncate";
 const DashboarPage = () => {
   const { data, isLoading, isError } = useServicesQuery({});
   const serviceData = data?.services?.data
@@ -15,74 +15,84 @@ const DashboarPage = () => {
   if (!isLoading && !isError && serviceData?.length > 0) content = <>
     {
       serviceData && serviceData.map((item: any, id: number) => (
-        <div className="mb-4 p-2 border" key={id + 100}>
-          <div className="card shadow border-0 mt-5">
-            <div className="d-flex align-items-center justify-content-between mx-3">
-              <div className="d-flex align-items-center justify-content-start">
-                <div className="p-2">
-                  <Image src={item?.img} height={100} width={300} alt="device image" style={{ objectFit: 'contain' }} />
-                </div>
-                <div>
-                  <h5>{item?.deviceType}</h5>
-                  <p>{item?.deviceIssue}</p>
-                </div>
-              </div>
-              <div className="d-flex align-items-center justify-content-between gap-5 rounded" style={{
-                "background": "#d7ded6",
-                "padding": "31px 120px"
-              }}>
-                <h5 className="m-0">Status</h5>
-                {
-                  item?.status === 'scheduled' && 
-                  <Button type="primary" href="/schedule">{item?.status}</Button>
-                }
-                {
-                  item?.status === 'payment_pending' ? 
-                  <Button type="primary" href={`/submit-payment/${item?.id}`}>{item?.status}</Button>:
-                  <Button type="primary" >{item?.status}</Button>
-                }
-                
+        <div className="container card shadow border pb-4" key={id + 100}>
+          <div className="d-flex justify-content-between align-items-center border-primary border-bottom">
+            <div className="py-2">
+              <h5>{truncate(item?.deviceType, 60)}</h5>
+              <p>{truncate(item?.deviceIssue, 80)}</p>
+              <div className="mt-1">
+                <h6>Estimated Completion Date : {item?.estimated_completion_time ? dayjs(item?.estimated_completion_time).format('MMM D, YYYY hh:mm A') : '-'}</h6>
+                <h6>Pickup Date : {item?.pickup_date ? dayjs(item?.pickup_date).format('MMM D, YYYY hh:mm A') : '-'}</h6>
               </div>
             </div>
-          </div>
-
-          <div className="d-flex justify-content-around align-items-center mt-5">
-            <div className="card shadow border-0 py-3 text-center bg-success text-white" style={{ minWidth: '20rem' }}>
-              <p>Is Device Fixed</p>
-              <h4>{item?.isFixed === false ? "No" : "Yes"}</h4>
-            </div>
-
-            <div className="card shadow border-0 py-3 text-center" style={{ minWidth: '20rem' }}>
-              <p>Is Device Ready</p>
-              <h4>{item?.isReady === false ? "No" : "Yes"}</h4>
-            </div>
-
-            <div className="card shadow border-0 py-3 text-center bg-danger text-white" style={{ minWidth: '20rem' }}>
-              <p>Is Device Fixed</p>
-              <h4>{item?.isPaid === false ? "No" : "Yes"}</h4>
+            <div>
+              <Image src={item?.img} height={100} width={300} alt="device image" style={{ objectFit: 'contain', maxWidth: '6rem' }} />
             </div>
           </div>
 
-          <div className="d-flex justify-content-around align-items-center mt-5">
-            <div className="card shadow border-0 py-3 text-center" style={{ minWidth: '20rem' }}>
-              <p>Estimated Completion Date</p>
-              <h4>{item?.estimated_completion_time ? dayjs(item?.estimated_completion_time).format('MMM D, YYYY hh:mm A') : '-'}</h4>
+          <div className="row my-3">
+            <div className="col-md-4">
+              <div className="card shadow bg-primary text-white text-center border-0">
+                <div className="card-header border-0">
+                  Is Device Fixed
+                </div>
+                <div className="card-body p-3">
+                  {item?.isFixed === false ? "No" : "Yes"}
+                </div>
+              </div>
             </div>
-            <div className="card shadow border-0 py-3 text-center" style={{ minWidth: '20rem' }}>
-              <p>Pickup Date</p>
-              <h4>{item?.pickup_date ? dayjs(item?.pickup_date).format('MMM D, YYYY hh:mm A') : '-'}</h4>
+
+            <div className="col-md-4">
+              <div className="card shadow bg-secondary text-white text-center border-0">
+                <div className="card-header border-0">
+                  Is Device Ready
+                </div>
+                <div className="card-body p-3">
+                  {item?.isReady === false ? "No" : "Yes"}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="card shadow text-white text-center border-0" style={{ background: '#c1121f' }}>
+                <div className="card-header border-0">
+                  Is Paid
+                </div>
+                <div className="card-body p-3">
+                  {item?.isPaid === false ? "No" : "Yes"}
+                </div>
+              </div>
             </div>
           </div>
+
+          <div className="d-flex justify-content-start align-items-center">
+            <h5 className="p-2">Current Status - </h5>
+            <h4 className="text-capitalize">{item?.status}</h4>
+          </div>
+
+          {
+            item?.status === 'scheduled' &&
+            <Button type="primary" href="/schedule">{item?.status}</Button>
+          }
+          {
+            item?.status === 'payment_pending' ?
+              <Button type="primary" href={`/submit-payment/${item?.id}`}>{item?.status}</Button> :
+              <Button type="primary" >{item?.status}</Button>
+          }
         </div>
       ))
     }
   </>
 
   return (
-    <div>
+    <div style={{ marginTop: '2rem', marginBottom: '7rem' }}>
+      <h4>Dashboard</h4>
       {content}
     </div>
   )
 }
 
 export default DashboarPage;
+
+
+
