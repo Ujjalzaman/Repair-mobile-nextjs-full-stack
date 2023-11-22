@@ -3,28 +3,47 @@ import cors from 'cors';
 import CookieParser from 'cookie-parser';
 import routes from './app/routes';
 import httpStatus from 'http-status';
+import ApiError from './app/errors/apiError';
 
-const app:Application = express();
+const app: Application = express();
 
 app.use(cors());
 app.use(CookieParser());
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.use('/api/v1', routes);
-app.use((req:Request, res:Response, next:NextFunction) =>{
-    res.status(httpStatus.NOT_FOUND).json({
-        success:false,
-        message: 'Not Found',
-        errorMessages:[
-            {
-                path: req.originalUrl,
-                message: 'Api not found'
-            }
-        ]
-    });
+// app.use((req:Request, res:Response, next:NextFunction) =>{
+//     res.status(httpStatus.NOT_FOUND).json({
+//         success:false,
+//         message: 'Not Found',
+//         errorMessages:[
+//             {
+//                 path: req.originalUrl,
+//                 message: 'Api not found'
+//             }
+//         ]
+//     });
+//     next();
+// })
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    if (err instanceof ApiError) {
+        res.status(err.statusCode).json({ sucess: false, message: err.message })
+    } else {
+        res.status(httpStatus.NOT_FOUND).json({
+            success: false,
+            message: 'Something Went Wrong',
+            errorMessages: [
+                {
+                    path: req.originalUrl,
+                    message: 'Api not found'
+                }
+            ]
+        });
+    }
     next();
 })
 

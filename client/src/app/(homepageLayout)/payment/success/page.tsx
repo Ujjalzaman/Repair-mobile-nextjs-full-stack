@@ -53,7 +53,7 @@ const SuccessPage = () => {
                     title="Successfully Placeed Payment!"
                     subTitle={`Order number: ${data?.id}, please wait.`}
                     extra={[
-                        <Button type="primary" key="console" href='/dashboard'>
+                        <Button type="primary" key="console" href='/customer/dashboard'>
                             Go Console
                         </Button>
                     ]}

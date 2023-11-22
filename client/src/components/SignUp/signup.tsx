@@ -7,31 +7,42 @@ import { useUserSignUpMutation } from "@/redux/api/authApi";
 import { useRouter } from "next/navigation";
 import Form from "../Forms/Form";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SignUP = () => {
+    const [errorMessage, setErrorMessage] = useState<string>();
     const router = useRouter();
-    const [userSignUp] = useUserSignUpMutation();
-    const [isMatch, setIsMatch] = useState<boolean>(false);
+    const [userSignUp, { isError, error, isSuccess }] = useUserSignUpMutation();
+    const [isMatch, setIsMatch] = useState<boolean>(true);
     const onSubmit = async (data: any) => {
+        message.loading("Signing up ....");
         if (data.password !== data.repassword) {
-            setIsMatch(true);
-        }
-        if (!isMatch) {
+            setIsMatch(false);
+        }else{
             const { repassword, ...signUpData } = data;
             const obj = JSON.stringify(signUpData);
             const formData = new FormData();
             formData.append('data', obj)
             try {
-                message.loading("Signing up ....")
-                const res = await userSignUp(formData).unwrap();
-                if (!!res) {
-                    message.success("Successfully Signup");
-                    router.push('/login')
-                }
+                await userSignUp(formData).unwrap();
             } catch (err) { }
         }
     };
+
+    useEffect(() => {
+        if (isError && error) {
+            //@ts-ignore
+            setErrorMessage(error?.data?.message)
+            //@ts-ignore
+            message.error(error?.data?.message)
+            console.log(error)
+        }
+        if (isSuccess) {
+            message.success("Successfully Account Created.Please Login!");
+            router.push('/login')
+        }
+    }, [isError, error, isSuccess, router])
+
     return (
         <Row
             justify="center"
@@ -71,7 +82,9 @@ const SignUP = () => {
                                 label="Re-Password"
                             />
                         </div>
-                        {isMatch && <p className="form-text text-danger">Password is not Matched</p>}
+                        {!isMatch && <p className="form-text text-danger">Password is not Matched</p>}
+                        {errorMessage && <p className="form-text text-danger">{errorMessage}</p>}
+
                         <Button type="primary" htmlType="submit">
                             SignUp
                         </Button>

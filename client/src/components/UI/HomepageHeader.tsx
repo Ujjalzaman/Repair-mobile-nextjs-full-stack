@@ -7,7 +7,6 @@ import { Button, Dropdown, MenuProps } from 'antd';
 import { useRouter } from 'next/navigation';
 import { isLoggedIn, loggedOut } from '@/service/auth.service';
 import { authKey } from '@/constants/storageKey';
-import avatar2 from '@/assets/boyAvatar.png';
 import avatar from '@/assets/avatar.jpg';
 import { useAppSelector } from '@/redux/hooks';
 import { userLoggedOut } from '@/redux/slice/userSlice';
@@ -66,12 +65,17 @@ export default function HomepageHeader() {
                   isLogin
                     ?
                     <Dropdown menu={{ items }}>
-                      <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+                      <Link href={user?.role==='admin' ? "/admin/dashboard" : user?.role === 'super_admin' ? '/admin/dashboard' : '/customer/dashboard'} style={{ textDecoration: 'none' }}>
                         <button className='px-2 btn shadow bg-primary d-flex gap-2 align-items-center btn-sm'>
                           <span className='text-white'>
                             Dashboard
                           </span>
-                          <Image src={user?.role === 'admin' ? avatar : avatar2} width={25} alt='image' className='rounded-circle border border-3 border-warning' />
+                          {
+                            user?.profileImg ? <Image src={user?.profileImg} width={25} height={25} alt='image' className='rounded-circle border border-3 border-warning' />
+                            :
+                            <Image src={avatar} width={25} alt='image' className='rounded-circle border border-3 border-warning' />
+                          }
+                          
                         </button>
                       </Link>
                     </Dropdown>

@@ -126,7 +126,7 @@ const ManageAdmin = () => {
 
   return (
     <>
-      <FBreadCrumb items={[{ label: `dashboard`, link: `/dashboard`, }]} />
+      <FBreadCrumb items={[{ label: `dashboard`, link: `/admin/dashboard`, }]} />
       <Actionbar title="Manage Admin">
         <div>
           <Link href="/admin/create">

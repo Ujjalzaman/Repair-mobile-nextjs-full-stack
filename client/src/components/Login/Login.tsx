@@ -10,6 +10,7 @@ import { setUserInfo } from "@/service/auth.service";
 import { useRouter } from "next/navigation";
 import Form from "../Forms/Form";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type FormValues = {
     id: string;
@@ -17,20 +18,34 @@ type FormValues = {
 };
 
 const LoginPage = () => {
+    const [errorMessage, setErrorMessage] = useState<string>();
     const router = useRouter();
-    const [userLogin] = useUserLoginMutation()
+    const [userLogin, { isError, isSuccess, error, data }] = useUserLoginMutation();
+
     const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+        message.success("Signing ...");
         try {
             const res = await userLogin(data).unwrap();
             if (res && res.accessToken) {
                 setUserInfo({ accessToken: res.accessToken })
-                message.success("Successfully Login");
-                router.push('/dashboard')
             }
         } catch (err: any) {
-            message.error(err.message)
+
         }
     };
+    useEffect(() => {
+        if (isError && error) {
+            //@ts-ignore
+            setErrorMessage(error?.data?.message)
+            //@ts-ignore
+            message.error(error?.data?.message)
+        }
+        if (isSuccess && data) {
+            message.success("Successfully Login");
+            const routing = data?.user?.role === 'customer' ? '/customer/dashboard' : '/admin/dashboard'
+            router.push(routing)
+        }
+    }, [isError, error, isSuccess])
     return (
         <Row
             justify="center"
@@ -55,11 +70,7 @@ const LoginPage = () => {
                         <div>
                             <FormInput name="email" type="email" size="large" label="Email" />
                         </div>
-                        <div
-                            style={{
-                                margin: "15px 0px"
-                            }}
-                        >
+                        <div style={{ margin: "15px 0px" }}>
                             <FormInput
                                 name="password"
                                 type="password"
@@ -72,6 +83,7 @@ const LoginPage = () => {
                         </Button>
                     </Form>
                 </div>
+                {errorMessage && <p className="form-text text-danger">{errorMessage}</p>}
                 <p className="my-2">Alreay Have Account ? <Link href={'/signup'}>Signup</Link></p>
             </Col>
         </Row>

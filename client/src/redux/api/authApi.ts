@@ -18,7 +18,6 @@ export const authApi = baseApi.injectEndpoints({
                     setUserInfo({ accessToken: result.accessToken });
                     dispatch(userLoggedIn(result.user))
                 } catch (error) {
-                    console.log(error)
                 }
             },
         }),

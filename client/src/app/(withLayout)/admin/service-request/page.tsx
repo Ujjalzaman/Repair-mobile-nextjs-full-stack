@@ -156,7 +156,7 @@ const ServiceRequest = () => {
 
     return (
         <>
-            <FBreadCrumb items={[{ label: "dashboard", link: `/dashboard` }]} />
+            <FBreadCrumb items={[{ label: "dashboard", link: `/admin/dashboard` }]} />
             <Actionbar title="Customer Reqesuts">
                 <Input
                     type='text'

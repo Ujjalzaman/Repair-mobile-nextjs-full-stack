@@ -8,7 +8,7 @@ const InterviewPage = () => {
     <div>
       <SubHeader title="Meeting Schedule" />
       <div className="mx-2 mt-3 ms-3">
-        <FBreadCrumb items={[{ label: "Dashboard", link: "/dashboard", },]} />
+        <FBreadCrumb items={[{ label: "Dashboard", link: "/customer/dashboard", },]} />
       </div>
 
       <div style={{ marginTop: '5rem', marginBottom: '7rem' }}>
@@ -49,7 +49,7 @@ const InterviewPage = () => {
         <Link href={'/'}>
           <Button type="primary" className="bg-primary">Back To Home Page</Button>
         </Link>
-        <Link href={'/dashboard'}>
+        <Link href={'/customer/dashboard'}>
           <Button type="primary" className="bg-primary">Back To Console</Button>
         </Link>
       </div>
