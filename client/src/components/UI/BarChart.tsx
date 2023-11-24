@@ -58,7 +58,7 @@ const BarChart = () => {
             {
                 label: 'Others',
                 data: labels.map(() => getRandomNumber(0, 1000)),
-                backgroundColor: '#c1121f',
+                backgroundColor: '#e63946',
             },
         ],
     };

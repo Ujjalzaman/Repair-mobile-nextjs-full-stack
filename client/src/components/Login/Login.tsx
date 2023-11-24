@@ -45,7 +45,7 @@ const LoginPage = () => {
             const routing = data?.user?.role === 'customer' ? '/customer/dashboard' : '/admin/dashboard'
             router.push(routing)
         }
-    }, [isError, error, isSuccess])
+    }, [isError, error, isSuccess, data, router])
     return (
         <Row
             justify="center"

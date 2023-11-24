@@ -3,12 +3,11 @@
 import FBreadCrumb from "@/components/UI/FBreadCrumb"
 import FTable from "@/components/UI/FTable"
 import { useDebounced } from "@/redux/hooks";
-import { Button, Input, message } from "antd";
+import { Button, Input } from "antd";
 import { useState, useEffect } from "react";
 import dayjs from 'dayjs'
 import Link from "next/link";
 import {
-    DeleteOutlined,
     EditOutlined,
     ReloadOutlined,
     EyeOutlined
@@ -18,6 +17,7 @@ import FModal from "@/components/UI/FModal";
 import { useDeleteReviewMutation, useReviewQuery, useReviewsQuery } from "@/redux/api/reviewsApi";
 import { truncate } from "@/helpers/truncate";
 import Image from "next/image";
+import PopDelete from "@/components/UI/PopDelete";
 
 const TestimonialPage = () => {
     const query: Record<string, any> = {};
@@ -45,18 +45,6 @@ const TestimonialPage = () => {
     const review = data?.review?.data;
     const meta = data?.meta;
     const [deleteReview] = useDeleteReviewMutation();
-
-    const deleteHandler = async (id: string) => {
-        message.loading("Deleting ...");
-        try {
-            const res = await deleteReview(id);
-            if (res) {
-                message.success("Successfully Deleted !!");
-            }
-        } catch (error: any) {
-            message.error(error.message);
-        }
-    }
 
     const onTableChange = (pagination: any, filter: any, sorter: any) => {
         const { order, field } = sorter;
@@ -112,17 +100,16 @@ const TestimonialPage = () => {
             render: function (data: any) {
                 return (
                     <>
-                        <Button type='primary' style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
+                        <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }} onClick={() => showModal(data.id)}>
                             <EyeOutlined />
                         </Button>
                         <Link href={`/admin/testimonials/edit/${data.id}`}>
-                            <Button type='primary' style={{ margin: "5px 5px" }}>
+                            <Button type='primary' className="bg-primary" style={{ margin: "5px 5px" }}>
                                 <EditOutlined />
                             </Button>
                         </Link>
-                        <Button onClick={() => deleteHandler(data.id)} type='primary' style={{ margin: "5px 5px" }} danger>
-                            <DeleteOutlined />
-                        </Button>
+                        deleteReview
+                        <PopDelete title="Delete Review" fc={() => deleteReview(data.id)} />
                     </>
                 )
             }

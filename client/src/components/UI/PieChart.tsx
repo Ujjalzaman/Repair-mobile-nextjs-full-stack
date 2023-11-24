@@ -17,7 +17,7 @@ const PieChart = () => {
               '#588157',
               '#457b9d',
               '#1d3557',
-              '#c1121f',
+              '#e63946',
             ],
             borderColor: ['#fff'],
             borderWidth: 1,

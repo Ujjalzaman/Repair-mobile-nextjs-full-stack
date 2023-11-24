@@ -45,7 +45,7 @@ const TotalCard = () => {
           </div>
 
           <div className="col-md-3 col-sm-12">
-            <div className="border-5 border-primary border-start text-white card shadow border-0 p-2" style={{background:'#c1121f'}}>
+            <div className="border-5 border-primary border-start text-white card shadow border-0 p-2" style={{background:'#e63946'}}>
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <h6 className="py-2">PENDING (MONTHLY)</h6>

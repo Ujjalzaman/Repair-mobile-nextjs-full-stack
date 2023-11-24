@@ -48,7 +48,6 @@ const AllOrder = () => {
             render: function (data: any) {
                 return (
                     <PopDelete title="Service Request" fc={() => deleteOrder(data.id)} />
-                
                 )
             }
         },
@@ -58,7 +57,6 @@ const AllOrder = () => {
         <>
             <FBreadCrumb items={[{ label: "dashboard", link: "/admin/dashboard", },]} />
             <Actionbar title="Order"></Actionbar>
-
             <div style={{ marginTop: '10px' }}>
                 <FTable
                     loading={isLoading}
