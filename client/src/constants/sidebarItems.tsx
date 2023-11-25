@@ -3,15 +3,15 @@ import Link from "next/link";
 import { USER_ROLE } from "./role";
 
 export const sidebarItems = (role: string) => {
-    const defaultSidebarProps: MenuProps['items'] = [
+    const AdminSidebarItems: MenuProps['items'] = [
+        {
+            label: <Link href={`/admin/dashboard`}>Dashboard</Link>,
+            key: `dashboard`
+        },
         {
             label: <Link href={`/dashboard`}>Dashboard</Link>,
             key: `dashboard`
         },
-    ]
-
-    const AdminSidebarItems: MenuProps['items'] = [
-        ...defaultSidebarProps,
         {
             label: <Link href={`/admin/`}>Manage Admin</Link>,
             key: `/admin/manage`
@@ -43,7 +43,6 @@ export const sidebarItems = (role: string) => {
     ]
 
     const customerItems: MenuProps['items'] = [
-        ...defaultSidebarProps,
         {
             label: <Link href={`/${role}/service-request`}>Services</Link>,
             key: `/${role}/service-request`,
@@ -61,10 +60,6 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/testimonials`
         },
     ];
-
     if (role === USER_ROLE.ADMIN || role === USER_ROLE.SUPER_ADMIN) return AdminSidebarItems;
     if (role === USER_ROLE.CUSTOMER) return customerItems;
-    else {
-        return defaultSidebarProps
-    }
 }

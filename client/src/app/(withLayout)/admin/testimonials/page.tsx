@@ -108,7 +108,6 @@ const TestimonialPage = () => {
                                 <EditOutlined />
                             </Button>
                         </Link>
-                        deleteReview
                         <PopDelete title="Delete Review" fc={() => deleteReview(data.id)} />
                     </>
                 )
