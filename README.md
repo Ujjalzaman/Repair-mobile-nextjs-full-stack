@@ -14,17 +14,14 @@
   <a href="">
     <img src="https://img.shields.io/github/last-commit/Louis3797/awesome-readme-template" alt="last update" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/network/members">
+  <a href="#">
     <img src="https://img.shields.io/github/forks/Louis3797/awesome-readme-template" alt="forks" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/stargazers">
+  <a href="#">
     <img src="https://img.shields.io/github/stars/Louis3797/awesome-readme-template" alt="stars" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/issues/">
+  <a href="#">
     <img src="https://img.shields.io/github/issues/Louis3797/awesome-readme-template" alt="open issues" />
-  </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/Louis3797/awesome-readme-template.svg" alt="license" />
   </a>
 </p>
    
@@ -97,7 +94,6 @@
   <img src="https://res.cloudinary.com/dg8dkpulv/image/upload/v1701016094/appointment_wi8vvc.png" />
   <img src="https://res.cloudinary.com/dg8dkpulv/image/upload/v1701016090/Dashboard_oaeh2j.png" />
   <img src="https://res.cloudinary.com/dg8dkpulv/image/upload/v1701016107/screencapture-fix-my-phone-ujjalzaman-vercel-app-blog-2023-11-25-22_02_02_h61aph.png" />
-
 </div>
 
 
@@ -158,7 +154,7 @@
 ### 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Ujjalzaman/FixMyPhone-Mobile-Repair-FullStack-with-Nextjs-Prisma-Typescipt.git
+git clone https://github.com/Ujjalzaman/Repair-mobile-nextjs-full-stack.git
 ```
 
 ### 2. Install Frontend Dependencies:
@@ -224,10 +220,9 @@ This project uses Yarn as package manager
 <!-- Contributing -->
 ## Contributing
 
-<a href="https://github.com/Louis3797/awesome-readme-template/graphs/contributors">
+<a href="#">
   <img src="https://contrib.rocks/image?repo=Louis3797/awesome-readme-template" />
 </a>
-
 
 Contributions are always welcome!
 
