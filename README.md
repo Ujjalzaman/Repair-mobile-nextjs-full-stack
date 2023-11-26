@@ -1,116 +1,126 @@
-# FixMyPhone-Mobile-Repair-FullStack-with-Nextjs-Prisma-Typescipt
-The "FixMyPhone" website is your one-stop destination for mobile device repairs
-# FixMyPhone – Project Management
+# Next.js Project with Node.js and Express Backend
 
-The **FixMyPhone** website is your one-stop destination for mobile device repairs. Customers can easily request repairs, book appointments, and track the progress of their fixes. The website's admin and super admin functions streamline service management, ensuring a smooth and efficient repair process.
+Welcome to our Next.js project with a Node.js and Express backend! This project aims to provide a comprehensive solution for managing mobile device repairs. Users can register, request services, track their repairs, make payments, and more. Admins have tools to efficiently manage service requests, appointments, technicians, inventory, and customer accounts.
 
-## Customer Functionality
+
+## Getting Started
+
+### 1. Clone the repository:
+
+```bash
+git clone https://github.com/Ujjalzaman/FixMyPhone-Mobile-Repair-FullStack-with-Nextjs-Prisma-Typescipt.git
+```
+
+### 2. Install Frontend Dependencies:
+```bash
+cd client
+npm install
+```
+Setup environment for the frontend:
+Under the src/app folder, create an env.local file.
+
+Set the following credentials in the env.local file:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3030/api/v1  # Replace with your backend link
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_5454747d54  # Replace with your Stripe publishable key for the payment gateway
+STRIPE_SECRET_KEY=sk_test_656565  # Replace with your Stripe secret key
+```
+
+### 3. Install Backend Dependencies:
+```bash
+cd api
+npm install
+```
+Setup environment for the backend:
+Create a .env file in the api directory.
+
+Set the following credentials in the .env file:
+
+```bash
+DATABASE_PROD_URL=database url
+NODE_ENV='development'
+PORT=5051
+JWT_SECRET=secret key
+JWT_EXPIRED_IN=30d
+JWT_REFRESH_SECRET=refresh token
+JWT_SECRET_SALT_ROUND=10
+
+# Cloudinary
+CLOUD_NAME=dg8dkpulv
+API_KEY=454831555123244
+API_SECRET=t7UWrk_ZpfWm1rGsGskWyn2TDJI
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=stripe publishable key
+STRIPE_SECRET_KEY=stripe secret key
+```
+
+### 4. Ready to Go:
+You're all set! Happy coding. 🚀
+
+
+## Features
+
+### Customer Features
 
 1. **Registration and Login:**
-   - Customers should be able to create accounts and log in to access the website's features.
+   - Customers can create accounts and log in to access the website's features.
 
 2. **Service Request:**
-   - Customers can request repairs for their mobile devices. They provide details such as the device type, issue description, and preferred appointment time.
+   - Users can request repairs for their mobile devices, providing details such as device type, issue description, and preferred appointment time.
 
 3. **Service Tracking:**
-   - Customers can track the status of their repair requests, including updates on the repair progress and estimated completion times.
+   - Track the status of repair requests, including updates on progress and estimated completion times.
 
 4. **Appointment Booking:**
-   - Customers can schedule repair appointments, choosing from available time slots.
+   - Schedule repair appointments, choosing from available time slots.
 
 5. **Payment Processing:**
-   - Customers can make payments for repair services online through secure payment methods.
+   - Make secure online payments for repair services.
 
 6. **Order History:**
-   - Customers can view their repair order history, including invoices and receipts.
+   - View repair order history, including invoices and receipts.
 
 7. **Messaging and Notifications:**
-   - Customers can receive notifications about repair updates and communicate with the service team if necessary.
+   - Receive notifications about repair updates and communicate with the service team.
 
 8. **Profile Management:**
-   - Customers can update their personal information, including contact details and payment methods.
+   - Update personal information, including contact details and payment methods.
 
-## Admin Functionality
+### Admin Functionality
 
 1. **Service Request Management:**
-   - Admins can view and manage repair service requests, assign them to technicians, and update the status.
+   - View and manage repair service requests, assign them to technicians, and update the status.
 
 2. **Appointment Scheduling:**
-   - Admins can manage appointment schedules, including adding, modifying, or canceling appointments.
+   - Manage appointment schedules, including adding, modifying, or canceling appointments.
 
 3. **Technician Management:**
-   - Admins can manage technician schedules, assignments, and workloads.
+   - Manage technician schedules, assignments, and workloads.
 
 4. **Inventory Management:**
-   - Admins can keep track of spare parts and inventory for repairs.
+   - Keep track of spare parts and inventory for repairs.
 
 5. **Payment Verification:**
-   - Admins can verify and process payments made by customers.
+   - Verify and process payments made by customers.
 
 6. **Customer Management:**
-   - Admins can manage customer accounts, including account creation, password resets, and account deactivation.
+   - Manage customer accounts, including account creation, password resets, and deactivation.
 
 7. **Reporting and Analytics:**
-   - Admins can generate reports on repair service performance, revenue, and other key metrics.
+   - Generate reports on repair service performance, revenue, and other key metrics.
 
 8. **Communication:**
-   - Admins can communicate with customers and technicians to provide updates, address concerns, and resolve issues.
+   - Communicate with customers and technicians to provide updates, address concerns, and resolve issues.
 
-## Super Admin Functionality
+### Super Admin Functionality
 
-- **User Role Management:**
-  - Super Admins can create, modify, or delete admin accounts and have access to all the functionality.
+1. **User Role Management:**
+   - Super Admins can create, modify, or delete admin accounts and have access to all functionality.
 
-## API Endpoints
 
-- **Authentication:**
-  - **Login:**
-    - `POST /api/auth/login`
-  - **Refresh Token:**
-    - `POST /api/auth/refreshToken`
 
-- **Customer Registration:**
-  - `POST /api/user/create-customer`
 
-- **Service Request:**
-  - `POST /api/service-request`
 
-- **Service Tracking:**
-  - `/api/service-request/{request_id}/status`
 
-- **Appointment Booking:**
-  - `POST /api/appointment`
 
-- **Update Profile:**
-  - `PUT /api/customer/{customer_id}/profile`
-
-## Status Types
-
-```python
-status_types = {
-    "pending": "Pending",
-    "in_progress": "In Progress",
-    "awaiting_parts": "Awaiting Parts",
-    "on_hold": "On Hold",
-    "quality_check": "Quality Check",
-    "ready_for_pickup": "Ready for Pickup",
-    "completed": "Completed",
-    "canceled": "Canceled",
-    "scheduled": "Scheduled",
-    "payment_pending": "Payment Pending",
-    "delayed": "Delayed",
-    "closed": "Closed",
-    "dispatched": "Dispatched"
-}
-
-#Service request
-{
-  "request_id": 123,
-  "device_type": "smartphone",
-  "issue_description": "Cracked screen",
-  "status": "In Progress",
-  "technician_assigned": "John Smith",
-  "estimated_completion_time": "2023-10-15 16:00:00",
-  "ready_for_pickup": "2023-10-16 10:00:00"
-}
 
