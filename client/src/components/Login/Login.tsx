@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import Form from "../Forms/Form";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Alert, Space } from 'antd';
 
 type FormValues = {
     id: string;
@@ -46,6 +47,10 @@ const LoginPage = () => {
             router.push(routing)
         }
     }, [isError, error, isSuccess, data, router])
+
+    const onClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        console.log(e, 'I was closed.');
+    };
     return (
         <Row
             justify="center"
@@ -65,6 +70,13 @@ const LoginPage = () => {
                 >
                     First login your account
                 </h1>
+                <Alert
+                    message="To All Testers !Please don`t misuse any unauthorized actions!"
+                    description="Email : admin@gmail.com & Password : 123456"
+                    type="warning"
+                    closable
+                    onClose={onClose}
+                />
                 <div>
                     <Form submitHandler={onSubmit}>
                         <div>

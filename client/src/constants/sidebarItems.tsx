@@ -9,15 +9,11 @@ export const sidebarItems = (role: string) => {
             key: `dashboard`
         },
         {
-            label: <Link href={`/dashboard`}>Dashboard</Link>,
-            key: `dashboard`
-        },
-        {
-            label: <Link href={`/admin/`}>Manage Admin</Link>,
+            label: <Link href={`/admin`}>Manage Admin</Link>,
             key: `/admin/manage`
         },
         {
-            label: <Link href={`/admin/appointments`}>Appointmets</Link>,
+            label: <Link href={`/admin/appointments`}>Appointments</Link>,
             key: `/admin/admin/appointments`
         },
         {
@@ -52,11 +48,11 @@ export const sidebarItems = (role: string) => {
             key: `/${role}/order`,
         },
         {
-            label: <Link href={`/${role}/appointments`}>Appointment</Link>,
+            label: <Link href={`/${role}/appointments`}>My Appointment</Link>,
             key: `/${role}/appointment`,
         },
         {
-            label: <Link href={`/${role}/testimonials`}>Reviews</Link>,
+            label: <Link href={`/${role}/testimonials`}>My Reviews</Link>,
             key: `/${role}/testimonials`
         },
     ];

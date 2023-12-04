@@ -6,7 +6,7 @@ import { useDeleteCustomersMutation, useGetAdminsQuery } from "@/redux/api/custo
 import { Button } from "antd";
 import dayjs from 'dayjs'
 import Link from "next/link";
-import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import Actionbar from "@/components/UI/ActionBar";
 import PopDelete from "@/components/UI/PopDelete";
 
@@ -44,10 +44,7 @@ const ManageAdmin = () => {
       render: function (data: any) {
         return (
           <>
-            <Button className="bg-primary text-white" type='primary' style={{ margin: "5px 5px" }}>
-              <EyeOutlined />
-            </Button>
-            <Link href={`/customers/edit/${data.id}`}>
+            <Link href={`/admin/customers/edit/${data.id}`}>
               <Button className="bg-primary text-white" style={{ margin: "5px 5px" }}>
                 <EditOutlined />
               </Button>
