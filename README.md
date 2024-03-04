@@ -210,10 +210,10 @@ STRIPE_SECRET_KEY=sk_test_656565  # Replace with your Stripe secret key
 <!-- Prerequisites -->
 ### Prerequisites
 
-This project uses Yarn as package manager
+
 
 ```bash
- npm install --global yarn
+ In this project use nodejs 20
 ```
 
 
@@ -256,6 +256,6 @@ Thank you for considering this project. If you have any questions, please do not
 <!-- Contact -->
 ## Contact
 
-Your Name - [@linkedin](www.linkedin.com/in/ujjal-zaman) - ujjalzaman@gmail.com
+Ujjal zaman - [@linkedin](www.linkedin.com/in/ujjal-zaman) - ujjalzaman@gmail.com
 
 Portfolio Link: [https://ujjalzaman-b6c8a.web.app/](https://ujjalzaman-b6c8a.web.app/)
