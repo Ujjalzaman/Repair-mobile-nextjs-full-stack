@@ -4,8 +4,6 @@ import ApiError from "../../errors/apiError";
 import httpStatus from "http-status";
 import bcrypt from 'bcrypt';
 import { JwtHelpers } from "../../../helpers/jwtHelpers";
-import config from "../../../config";
-import { Secret } from "jsonwebtoken";
 import { ILoginResponse, IProps } from "./auth.interface";
 import { CloudinaryHelper } from '../../../helpers/uploadHelper';
 import { Request } from 'express';
@@ -29,9 +27,7 @@ const LoginUser = async (user: IProps): Promise<ILoginResponse> => {
         throw new ApiError(httpStatus.NOT_FOUND, 'Password is not mathced !!');
     }
     const accessToken = JwtHelpers.createAccessToken(
-        { email, role, id, profileImg },
-        config.jwt_secret as Secret,
-        config.jwt_expiredIn as string
+        { email, role, id, profileImg }
     )
     return { accessToken, user: {email, role, id, profileImg} }
 }

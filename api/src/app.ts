@@ -15,19 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.use('/api/v1', routes);
-// app.use((req:Request, res:Response, next:NextFunction) =>{
-//     res.status(httpStatus.NOT_FOUND).json({
-//         success:false,
-//         message: 'Not Found',
-//         errorMessages:[
-//             {
-//                 path: req.originalUrl,
-//                 message: 'Api not found'
-//             }
-//         ]
-//     });
-//     next();
-// })
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof ApiError) {
